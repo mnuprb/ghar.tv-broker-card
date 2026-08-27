@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#faf7f2">
+  <meta name="color-scheme" content="light">
+  <meta name="format-detection" content="telephone=no">
+
+  <title>Your Ghar.tv Card · One link for real estate brokers · Ghar.tv</title>
+  <meta name="description" content="A free professional profile and digital business card for real estate brokers, channel partners and property consultants in India. Personal URL, QR code, MahaRERA verified badge, listings and weekly market intelligence. Live in 90 seconds.">
+  <meta name="robots" content="INDEX,FOLLOW">
+  <link rel="canonical" href="https://www.ghar.tv/for-brokers-linktree.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Your Ghar.tv Card · Free digital business card for brokers">
+  <meta property="og:url" content="https://www.ghar.tv/for-brokers-linktree.html">
+  <meta property="og:description" content="Claim your free professional starter kit: personal URL, QR code, digital visiting card, MahaRERA verified badge and weekly market intelligence.">
+  <meta property="og:site_name" content="Ghar.tv">
+
+  <link rel="shortcut icon" href="https://www.ghar.tv/favicon.ico" type="image/x-icon">
+  <script>history.scrollRestoration = 'manual';</script>
+
+  <!-- Analytics · matches index.html -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FPB6WSXDBG"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-FPB6WSXDBG');
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="gazpacho.css">
+  <link rel="stylesheet" href="dist/tailwind.css?v=12">
+  <link rel="stylesheet" href="dist/styles.min.css?v=15">
+
+  <style>
+    /* ═══ Canonical tokens (match live index.html / brokers.html) ═══ */
+    :root {
+      --warm-white:#faf7f2; --bg:#faf7f2;
+      --ink:#1a1714; --espresso:#3a2f27; --ink2:#3a2f27;
+      --rule:#e5dcc8; --muted:#6e655b; --faint:#6e655b;
+      --surface:#f3eee5; --rule-soft:#ece6da;
+      --indigo:#5f71a9; --turmeric:#eda41c; --terracotta:#d5613a;
+      --sand:#e0c199; --sage:#9aa96d;
+      --turmeric-deep:#956204; --terracotta-deep:#be461e; --sage-deep:#59683a; --indigo-deep:#3a4a80; --aubergine:#895772; --aubergine-deep:#5e3a4d;
+      --accent:#ee324b; --red:#ee324b; --brand-red:#ee324b;
+      --brand-rose:#f37e86; --brand-blush:#f6aaad; --brand-petal:#fbd4d5; --brand-mist:#fde8e8;
+      --turmeric-soft:rgba(237,164,28,.16);
+      --ok:var(--sage); --ok-soft:rgba(154,169,109,.22); --wa:var(--sage);
+      --card-shadow:0 1px 2px rgba(26,23,20,.04), 0 4px 12px -4px rgba(26,23,20,.08), 0 16px 36px -16px rgba(26,23,20,.12);
+      --card-shadow-hover:0 1px 2px rgba(26,23,20,.06), 0 8px 20px -8px rgba(26,23,20,.10), 0 24px 48px -16px rgba(26,23,20,.14);
+      --ff-display:'Gazpacho',Georgia,serif;
+      --ff-sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+      --ease:cubic-bezier(.4,0,.2,1);
+      --max-w:clamp(1280px,75vw,1840px);
+      --pad-h:clamp(24px,3vw,64px);
+      --pad-v:clamp(80px,9vw,120px);
+      --r:20px; --rs:12px;
+    }
+    @media (max-width:600px){ :root { --pad-v:56px; } }
+    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+    /* scroll-padding keeps in-page anchors clear of the fixed nav */
+    html { scroll-behavior:smooth; overflow-x:clip; -webkit-text-size-adjust:100%; scroll-padding-top:84px; }
+    @media (max-width:743.98px){ html { scroll-padding-top:72px; } }
+    body {
+      font-family:var(--ff-sans);
+      background:var(--warm-white);
+      color:var(--ink);
+      line-height:1.7;
+      overflow-x:clip;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+    a { color:inherit; text-decoration:none; }
+    img { display:block; max-width:100%; }
+    button { font-family:inherit; cursor:pointer; background:none; border:0; }
+
+    /* ─── Nav critical CSS (matches brokers.html / index.html) ─── */
+    /* Transparent over the turmeric hero, solid white once the page moves off the top.
+       Fixed (not sticky) so the hero colour runs full-bleed behind it — .lt-herobg carries
+       the matching top padding. dist/main.min.js writes an inline box-shadow on scroll, so
+       the shadow is owned here with !important to keep both states in sync. */
+    #mainNav {
+      /* !important beats `position:sticky!important` on #mainNav in dist/styles.min.css */
+      position:fixed !important; top:0; left:0; right:0; z-index:200;
+      background:transparent !important;
+      /* the bundle's nav expand/collapse writes `border-bottom:1px solid var(--rule)` inline
+         when it returns to the top, so this has to be !important to stay off */
+      border-bottom:none !important;
+      box-shadow:none !important;
+      transition:background .3s ease, box-shadow .3s ease;
+    }
+    #mainNav.is-solid {
+      background:#ffffff !important;
+      box-shadow:0 1px 0 rgba(0,0,0,.07), 0 2px 8px rgba(0,0,0,.04) !important;
+    }
+    /* the logo is a currentColor SVG: white over the turmeric hero, ink once the nav is solid */
+    .nav-logo { color:#fff; transition:color .3s ease; }
+    #mainNav.is-solid .nav-logo { color:var(--ink); }
+    /* the accent pill sits badly on turmeric — while transparent the nav borrows the hero's
+       own white button, and hands back to accent red the moment the nav goes solid */
+    #mainNav:not(.is-solid) .nav-btn--cta {
+      background:#fff; border-color:#fff; color:var(--ink);
+    }
+    #mainNav:not(.is-solid) .nav-btn--cta:hover {
+      background:var(--ink); border-color:var(--ink); color:#fff;
+    }
+    #bottomBar .bb-label { white-space:nowrap; }
+    /* landing nav: logo + one CTA, no search — override the canonical 3-column grid */
+    /* !important beats the inline height the bundle's scroll-collapse writes: with no search
+       bar to collapse, this nav is one fixed height at all scroll positions. */
+    #desktopNavRow { grid-template-columns:1fr auto !important; height:76px !important; }
+    /* the canonical stylesheet hides this row under 744px because mobile gets the search row
+       instead. There is no search row here, so keep logo + CTA visible at every width. */
+    @media (max-width:743.98px) {
+      #desktopNavRow { display:grid !important; height:64px !important; }
+      body { padding-bottom:68px; }
+    }
+    .nav-btn {
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 18px; border:1px solid var(--rule); border-radius:999px;
+      background:transparent; color:var(--ink);
+      font-family:inherit; font-size:14px; font-weight:500;
+      text-decoration:none; white-space:nowrap;
+      transition:background .25s ease, border-color .25s ease, color .25s ease;
+    }
+    .nav-btn:hover { background:var(--ink); border-color:var(--ink); color:#fff; }
+    .nav-btn:hover svg { stroke:#fff; }
+    .nav-btn--cta { background:var(--accent); border-color:var(--accent); color:#fff; font-weight:600; }
+    .nav-btn--cta:hover { background:#d42839; border-color:#d42839; color:#fff; }
+    .nav-btn--icon { width:38px; height:38px; padding:0; justify-content:center; }
+    .nav-btn--ghost {
+      border:none; width:38px; height:38px; padding:0;
+      flex-direction:column; justify-content:center; gap:0;
+    }
+    .nav-btn--ghost:hover { background:rgba(26,23,20,.06); color:var(--ink); }
+    .nav-btn-bar { display:block; height:2px; background:var(--ink); border-radius:2px; transition:width .2s ease; }
+    .nav-btn-bar--w20 { width:20px; } .nav-btn-bar--w14 { width:14px; }
+    .nav-btn-bar + .nav-btn-bar { margin-top:4px; }
+    #bottomBar {
+      display:none; position:fixed; bottom:0; left:0; right:0; z-index:210;
+      background:#fff; border-top:1px solid var(--rule); height:64px;
+      align-items:stretch; justify-content:space-around;
+    }
+    @media (max-width:743.98px) { #bottomBar { display:flex !important; } }
+    .bb-item {
+      flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center;
+      gap:3px; background:none; border:0; cursor:pointer; font-family:var(--ff-sans);
+    }
+    .bb-label { font-size:10px; font-weight:600; letter-spacing:.04em; }
+
+    /* ─── Section frame ─── */
+    .sec-inner { max-width:var(--max-w); margin:0 auto; padding:var(--pad-v) var(--pad-h); }
+    .sec-title em { font-style:normal; color:inherit; }
+    .sec-lead em { font-style:normal; color:var(--turmeric-deep); }
+
+    /* Brand-red CTA variant (overrides dist .btn-text after load) */
+    /* every CTA on the page is a pill — nav and hero already are, dist ships .btn-text at 10px */
+    .btn-text { border-radius:999px; }
+    .btn-text--red { background:var(--accent); border-color:var(--accent); color:#fff; }
+    .btn-text--red:hover { background:#d42839; border-color:#d42839; color:#fff; }
+
+    /* ═══════════════════════════════════════════════════════════
+       LINKTREE-STYLE VARIANT  (Ghar.tv skin · lt-*)
+       ═══════════════════════════════════════════════════════════ */
+    /* big rounded pill CTAs */
+    .lt-btn { display:inline-flex; align-items:center; justify-content:center; gap:9px; padding:16px 28px; border-radius:999px; font-family:var(--ff-sans); font-size:15px; font-weight:600; letter-spacing:.01em; cursor:pointer; border:1.5px solid transparent; text-decoration:none; white-space:nowrap; transition:transform .18s var(--ease), box-shadow .18s var(--ease), background .18s, border-color .18s, color .18s; }
+    .lt-btn svg { width:18px; height:18px; }
+    .lt-btn--red { background:var(--accent); color:#fff; }
+    .lt-btn--red:hover { transform:translateY(-2px); box-shadow:0 14px 30px -10px rgba(238,50,75,.5); color:#fff; }
+    .lt-btn--ink { background:var(--ink); color:#fff; }
+    .lt-btn--ink:hover { transform:translateY(-2px); box-shadow:0 14px 30px -10px rgba(26,23,20,.4); color:#fff; }
+    .lt-btn--ghost { background:#fff; border-color:var(--rule); color:var(--ink); }
+    .lt-btn--ghost:hover { border-color:var(--ink); transform:translateY(-2px); }
+    /* white on the turmeric hero — inverts to ink on hover so the state is unmistakable */
+    .lt-btn--white { background:#fff; color:var(--ink); }
+    .lt-btn--white:hover { background:var(--ink); color:#fff; transform:translateY(-2px); box-shadow:0 14px 30px -10px rgba(26,23,20,.45); }
+    .lt-btn--sm { padding:12px 20px; font-size:14px; }
+
+    /* HERO */
+    /* padding-top replaces the flow space the nav gave up when it went fixed */
+    .lt-herobg { background:var(--turmeric); padding-top:76px; }
+    @media (max-width:743.98px){ .lt-herobg { padding-top:64px; } }
+    .lt-herobg .lt-hero__title,
+    .lt-herobg .lt-hero__title em { color:#fff; }
+    .lt-herobg .lt-hero__deck { color:rgba(255,255,255,.9); }
+    .lt-herobg .lt-hero__deck b { color:#fff; }
+    .lt-herobg .lt-hero__mic { color:rgba(255,255,255,.9); }
+    .lt-herobg .lt-hero__mic i { background:#fff; }
+    .lt-herobg .lt-card__cap { color:rgba(255,255,255,.9); }
+    .lt-herobg .lt-card__cap b { color:#fff; }
+    .lt-hero { max-width:var(--max-w); margin:0 auto; padding:clamp(40px,5vw,72px) var(--pad-h) clamp(48px,6vw,84px); }
+    .lt-hero__grid { display:grid; grid-template-columns:1fr; gap:clamp(44px,5vw,64px); align-items:center; }
+    @media (min-width:960px){ .lt-hero__grid { grid-template-columns:1.02fr .98fr; gap:clamp(44px,4vw,72px); } }
+    .lt-hero__grid > * { min-width:0; }
+    .lt-hero__title { font-family:var(--ff-display); font-weight:700; font-size:clamp(40px,6vw,74px); line-height:1.0; letter-spacing:-.02em; color:var(--ink); max-width:13ch; margin-bottom:20px; }
+    .lt-hero__title em { font-style:normal; color:var(--turmeric-deep); }
+    .lt-hero__deck { font-size:clamp(16px,1.4vw,19px); line-height:1.6; color:var(--espresso); max-width:48ch; margin-bottom:26px; }
+    .lt-hero__deck b { color:var(--ink); font-weight:600; }
+
+    .lt-hero__cta { margin-top:4px; }
+    .lt-hero__mic { display:flex; gap:8px 18px; flex-wrap:wrap; margin-top:22px; font-size:12.5px; color:var(--muted); font-weight:500; }
+    .lt-hero__mic span { display:inline-flex; align-items:center; gap:6px; }
+    .lt-hero__mic i { width:5px; height:5px; border-radius:50%; background:var(--ink); }
+    /* stacked layout (card rail drops below the copy) — centre everything */
+    @media (max-width:959.98px){
+      .lt-hero__grid > *:first-child { text-align:center; }
+      .lt-hero__title, .lt-hero__deck { margin-left:auto; margin-right:auto; }
+      .lt-hero__mic { justify-content:center; }
+    }
+
+    /* one-card-at-a-time slider — the stage frames exactly one card, no peek */
+    .lt-stage { position:relative; overflow:hidden; padding-bottom:6px; width:100%; max-width:380px; margin:0 auto; }
+    .lt-marquee { display:flex; flex-direction:row; align-items:flex-start; width:max-content; will-change:transform; }
+    .lt-marquee.is-sliding { transition:transform .42s cubic-bezier(.22,.61,.36,1); }
+    @media (prefers-reduced-motion:reduce){
+      .lt-stage { overflow-x:auto; scroll-snap-type:x mandatory; overscroll-behavior-x:contain; }
+      .lt-marquee { transform:none !important; }
+      .lt-marquee.is-sliding { transition:none; }
+      .lt-cardwrap { scroll-snap-align:start; }
+    }
+    @media (max-width:600px){
+      .lt-stage { overflow:visible; }
+      .lt-marquee { width:100%; }
+      .lt-marquee > *:nth-child(n+2){ display:none; }
+    }
+
+    /* link-stack card */
+    .lt-cardwrap { display:flex; flex-direction:column; align-items:center; gap:11px; width:380px; flex:0 0 380px; margin-right:22px; }
+    @media (max-width:600px){ .lt-cardwrap { width:100%; flex:1 1 auto; margin-right:0; } }
+    .lt-card { width:100%; max-width:380px; background:#fff; border:1px solid var(--rule-soft); border-radius:28px; box-shadow:var(--card-shadow-hover); padding:26px 22px 22px; text-align:center; }
+    .lt-card__ava { width:76px; height:76px; border-radius:50%; margin:0 auto 12px; display:flex; align-items:center; justify-content:center; font-family:var(--ff-display); font-weight:700; font-size:24px; color:#fff; box-shadow:0 8px 22px rgba(0,0,0,.14), inset 0 0 0 3px rgba(255,255,255,.5); }
+    .lt-card__ava--a { background:var(--turmeric); }
+    .lt-card__ava--photo { background:var(--surface); overflow:hidden; box-shadow:0 8px 22px rgba(0,0,0,.14); }
+    .lt-card__ava--photo img { width:100%; height:100%; object-fit:cover; display:block; border-radius:50%; }
+    .lt-card__ava--b { background:var(--terracotta); }
+    .lt-card__ava--c { background:var(--sage); }
+    .lt-card__name { font-family:var(--ff-display); font-weight:700; font-size:21px; color:var(--ink); }
+    .lt-card__handle { font-size:12.5px; color:var(--muted); margin-top:3px; }
+    .lt-card__verified { display:inline-flex; align-items:center; gap:6px; margin-top:11px; font-size:9.5px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--turmeric-deep); background:var(--turmeric-soft); border:1px solid rgba(237,164,28,.35); padding:6px 12px; border-radius:999px; }
+    .lt-card__verified svg { width:12px; height:12px; stroke:var(--turmeric-deep); fill:none; stroke-width:2.6; stroke-linecap:round; stroke-linejoin:round; }
+    /* the badge every card gets. Neutral, never a warning — absence of RERA is not a flaw. */
+    .lt-card__verified--id { color:var(--muted); background:rgba(110,101,91,.08); border-color:var(--rule); }
+    .lt-card__verified--id svg { stroke:var(--muted); }
+    .lt-links { display:flex; flex-direction:column; gap:9px; margin-top:18px; }
+    .lt-link { display:flex; align-items:center; gap:12px; padding:13px 15px; border-radius:16px; background:var(--surface); border:1px solid var(--rule-soft); text-align:left; transition:transform .16s var(--ease), box-shadow .16s var(--ease), background .16s; }
+    .lt-link:hover { transform:translateY(-2px); box-shadow:var(--card-shadow); background:#fff; }
+    .lt-link__ic { width:34px; height:34px; flex:0 0 34px; border-radius:11px; display:flex; align-items:center; justify-content:center; }
+    .lt-link__ic svg { width:17px; height:17px; stroke:currentColor; fill:none; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; }
+    .lt-link__t { flex:1; font-size:13.5px; font-weight:600; color:var(--ink); }
+    .lt-link__chev { width:16px; height:16px; flex:0 0 16px; stroke:var(--muted); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+    .lt-link--call .lt-link__ic { background:var(--accent); color:#fff; }
+    .lt-link--wa .lt-link__ic { background:var(--sage); color:var(--ink); }
+    .lt-link--gold .lt-link__ic { background:var(--turmeric-soft); color:var(--turmeric-deep); }
+    .lt-link--ink .lt-link__ic { background:rgba(26,23,20,.06); color:var(--ink); }
+    .lt-card__bio { font-size:12px; line-height:1.55; color:var(--muted); margin-top:11px; }
+    .lt-socials { display:flex; gap:9px; justify-content:center; margin-top:14px; flex-wrap:wrap; }
+    .lt-social { width:34px; height:34px; border-radius:50%; border:1px solid var(--rule); color:var(--muted); display:flex; align-items:center; justify-content:center; font-size:9px; font-weight:700; }
+    .lt-social svg { width:14px; height:14px; fill:none; stroke:currentColor; stroke-width:1.8; }
+    .lt-card__foot { font-size:9.5px; color:var(--muted); margin-top:16px; letter-spacing:.02em; }
+    .lt-card__cap { font-size:12px; color:var(--muted); font-weight:500; }
+    .lt-card__cap b { color:var(--espresso); font-weight:600; }
+
+    /* min-width:0 so grid tracks can shrink below child content (no mobile overflow) */
+    .gc-mm > *, .gc-wk > *, .gc-kit > * { min-width:0; }
+
+    /* ═══════════════════════════════════════════════════════════
+       SHOWCASE — dark beat · "the page people remember you by"
+       Typography-led ledger. No mockup, no card surfaces — the
+       hero marquee already shows the card, this section argues it.
+       ═══════════════════════════════════════════════════════════ */
+    .gc-show { background:var(--ink); position:relative; overflow:hidden; }
+    .gc-show::after { content:""; position:absolute; inset:0; pointer-events:none;
+      background:radial-gradient(620px 320px at 78% 2%, rgba(237,164,28,.26), transparent 62%), radial-gradient(520px 340px at 4% 96%, rgba(238,50,75,.14), transparent 60%); }
+    .gc-show__in { position:relative; z-index:1; max-width:var(--max-w); margin:0 auto; padding:clamp(76px,9vw,116px) var(--pad-h); }
+    .gc-show__in > * { min-width:0; }
+
+    /* editorial split header — headline left, lede settles on its baseline right */
+    .gc-show__head { display:grid; grid-template-columns:1fr; gap:20px; }
+    @media (min-width:900px){ .gc-show__head { grid-template-columns:minmax(0,1.3fr) minmax(0,.8fr); align-items:end; gap:clamp(40px,5vw,80px); } }
+    .gc-show__eyebrow { display:block; font-size:10px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.42); margin-bottom:18px; }
+    .gc-show__head h2 { font-family:var(--ff-display); font-weight:700; font-size:clamp(31px,4.3vw,54px); line-height:1.06; letter-spacing:-.025em; color:#fff; max-width:19ch; }
+    .gc-show__head p { font-size:15.5px; line-height:1.8; color:rgba(255,255,255,.62); max-width:40ch; }
+    @media (min-width:900px){ .gc-show__head p { padding-bottom:8px; } }
+
+    /* what the page carries — numbered hairline ledger, no fills */
+    .gc-show__points { margin:clamp(44px,5.5vw,72px) 0 0; display:grid; grid-template-columns:1fr; column-gap:clamp(28px,3.5vw,56px); border-top:1px solid rgba(255,255,255,.14); }
+    @media (min-width:640px){ .gc-show__points { grid-template-columns:1fr 1fr; } }
+    @media (min-width:1040px){ .gc-show__points { grid-template-columns:repeat(3,1fr); } }
+    .gc-show__pt { padding:clamp(22px,2.4vw,30px) 0; border-bottom:1px solid rgba(255,255,255,.14); }
+    .gc-show__pt .n { display:block; font-size:10.5px; font-weight:700; letter-spacing:.12em; color:var(--turmeric); font-variant-numeric:tabular-nums; }
+    .gc-show__pt .l { font-family:var(--ff-display); font-weight:700; font-size:19px; line-height:1.22; letter-spacing:-.015em; color:#fff; margin-top:13px; }
+    .gc-show__pt .t { font-size:14px; line-height:1.65; color:rgba(255,255,255,.6); margin-top:9px; max-width:36ch; }
+
+    /* the four "imagine" beats — tick-marked statements, no boxes */
+    .gc-show__imagine { margin:clamp(48px,6vw,76px) 0 0; display:grid; grid-template-columns:1fr; }
+    @media (min-width:760px){ .gc-show__imagine { grid-template-columns:1fr 1fr; column-gap:clamp(36px,4.5vw,72px); } }
+    .gc-imag { position:relative; padding:15px 0 15px 28px; font-size:15px; line-height:1.7; color:rgba(255,255,255,.7); max-width:52ch; }
+    .gc-imag::before { content:""; position:absolute; left:0; top:26px; width:13px; height:1px; background:var(--turmeric); }
+    .gc-imag b { color:#fff; font-weight:600; }
+
+    .gc-show__line { text-align:center; margin:clamp(54px,6vw,80px) auto 0; font-family:var(--ff-display); font-weight:700; font-size:clamp(22px,3vw,34px); line-height:1.32; letter-spacing:-.022em; max-width:24ch; color:#fff; }
+    .gc-show__line em { font-style:normal; color:var(--turmeric); }
+    .gc-show__cta { text-align:center; margin-top:30px; }
+
+    /* ═══════════════════════════════════════════════════════════
+       WHY REPUTATION — fades vs compounds
+       ═══════════════════════════════════════════════════════════ */
+    /* the argument is made in type: one column shrinks away, the other builds */
+    .gc-why-lede { text-align:center; font-size:15.5px; line-height:1.8; color:var(--muted); max-width:46ch; margin:18px auto 0; }
+    .gc-why-cols { display:grid; grid-template-columns:1fr; margin-top:clamp(44px,5vw,72px); border-top:1px solid var(--rule); }
+    @media (min-width:760px){ .gc-why-cols { grid-template-columns:1fr 1fr; } }
+    .gc-why-cols > * { min-width:0; }
+    .gc-why-col { padding:clamp(28px,3vw,40px) 0 clamp(30px,3.4vw,44px); }
+    @media (min-width:760px){ .gc-why-col + .gc-why-col { border-left:1px solid var(--rule); padding-left:clamp(40px,5vw,80px); } }
+    @media (max-width:759px){ .gc-why-col + .gc-why-col { border-top:1px solid var(--rule); } }
+    .gc-why-col .cl { display:flex; align-items:center; gap:9px; font-size:10px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; margin-bottom:clamp(22px,2.6vw,32px); }
+    .gc-why-col .cl::before { content:""; width:7px; height:7px; border-radius:50%; flex:0 0 7px; }
+    .gc-why-col.dep .cl { color:var(--muted); }
+    .gc-why-col.dep .cl::before { border:1.5px solid var(--muted); }
+    .gc-why-col.comp .cl { color:var(--turmeric-deep); }
+    .gc-why-col.comp .cl::before { background:var(--turmeric); box-shadow:0 0 0 4px rgba(237,164,28,.2); }
+    .gc-why-col ul { list-style:none; margin:0; padding:0; display:grid; gap:clamp(15px,1.7vw,21px); }
+    .gc-why-col li { font-family:var(--ff-display); font-weight:700; letter-spacing:-.02em; line-height:1.2; }
+    /* fades away — each line a little smaller and a little fainter */
+    .gc-why-col.dep li:nth-child(1) { font-size:clamp(19px,2vw,24px); color:var(--espresso); }
+    .gc-why-col.dep li:nth-child(2) { font-size:clamp(17px,1.75vw,21px); color:var(--muted); }
+    .gc-why-col.dep li:nth-child(3) { font-size:clamp(15.5px,1.5vw,18px); color:var(--muted); opacity:.74; }
+    .gc-why-col.dep li:nth-child(4) { font-size:clamp(14px,1.3vw,16px); color:var(--muted); opacity:.54; }
+    /* compounds — each line a little bigger and a little stronger */
+    .gc-why-col.comp li:nth-child(1) { font-size:clamp(15px,1.4vw,17px); color:var(--muted); }
+    .gc-why-col.comp li:nth-child(2) { font-size:clamp(16.5px,1.65vw,20px); color:var(--espresso); }
+    .gc-why-col.comp li:nth-child(3) { font-size:clamp(18px,1.9vw,23px); color:var(--ink); }
+    .gc-why-col.comp li:nth-child(4) { font-size:clamp(20px,2.3vw,27px); color:var(--ink); }
+    .gc-why-tie { text-align:center; max-width:26ch; margin:clamp(46px,5.5vw,74px) auto 0; font-family:var(--ff-display); font-weight:700; font-size:clamp(21px,2.6vw,30px); line-height:1.35; letter-spacing:-.02em; color:var(--ink); }
+    .gc-why-tie b { color:var(--turmeric-deep); font-weight:700; }
+
+    /* ═══════════════════════════════════════════════════════════
+       FINAL — dark closing beat
+       ═══════════════════════════════════════════════════════════ */
+    .gc-final { background:var(--ink); color:#fff; text-align:center; padding:clamp(72px,9vw,104px) var(--pad-h); position:relative; overflow:hidden; }
+    .gc-final::after { content:""; position:absolute; inset:0; pointer-events:none; background:radial-gradient(520px 260px at 80% 0%, rgba(237,164,28,.24), transparent 62%); }
+    .gc-final__in { position:relative; z-index:1; max-width:var(--max-w); margin:0 auto; }
+    .gc-final h2 { font-family:var(--ff-display); font-weight:700; font-size:clamp(30px,4.4vw,52px); line-height:1.1; margin:0 auto 14px; }
+    .gc-final p { font-size:16px; color:rgba(255,255,255,.72); max-width:44ch; margin:0 auto 28px; }
+    .gc-final__re { margin-top:24px; display:flex; gap:12px 20px; justify-content:center; flex-wrap:wrap; font-size:12.5px; color:rgba(255,255,255,.62); font-weight:500; }
+    .gc-final__re span { display:inline-flex; align-items:center; gap:6px; }
+    .gc-final__re svg { width:13px; height:13px; stroke:var(--turmeric); fill:none; stroke-width:2.6; stroke-linecap:round; stroke-linejoin:round; }
+    .gc-final__re--sub { margin-top:14px; font-size:11.5px; opacity:.7; }
+    .gc-foot { text-align:center; padding:26px var(--pad-h) 40px; font-size:12.5px; color:var(--muted); background:var(--ink); }
+    .gc-foot b { color:inherit; }
+
+    /* serif emphasis (sig / philo) — turmeric, never red per accent discipline */
+    .gc-emph { font-style:normal; color:var(--turmeric-deep); }
+
+    /* ═══════════════════════════════════════════════════════════
+       STARTER KIT — assets + checklist (light surface)
+       ═══════════════════════════════════════════════════════════ */
+    /* split header — same shape as the showcase and territory beats */
+    .gc-kit__head { display:grid; grid-template-columns:1fr; gap:22px; align-items:end; }
+    @media (min-width:900px){ .gc-kit__head { grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr); gap:clamp(48px,6vw,88px); } }
+    .gc-kit__lede { font-size:15px; line-height:1.8; color:var(--muted); max-width:44ch; }
+    @media (min-width:900px){ .gc-kit__lede { padding-bottom:6px; } }
+
+    .gc-kit { margin-top:clamp(46px,5.5vw,76px); }
+    /* the four things you actually get — specimen plates, no card chrome */
+    .gc-assets { display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(18px,2.4vw,30px); }
+    @media (min-width:760px){ .gc-assets { grid-template-columns:repeat(4,1fr); } }
+    .gc-asset .av { aspect-ratio:4/3; border-radius:var(--r); background:var(--surface); display:flex; align-items:center; justify-content:center; transition:transform .35s var(--ease); }
+    .gc-asset:hover .av { transform:translateY(-4px); }
+    .gc-asset .an { font-family:var(--ff-display); font-weight:700; font-size:clamp(15px,1.4vw,17px); color:var(--ink); margin-top:16px; }
+    .gc-asset .ad { font-size:12.5px; color:var(--muted); margin-top:4px; }
+    .gc-qr { width:clamp(52px,5vw,68px); height:clamp(52px,5vw,68px); }
+    .gc-vcard { width:clamp(88px,9vw,116px); height:clamp(52px,5.4vw,68px); border-radius:9px; background:linear-gradient(150deg,var(--espresso),var(--ink)); display:flex; align-items:center; justify-content:center; color:var(--turmeric); font-family:var(--ff-display); font-weight:700; font-size:clamp(15px,1.5vw,19px); }
+    .gc-urlmini { font-family:var(--ff-display); font-size:clamp(12.5px,1.2vw,15px); color:var(--espresso); background:var(--warm-white); border:1px dashed var(--rule); border-radius:9px; padding:10px 13px; }
+    .gc-badgemini { font-size:10px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--turmeric-deep); background:var(--turmeric-soft); border:1px solid rgba(237,164,28,.35); padding:9px 14px; border-radius:999px; }
+
+    /* what is included — argument left, hairline checklist right */
+    .gc-kit__panel { margin-top:clamp(46px,5.5vw,76px); padding-top:clamp(26px,3vw,36px); border-top:1px solid var(--rule); display:grid; grid-template-columns:1fr; gap:26px; align-items:start; }
+    @media (min-width:900px){ .gc-kit__panel { grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr); gap:clamp(48px,6vw,88px); } }
+    .gc-kit__h { font-family:var(--ff-display); font-weight:700; font-size:clamp(22px,2.2vw,29px); line-height:1.2; letter-spacing:-.02em; color:var(--ink); max-width:17ch; }
+    .gc-kit__p { font-size:14.5px; color:var(--muted); line-height:1.8; margin-top:16px; max-width:40ch; }
+    .gc-kit__p b { color:var(--ink); font-weight:600; }
+    .gc-checklist { display:grid; grid-template-columns:1fr; column-gap:clamp(24px,3vw,48px); }
+    @media (min-width:560px){ .gc-checklist { grid-template-columns:1fr 1fr; } }
+    .gc-check { display:flex; gap:11px; align-items:center; padding:13px 0; border-bottom:1px solid var(--rule); font-size:14px; font-weight:500; color:var(--espresso); }
+    .gc-check .k { width:19px; height:19px; flex:0 0 19px; border-radius:50%; background:var(--ok-soft); display:flex; align-items:center; justify-content:center; }
+    .gc-check .k svg { width:11px; height:11px; stroke:var(--sage-deep); fill:none; stroke-width:3.2; stroke-linecap:round; stroke-linejoin:round; }
+    .gc-kit__close { margin-top:22px; padding-top:20px; border-top:1px solid var(--rule); font-size:13.5px; color:var(--muted); line-height:1.7; max-width:40ch; }
+
+    /* what comes later — same ledger language, turmeric plus instead of a tick */
+    .gc-grow { margin-top:clamp(46px,5.5vw,76px); padding-top:clamp(26px,3vw,36px); border-top:1px solid var(--rule); display:grid; grid-template-columns:1fr; gap:22px; align-items:start; }
+    @media (min-width:900px){ .gc-grow { grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr); gap:clamp(48px,6vw,88px); } }
+    .gc-grow__h { font-family:var(--ff-display); font-weight:700; font-size:clamp(20px,1.9vw,25px); line-height:1.25; letter-spacing:-.02em; color:var(--ink); max-width:17ch; }
+    .gc-grow__items { display:grid; grid-template-columns:1fr; column-gap:clamp(24px,3vw,48px); }
+    @media (min-width:560px){ .gc-grow__items { grid-template-columns:1fr 1fr; } }
+    .gc-gi { display:grid; grid-template-columns:auto minmax(0,1fr); column-gap:11px; padding:14px 0; border-bottom:1px solid var(--rule); }
+    .gc-gi .p { grid-row:span 2; width:19px; height:19px; border-radius:50%; border:1px solid rgba(237,164,28,.5); color:var(--turmeric-deep); display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:600; line-height:1; margin-top:2px; }
+    .gc-gi b { font-weight:600; color:var(--ink); font-size:14px; }
+    .gc-gi span { color:var(--muted); font-size:12.5px; line-height:1.5; }
+
+    /* closing philosophy + CTA (centered) */
+    .gc-kit__foot { text-align:center; margin-top:clamp(50px,6vw,82px); }
+    .gc-philo { font-family:var(--ff-display); font-weight:700; font-size:clamp(21px,2.6vw,30px); line-height:1.35; letter-spacing:-.02em; color:var(--ink); max-width:30ch; margin:0 auto; }
+    .gc-philo em { font-style:normal; color:var(--turmeric-deep); }
+
+    /* ═══════════════════════════════════════════════════════════
+       MICRO-MARKET — own your territory
+       ═══════════════════════════════════════════════════════════ */
+    /* split header — headline left, lede right on its baseline */
+    .gc-mm { display:grid; grid-template-columns:1fr; gap:24px; align-items:end; }
+    @media (min-width:900px){ .gc-mm { grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr); gap:clamp(48px,6vw,88px); } }
+    .gc-mm__p { font-size:13.5px; color:var(--muted); line-height:1.6; margin-top:16px; max-width:52ch; }
+    .gc-mm__lede p { font-size:15px; line-height:1.8; color:var(--muted); max-width:44ch; }
+    .gc-mm__lede p + p { margin-top:18px; }
+    @media (min-width:900px){ .gc-mm__lede { padding-bottom:6px; } }
+
+    /* territory ledger — real places, no invented market data */
+    .gc-terr { margin-top:clamp(46px,5.5vw,76px); border-top:1px solid var(--rule); display:grid; grid-template-columns:1fr; }
+    @media (min-width:860px){ .gc-terr { grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr); column-gap:clamp(48px,6vw,88px); } }
+    .gc-terr__col { padding:clamp(26px,3vw,36px) 0 0; }
+    .gc-terr__lab { display:flex; align-items:center; gap:9px; font-size:10px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); }
+    .gc-terr__lab .pip { width:7px; height:7px; border-radius:50%; background:var(--sage); box-shadow:0 0 0 4px var(--ok-soft); flex:0 0 7px; }
+    .gc-terr__lab .pip--q { background:transparent; border:1.5px solid var(--muted); box-shadow:none; }
+    .gc-terr__places { list-style:none; margin-top:6px; }
+    .gc-terr__places li { display:flex; align-items:baseline; gap:14px; padding:16px 0; border-bottom:1px solid var(--rule); font-family:var(--ff-display); font-weight:700; font-size:clamp(21px,2.4vw,29px); line-height:1.15; letter-spacing:-.02em; color:var(--ink); }
+    .gc-terr__places li .i { font-family:var(--ff-sans); font-size:10.5px; font-weight:700; letter-spacing:.1em; color:var(--sage-deep); font-variant-numeric:tabular-nums; }
+    .gc-terr__t { font-size:15px; line-height:1.8; color:var(--muted); margin-top:16px; max-width:42ch; }
+    .gc-terr__t b { color:var(--ink); font-weight:600; }
+    .gc-terr__who { display:flex; flex-wrap:wrap; gap:8px; margin-top:26px; padding-top:26px; border-top:1px solid var(--rule); }
+    .gc-terr__who span { font-size:12.5px; font-weight:500; color:var(--espresso); border:1px solid var(--rule); border-radius:999px; padding:7px 14px; }
+    .gc-terr__foot { font-size:13.5px; color:var(--muted); margin-top:16px; }
+    .gc-terr__foot em { font-style:normal; color:var(--ink); font-weight:600; }
+    .gc-mm__cta { margin-top:clamp(34px,4vw,48px); }
+
+    /* ═══════════════════════════════════════════════════════════
+       WEEKLY BRIEF — Monday message card
+       ═══════════════════════════════════════════════════════════ */
+    .gc-wk { display:grid; grid-template-columns:1fr; gap:clamp(38px,4.5vw,60px); align-items:start; }
+    @media (min-width:900px){ .gc-wk { grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr); gap:clamp(48px,6vw,88px); } }
+    .gc-wk__lede { font-size:15.5px; line-height:1.8; color:rgba(255,255,255,.62); margin-top:20px; max-width:42ch; }
+    .gc-wk__note { display:flex; align-items:flex-start; gap:11px; margin-top:26px; padding-top:22px; border-top:1px solid rgba(255,255,255,.14); font-size:13px; line-height:1.7; color:rgba(255,255,255,.55); }
+    .gc-wk__note .dot { width:7px; height:7px; border-radius:50%; background:var(--sage); box-shadow:0 0 0 4px rgba(154,169,109,.2); flex:0 0 7px; margin-top:8px; }
+    .gc-wk__note b { color:#fff; font-weight:600; }
+
+    /* the brief itself — one message, four parts, strung on a single rail */
+    .gc-wk__h { display:flex; align-items:center; gap:9px; font-size:10px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.45); margin-bottom:6px; }
+    .gc-wk__h .dot { width:7px; height:7px; border-radius:50%; background:var(--sage); }
+    .gc-wk__msg { position:relative; }
+    .gc-wk__msg::before { content:""; position:absolute; left:17px; top:44px; bottom:34px; width:1px; background:linear-gradient(180deg, rgba(237,164,28,.55), rgba(237,164,28,.12)); }
+    .gc-wk__item { position:relative; display:flex; gap:16px; align-items:flex-start; padding:20px 0; border-bottom:1px solid rgba(255,255,255,.12); }
+    .gc-wk__item:last-child { border-bottom:0; }
+    .gc-wk__item .wi { position:relative; z-index:1; width:35px; height:35px; flex:0 0 35px; border-radius:11px; background:rgba(237,164,28,.16); box-shadow:0 0 0 5px var(--ink); color:var(--turmeric); display:flex; align-items:center; justify-content:center; }
+    .gc-wk__item .wi svg { width:17px; height:17px; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+    .gc-wk__item .wt { font-family:var(--ff-display); font-weight:700; font-size:clamp(17px,1.7vw,20px); line-height:1.25; letter-spacing:-.015em; color:#fff; }
+    .gc-wk__item .wd { font-size:13.5px; line-height:1.6; color:rgba(255,255,255,.58); margin-top:5px; }
+    /* dark variant (pen renders the weekly brief on ink) */
+    .gc-weekly { background:var(--ink); }
+    .gc-weekly .sec-eyebrow { color:rgba(255,255,255,.42); }
+    .gc-weekly .sec-title { color:#fff; }
+
+    /* ═══════════════════════════════════════════════════════════
+       STEPS — live in ninety seconds
+       ═══════════════════════════════════════════════════════════ */
+    /* four stops on one line — the rail runs rule → turmeric as you get closer to live */
+    .gc-steps { position:relative; display:grid; grid-template-columns:1fr; margin-top:clamp(44px,5vw,72px); }
+    .gc-steps::before { content:""; position:absolute; left:17px; top:17px; bottom:30px; width:1px; background:linear-gradient(180deg, var(--rule), var(--turmeric)); }
+    .gc-step { position:relative; display:grid; grid-template-columns:35px minmax(0,1fr); column-gap:18px; padding-bottom:30px; }
+    .gc-step:last-child { padding-bottom:0; }
+    .gc-step__n { grid-row:span 2; width:35px; height:35px; border-radius:50%; background:var(--warm-white); border:1px solid var(--rule); display:flex; align-items:center; justify-content:center; font-family:var(--ff-display); font-weight:700; font-size:16px; line-height:1; color:var(--turmeric-deep); }
+    .gc-step h3 { font-family:var(--ff-display); font-weight:700; font-size:clamp(17px,1.7vw,20px); line-height:1.25; letter-spacing:-.015em; color:var(--ink); margin-top:6px; }
+    .gc-step p { font-size:13.5px; color:var(--muted); line-height:1.65; margin-top:7px; max-width:34ch; }
+    @media (min-width:900px){
+      .gc-steps { grid-template-columns:repeat(4,1fr); column-gap:clamp(24px,3vw,48px); }
+      .gc-steps::before { left:0; right:0; top:17px; bottom:auto; width:auto; height:1px; background:linear-gradient(90deg, var(--rule), var(--turmeric)); }
+      .gc-step { display:block; padding-bottom:0; }
+      .gc-step h3 { margin-top:22px; }
+      /* the rail ends on a mark — you are live */
+      .gc-steps::after { content:""; position:absolute; right:0; top:13px; width:9px; height:9px; border-radius:50%; background:var(--turmeric); box-shadow:0 0 0 5px rgba(237,164,28,.18); }
+    }
+    .gc-steps-foot { text-align:center; margin-top:clamp(48px,5.5vw,76px); }
+    .gc-steps-foot__note { font-size:13px; color:var(--muted); margin-top:16px; }
+
+    /* ═══════════════════════════════════════════════════════════
+       PLAIN-WORDS EXPLAINER
+       ═══════════════════════════════════════════════════════════ */
+    /* WHAT IT IS — the answer stated on the left, the detail read down the right */
+    .gc-zoom { margin-top:clamp(36px,4.2vw,58px); padding-top:clamp(30px,3.4vw,46px); border-top:1px solid var(--rule); display:grid; grid-template-columns:1fr; gap:clamp(34px,4vw,52px); align-items:start; }
+    @media (min-width:900px){ .gc-zoom { grid-template-columns:minmax(0,.96fr) minmax(0,1.04fr); gap:clamp(48px,6vw,96px); } }
+    .gc-zoom > * { min-width:0; }
+    .gc-zoom__say { font-family:var(--ff-display); font-weight:700; font-size:clamp(26px,3.2vw,42px); line-height:1.14; letter-spacing:-.025em; color:var(--ink); max-width:17ch; }
+    .gc-zoom__meta { display:flex; flex-wrap:wrap; gap:8px; margin-top:clamp(26px,3vw,36px); }
+    .gc-zoom__meta span { font-size:11.5px; font-weight:500; color:var(--espresso); border:1px solid var(--rule); border-radius:999px; padding:7px 14px; }
+    .gc-zoom__lead { font-size:clamp(15.5px,1.6vw,18px); line-height:1.75; color:var(--espresso); max-width:56ch; }
+    .gc-zoom__lead b { color:var(--ink); font-weight:600; }
+    .gc-zoom__rest { margin-top:clamp(26px,3vw,34px); padding-top:clamp(24px,2.8vw,32px); border-top:1px solid var(--rule); }
+    .gc-zoom__rest p { font-size:14px; line-height:1.85; color:var(--muted); max-width:60ch; }
+    .gc-zoom__rest p + p { margin-top:16px; }
+    .gc-zoom__rest b { color:var(--espresso); font-weight:600; }
+
+
+
+    /* ═══════════════════════════════════════════════════════════
+       FAQ (canonical br-faq)
+       ═══════════════════════════════════════════════════════════ */
+    .br-faq { border-top:1px solid var(--rule); }
+    .br-faq:last-of-type { border-bottom:1px solid var(--rule); }
+    .br-faq > summary { list-style:none; cursor:pointer; padding:24px 0; display:flex; align-items:center; justify-content:space-between; gap:16px; font-family:var(--ff-display); font-size:clamp(16px,1.5vw,20px); font-weight:700; line-height:1.3; color:var(--ink); -webkit-tap-highlight-color:transparent; transition:color .25s var(--ease); }
+    .br-faq > summary::-webkit-details-marker { display:none; }
+    .br-faq > summary:hover { color:var(--accent); }
+    .br-faq__chev { flex:0 0 auto; width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; transition:transform .25s var(--ease); }
+    .br-faq[open] > summary .br-faq__chev { transform:rotate(180deg); }
+    .br-faq__body { font-size:14.5px; line-height:1.75; color:var(--espresso); padding:0 0 26px; max-width:76ch; }
+
+    /* ─── Footer (matches brokers.html / investor.html) ─── */
+    .footer { background:var(--ink); padding:36px 0; border-top:1px solid rgba(255,255,255,.06); }
+    .footer__inner { max-width:var(--max-w); margin:0 auto; padding:0 var(--pad-h); }
+    .footer__top { display:flex; justify-content:space-between; align-items:flex-end; gap:32px; padding-bottom:24px; margin-bottom:24px; border-bottom:1px solid rgba(255,255,255,.08); }
+    .footer__logo { display:inline-block; line-height:1; }
+    .footer__tag { font-size:12px; color:rgba(255,255,255,.45); margin-top:8px; }
+    .footer__nav { display:flex; align-items:center; gap:4px; flex-wrap:wrap; }
+    .footer__nav a { font-size:13px; color:rgba(255,255,255,.55); padding:8px 14px; border-radius:8px; transition:background .25s, color .25s; }
+    .footer__nav a:hover { color:#fff; background:rgba(255,255,255,.06); }
+    .footer__bot { display:flex; justify-content:space-between; align-items:center; gap:16px; }
+    .footer__bot p { font-size:11px; color:rgba(255,255,255,.25); }
+    .footer__bot-links { display:flex; gap:18px; }
+    .footer__bot-links a { font-size:11px; color:rgba(255,255,255,.4); transition:color .25s; }
+    .footer__bot-links a:hover { color:rgba(255,255,255,.6); }
+    @media (max-width:767px) {
+      .footer__top { flex-direction:column; align-items:flex-start; }
+      .footer__bot { flex-direction:column; align-items:flex-start; }
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+      *,*::before,*::after { animation-duration:.01ms !important; transition-duration:.01ms !important; }
+    }
+  </style>
+</head>
+
+<body>
+
+    <!-- ═══ MAIN NAV (landing variant · logo + single CTA) ═══ -->
+  <nav id="mainNav" class="fixed top-0 left-0 right-0 z-[200]">
+    <div id="desktopNavRow" style="display:grid;grid-template-columns:1fr auto;align-items:center;gap:24px;padding:0 var(--pad-h);max-width:var(--max-w);margin:0 auto;width:100%;transition:height .3s cubic-bezier(.4,0,.2,1)">
+      <a href="/" style="line-height:1;text-decoration:none;justify-self:start">
+        <svg class="nav-logo" viewBox="0 0 890.6 196.8" fill="currentColor" aria-label="Ghar.tv" style="height:28px;width:auto;display:block">
+          <path d="M180.5,92.6l0,13.8c0,49.9-40.3,90.3-90.2,90.3S0,156.3,0,106.4V60.8c0-10.4,5.1-17.6,13.7-22.2l65.4-36c3-1.5,6.5-2.7,11.1-2.7c4.6,0,8.1,1.2,11.1,2.7l65.4,36l-30.6,23.9v0l0,0L97,40.9c-1.8-0.9-3.9-1.6-6.7-1.6c-2.8,0-4.9,0.7-6.7,1.6L44.3,62.5c-5.1,2.8-8.2,7.1-8.2,13.3v27.4c0,30,24.3,57.5,54.2,57.5c21.8,0,40.6-14.6,49.2-34.1H90.3v-34H180.5z M451.9,65.2h34V194h-34v-11.4c-10.7,8.9-24.4,14.2-40.1,14.2c-36.3,0-64-30-64-67.3c0-37.1,27.7-67.1,64-67.1c15.8,0,29.5,5.3,40.1,14.2L451.9,65.2L451.9,65.2z M449.8,129.5c0-18.3-15-33.3-33.5-33.3s-33.5,15-33.5,33.3c0,18.5,15,33.5,33.5,33.5S449.8,148.1,449.8,129.5z M268.2,62.4c-14.5,0-26.2,5.1-34.8,13.7V4.8h-33.8V194h33.8v-61.7c0-18.8,8.9-36.1,30.2-36.1c20.3,0,29.7,15.5,29.7,31.2V194h34v-66.6C327.4,91.4,308.1,62.4,268.2,62.4z M854.3,65.2L854.3,65.2l-34.8,84.6l-34.5-84.6h-36.3L801.4,194h36.3l52.8-128.8H854.3z M715.1,164.3L715.1,164.3c-9.1,0-14.2-5.6-14.2-15.2V97h35.1V65.2h-35.1V36.5h-34v28.7h-21.3V97h21.3v52.1c0,33,17.5,47,44.7,47c16.5,0,28.5-8.9,35.8-17.3l-20.6-20.6C725,160.3,720.9,164.3,715.1,164.3z M605.6,157.7c-10.9,0-19.8,8.6-19.8,19.6c0,10.9,8.9,19.6,19.8,19.6s19.6-8.6,19.6-19.6C625.1,166.3,616.5,157.7,605.6,157.7z M545.1,82L545.1,82V65.2h-33.8V194h33.8v-50.3c0-39.4,15.5-47.5,39.4-47.5V62.4C567.2,62.4,554.2,69.3,545.1,82z" />
+        </svg>
+      </a>
+      <a href="claim-card.html" class="nav-btn nav-btn--cta" style="justify-self:end">Claim my card</a>
+    </div>
+  </nav>
+
+  <!-- dist/main.min.js wires the canonical search bar on DOMContentLoaded and dereferences these
+       without null checks. This page has no search, so they exist only to keep that bundle happy. -->
+  <div id="navSearchStubs" hidden aria-hidden="true">
+    <div id="expandedSearch"></div><div id="modeWrap"></div><div id="typeWrap"></div>
+    <div id="searchBar"><div id="wherePill"><div id="chipsRow"><input id="whereInput" type="text"></div></div>
+      <button id="clearBtn"></button><button id="modeBtn"><span id="modeLbl">Buy</span></button>
+      <button id="typeBtn"><span id="typeLbl">Homes</span></button><button id="goBtn"></button></div>
+    <div id="compactSearch"><span id="compactWhere"></span><span id="compactMode"></span><span id="compactType"></span></div>
+    <button id="midSearchTrigger"><span id="midSearchWhere"></span><span id="midSearchMode"></span><span id="midSearchType"></span></button>
+    <button id="midSmallTrigger"><span id="midSmallLine1"></span><span id="midSmallLine2"></span></button>
+    <div id="navTabs"></div><div id="mobTabsRow"></div>
+    <div id="mobSearchRow"><button id="mobSearchTrigger"><div id="mobSearchContent"><span id="mobSearchLine1"></span><span id="mobSearchLine2"></span></div></button></div>
+  </div>
+
+  <!-- ═══ MOBILE BOTTOM BAR (visible <744px) ═══ -->
+  <div id="bottomBar">
+    <a href="/" class="bb-item" style="text-decoration:none">
+      <svg width="22" height="22" viewBox="0 0 180.5 196.8" fill="#ee324b"><path d="M180.5,92.6l0,13.8c0,49.9-40.3,90.3-90.2,90.3S0,156.3,0,106.4V60.8c0-10.4,5.1-17.6,13.7-22.2l65.4-36c3-1.5,6.5-2.7,11.1-2.7c4.6,0,8.1,1.2,11.1,2.7l65.4,36l-30.6,23.9v0l0,0L97,40.9c-1.8-0.9-3.9-1.6-6.7-1.6c-2.8,0-4.9,0.7-6.7,1.6L44.3,62.5c-5.1,2.8-8.2,7.1-8.2,13.3v27.4c0,30,24.3,57.5,54.2,57.5c21.8,0,40.6-14.6,49.2-34.1H90.3v-34H180.5z"/></svg>
+      <span class="bb-label" style="color:#ee324b">Ghar</span>
+    </a>
+    <a href="/postproperty.php" class="bb-item" style="text-decoration:none">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.8"><path d="M3 10.5L12 3l9 7.5V21a1.5 1.5 0 01-1.5 1.5h-15A1.5 1.5 0 013 21z"/><line x1="12" y1="13" x2="12" y2="18"/><line x1="9.5" y1="15.5" x2="14.5" y2="15.5"/></svg>
+      <span class="bb-label" style="color:#555">Post Property</span>
+    </a>
+    <button class="bb-item" onclick="openSignIn&&openSignIn()">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.8"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span class="bb-label" style="color:#555">Account</span>
+    </button>
+    <button class="bb-item" onclick="openOC&&openOC()">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.8"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="15" y2="18"/></svg>
+      <span class="bb-label" style="color:#555">Menu</span>
+    </button>
+  </div>
+
+  <!-- ═══ PAGE CONTENT ═══ -->
+  <main>
+
+    <!-- 1 · HERO -->
+    <div class="lt-herobg">
+    <header class="lt-hero">
+      <div class="lt-hero__grid">
+        <div>
+          <h1 class="lt-hero__title">Become the broker buyers <em>trust first.</em></h1>
+          <p class="lt-hero__deck">The free <b>Ghar.tv Card</b> - a single link that carries your name, your listings and your word. Everything a buyer needs to trust you, in one place.</p>
+
+          <div class="lt-hero__cta">
+            <a class="lt-btn lt-btn--white" href="claim-card.html">
+              Claim my card
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+
+          <div class="lt-hero__mic">
+            <span><i></i>Free forever</span><span><i></i>Live in 90 seconds</span><span><i></i>Works alongside everything you already do</span>
+          </div>
+        </div>
+
+        <!-- auto-scrolling column of link-stack cards -->
+        <div class="lt-stage" aria-label="Examples of broker cards">
+          <div class="lt-marquee">
+            <div class="lt-cardwrap">
+              <div class="lt-card">
+                <div class="lt-card__ava lt-card__ava--photo"><img src="https://images.unsplash.com/photo-1649433658557-54cf58577c68?w=200&amp;h=200&amp;fit=facearea&amp;facepad=2.8&amp;q=80" alt="" loading="lazy"></div>
+                <div class="lt-card__name">Rajesh Sharma</div>
+                <div class="lt-card__handle">ghar.tv/rajesh-sharma</div>
+                <div class="lt-card__verified"><svg viewBox="0 0 24 24"><path d="M8 12.5l2.5 2.5 5-5.5"/></svg> MahaRERA verified</div>
+                <div class="lt-links">
+                  <div class="lt-link lt-link--call"><span class="lt-link__ic"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg></span><span class="lt-link__t">Call Rajesh</span><svg class="lt-link__chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
+                  <div class="lt-link lt-link--wa"><span class="lt-link__ic"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 01-12.3 7.6L3 21l1.9-5.7A8.5 8.5 0 1121 11.5z"/></svg></span><span class="lt-link__t">WhatsApp</span><svg class="lt-link__chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
+                  <div class="lt-link lt-link--gold"><span class="lt-link__ic"><svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg></span><span class="lt-link__t">View 42 listings</span><svg class="lt-link__chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
+                  <div class="lt-link lt-link--gold"><span class="lt-link__ic"><svg viewBox="0 0 24 24"><path d="M12 3l2.9 5.9 6.1.9-4.5 4.4 1.1 6.1L12 17.8 6.4 20.3l1.1-6.1L3 9.8l6.1-.9z"/></svg></span><span class="lt-link__t">4.9 · 31 reviews</span><svg class="lt-link__chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
+                  <div class="lt-link lt-link--ink"><span class="lt-link__ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M5.5 21a6.5 6.5 0 0113 0"/></svg></span><span class="lt-link__t">About &amp; markets</span><svg class="lt-link__chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
+                </div>
+                <div class="lt-socials"><span class="lt-social">IG</span><span class="lt-social">YT</span><span class="lt-social">MB</span><span class="lt-social">99</span></div>
+                <div class="lt-card__foot">powered by Ghar.tv</div>
+              </div>
+              <div class="lt-card__cap"><b>Rajesh Sharma</b> · Goregaon &amp; Malad</div>
+            </div>
+
+            <div class="lt-cardwrap">
+              <div class="lt-card">
+                <div class="lt-card__ava lt-card__ava--b">MN</div>
+                <div class="lt-card__name">Meera Nair</div>
+                <div class="lt-card__handle">ghar.tv/meera-nair</div>
+                <div class="lt-card__verified lt-card__verified--id"><svg viewBox="0 0 24 24"><path d="M8 12.5l2.5 2.5 5-5.5"/></svg> Identity verified</div>
+                <div class="lt-links">
+                  <div class="lt-link lt-link--call"><span class="lt-link__ic"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg></span><span class="lt-link__t">Call Meera</span><svg class="lt-link__chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
+                  <div class="lt-link lt-link--wa"><span class="lt-link__ic"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 01-12.3 7.6L3 21l1.9-5.7A8.5 8.5 0 1121 11.5z"/></svg></span><span class="lt-link__t">WhatsApp</span><svg class="lt-link__chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
+                  <div class="lt-link lt-link--gold"><span class="lt-link__ic"><svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg></span><span class="lt-link__t">View 28 listings</span><svg class="lt-link__chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
+                  <div class="lt-link lt-link--gold"><span class="lt-link__ic"><svg viewBox="0 0 24 24"><path d="M12 3l2.9 5.9 6.1.9-4.5 4.4 1.1 6.1L12 17.8 6.4 20.3l1.1-6.1L3 9.8l6.1-.9z"/></svg></span><span class="lt-link__t">4.8 · 24 reviews</span><svg class="lt-link__chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
+                  <div class="lt-link lt-link--ink"><span class="lt-link__ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M5.5 21a6.5 6.5 0 0113 0"/></svg></span><span class="lt-link__t">About &amp; markets</span><svg class="lt-link__chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
+                </div>
+                <div class="lt-socials"><span class="lt-social">IG</span><span class="lt-social">YT</span><span class="lt-social">MB</span><span class="lt-social">99</span></div>
+                <div class="lt-card__foot">powered by Ghar.tv</div>
+              </div>
+              <div class="lt-card__cap"><b>Meera Nair</b> · Powai &amp; Chandivali</div>
+            </div>
+
+            <div class="lt-cardwrap">
+              <div class="lt-card">
+                <div class="lt-card__ava lt-card__ava--c">AP</div>
+                <div class="lt-card__name">Arjun Patel</div>
+                <div class="lt-card__handle">ghar.tv/arjun-patel</div>
+                <div class="lt-card__verified"><svg viewBox="0 0 24 24"><path d="M8 12.5l2.5 2.5 5-5.5"/></svg> MahaRERA verified</div>
+                <div class="lt-links">
+                  <div class="lt-link lt-link--call"><span class="lt-link__ic"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg></span><span class="lt-link__t">Call Arjun</span><svg class="lt-link__chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
+                  <div class="lt-link lt-link--wa"><span class="lt-link__ic"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 01-12.3 7.6L3 21l1.9-5.7A8.5 8.5 0 1121 11.5z"/></svg></span><span class="lt-link__t">WhatsApp</span><svg class="lt-link__chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
+                  <div class="lt-link lt-link--gold"><span class="lt-link__ic"><svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg></span><span class="lt-link__t">View 35 listings</span><svg class="lt-link__chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
+                  <div class="lt-link lt-link--gold"><span class="lt-link__ic"><svg viewBox="0 0 24 24"><path d="M12 3l2.9 5.9 6.1.9-4.5 4.4 1.1 6.1L12 17.8 6.4 20.3l1.1-6.1L3 9.8l6.1-.9z"/></svg></span><span class="lt-link__t">4.9 · 40 reviews</span><svg class="lt-link__chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
+                  <div class="lt-link lt-link--ink"><span class="lt-link__ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M5.5 21a6.5 6.5 0 0113 0"/></svg></span><span class="lt-link__t">About &amp; markets</span><svg class="lt-link__chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
+                </div>
+                <div class="lt-socials"><span class="lt-social">IG</span><span class="lt-social">YT</span><span class="lt-social">MB</span><span class="lt-social">99</span></div>
+                <div class="lt-card__foot">powered by Ghar.tv</div>
+              </div>
+              <div class="lt-card__cap"><b>Arjun Patel</b> · Andheri West</div>
+            </div>
+
+            <!-- duplicate set for seamless loop -->
+            <div class="lt-cardwrap" aria-hidden="true">
+              <div class="lt-card">
+                <div class="lt-card__ava lt-card__ava--photo"><img src="https://images.unsplash.com/photo-1649433658557-54cf58577c68?w=200&amp;h=200&amp;fit=facearea&amp;facepad=2.8&amp;q=80" alt="" loading="lazy"></div>
+                <div class="lt-card__name">Rajesh Sharma</div>
+                <div class="lt-card__handle">ghar.tv/rajesh-sharma</div>
+                <div class="lt-card__verified"><svg viewBox="0 0 24 24"><path d="M8 12.5l2.5 2.5 5-5.5"/></svg> MahaRERA verified</div>
+                <div class="lt-links">
+                  <div class="lt-link lt-link--call"><span class="lt-link__ic"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg></span><span class="lt-link__t">Call Rajesh</span><svg class="lt-link__chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
+                  <div class="lt-link lt-link--wa"><span class="lt-link__ic"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 01-12.3 7.6L3 21l1.9-5.7A8.5 8.5 0 1121 11.5z"/></svg></span><span class="lt-link__t">WhatsApp</span><svg class="lt-link__chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
+                  <div class="lt-link lt-link--gold"><span class="lt-link__ic"><svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg></span><span class="lt-link__t">View 42 listings</span><svg class="lt-link__chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
+                  <div class="lt-link lt-link--gold"><span class="lt-link__ic"><svg viewBox="0 0 24 24"><path d="M12 3l2.9 5.9 6.1.9-4.5 4.4 1.1 6.1L12 17.8 6.4 20.3l1.1-6.1L3 9.8l6.1-.9z"/></svg></span><span class="lt-link__t">4.9 · 31 reviews</span><svg class="lt-link__chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
+                  <div class="lt-link lt-link--ink"><span class="lt-link__ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M5.5 21a6.5 6.5 0 0113 0"/></svg></span><span class="lt-link__t">About &amp; markets</span><svg class="lt-link__chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
+                </div>
+                <div class="lt-socials"><span class="lt-social">IG</span><span class="lt-social">YT</span><span class="lt-social">MB</span><span class="lt-social">99</span></div>
+                <div class="lt-card__foot">powered by Ghar.tv</div>
+              </div>
+              <div class="lt-card__cap"><b>Rajesh Sharma</b> · Goregaon &amp; Malad</div>
+            </div>
+
+            <div class="lt-cardwrap" aria-hidden="true">
+              <div class="lt-card">
+                <div class="lt-card__ava lt-card__ava--b">MN</div>
+                <div class="lt-card__name">Meera Nair</div>
+                <div class="lt-card__handle">ghar.tv/meera-nair</div>
+                <div class="lt-card__verified lt-card__verified--id"><svg viewBox="0 0 24 24"><path d="M8 12.5l2.5 2.5 5-5.5"/></svg> Identity verified</div>
+                <div class="lt-links">
+                  <div class="lt-link lt-link--call"><span class="lt-link__ic"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg></span><span class="lt-link__t">Call Meera</span><svg class="lt-link__chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
+                  <div class="lt-link lt-link--wa"><span class="lt-link__ic"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 01-12.3 7.6L3 21l1.9-5.7A8.5 8.5 0 1121 11.5z"/></svg></span><span class="lt-link__t">WhatsApp</span><svg class="lt-link__chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
+                  <div class="lt-link lt-link--gold"><span class="lt-link__ic"><svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg></span><span class="lt-link__t">View 28 listings</span><svg class="lt-link__chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
+                  <div class="lt-link lt-link--gold"><span class="lt-link__ic"><svg viewBox="0 0 24 24"><path d="M12 3l2.9 5.9 6.1.9-4.5 4.4 1.1 6.1L12 17.8 6.4 20.3l1.1-6.1L3 9.8l6.1-.9z"/></svg></span><span class="lt-link__t">4.8 · 24 reviews</span><svg class="lt-link__chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
+                  <div class="lt-link lt-link--ink"><span class="lt-link__ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M5.5 21a6.5 6.5 0 0113 0"/></svg></span><span class="lt-link__t">About &amp; markets</span><svg class="lt-link__chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
+                </div>
+                <div class="lt-socials"><span class="lt-social">IG</span><span class="lt-social">YT</span><span class="lt-social">MB</span><span class="lt-social">99</span></div>
+                <div class="lt-card__foot">powered by Ghar.tv</div>
+              </div>
+              <div class="lt-card__cap"><b>Meera Nair</b> · Powai &amp; Chandivali</div>
+            </div>
+
+            <div class="lt-cardwrap" aria-hidden="true">
+              <div class="lt-card">
+                <div class="lt-card__ava lt-card__ava--c">AP</div>
+                <div class="lt-card__name">Arjun Patel</div>
+                <div class="lt-card__handle">ghar.tv/arjun-patel</div>
+                <div class="lt-card__verified"><svg viewBox="0 0 24 24"><path d="M8 12.5l2.5 2.5 5-5.5"/></svg> MahaRERA verified</div>
+                <div class="lt-links">
+                  <div class="lt-link lt-link--call"><span class="lt-link__ic"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg></span><span class="lt-link__t">Call Arjun</span><svg class="lt-link__chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
+                  <div class="lt-link lt-link--wa"><span class="lt-link__ic"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 01-12.3 7.6L3 21l1.9-5.7A8.5 8.5 0 1121 11.5z"/></svg></span><span class="lt-link__t">WhatsApp</span><svg class="lt-link__chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
+                  <div class="lt-link lt-link--gold"><span class="lt-link__ic"><svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg></span><span class="lt-link__t">View 35 listings</span><svg class="lt-link__chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
+                  <div class="lt-link lt-link--gold"><span class="lt-link__ic"><svg viewBox="0 0 24 24"><path d="M12 3l2.9 5.9 6.1.9-4.5 4.4 1.1 6.1L12 17.8 6.4 20.3l1.1-6.1L3 9.8l6.1-.9z"/></svg></span><span class="lt-link__t">4.9 · 40 reviews</span><svg class="lt-link__chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
+                  <div class="lt-link lt-link--ink"><span class="lt-link__ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M5.5 21a6.5 6.5 0 0113 0"/></svg></span><span class="lt-link__t">About &amp; markets</span><svg class="lt-link__chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
+                </div>
+                <div class="lt-socials"><span class="lt-social">IG</span><span class="lt-social">YT</span><span class="lt-social">MB</span><span class="lt-social">99</span></div>
+                <div class="lt-card__foot">powered by Ghar.tv</div>
+              </div>
+              <div class="lt-card__cap"><b>Arjun Patel</b> · Andheri West</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    </div>
+
+    <!-- 2 · SHOWCASE (the card everyone wants) -->
+    <section class="gc-show" aria-label="The page people remember you by">
+      <div class="gc-show__in">
+        <div class="gc-show__head">
+          <div>
+            <span class="gc-show__eyebrow">Your page</span>
+            <h2>This is not another profile. It is the page people remember you by.</h2>
+          </div>
+          <p>One link that carries your name, your work and your word. Everything a buyer needs to reach you, believe you and come back to you.</p>
+        </div>
+
+        <div class="gc-show__points">
+          <div class="gc-show__pt"><span class="n">01</span><div class="l">Your own address</div><div class="t">ghar.tv/your-name. Not a listing ID, not a profile number.</div></div>
+          <div class="gc-show__pt"><span class="n">02</span><div class="l">One tap to reach you</div><div class="t">Call, WhatsApp, save your contact. No forms in between.</div></div>
+          <div class="gc-show__pt"><span class="n">03</span><div class="l">Proof, not claims</div><div class="t">MahaRERA verification, reviews and a real track record.</div></div>
+          <div class="gc-show__pt"><span class="n">04</span><div class="l">Your inventory</div><div class="t">Post and manage your own listings from the moment you claim.</div></div>
+          <div class="gc-show__pt"><span class="n">05</span><div class="l">Everywhere you work</div><div class="t">Instagram, YouTube, your website and every portal profile you use. All from one page.</div></div>
+          <div class="gc-show__pt"><span class="n">06</span><div class="l">Yours to share</div><div class="t">One link for WhatsApp, your bio, your hoarding, your visiting card.</div></div>
+        </div>
+
+        <div class="gc-show__imagine">
+          <div class="gc-imag">Imagine sending <b>one link</b> instead of six.</div>
+          <div class="gc-imag">Imagine every WhatsApp conversation ending with <b>your own professional page</b>.</div>
+          <div class="gc-imag">Imagine buyers forwarding <b>your profile</b> instead of your phone number.</div>
+          <div class="gc-imag">Imagine every advertisement building <b>your reputation</b> instead of disappearing tomorrow.</div>
+        </div>
+
+        <p class="gc-show__line">The first thing buyers should remember is not your phone number. <em>It is your name.</em></p>
+        <div class="gc-show__cta"><a href="claim-card.html" class="btn-text btn-text--red">Claim my card<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a></div>
+      </div>
+    </section>
+
+    <!-- 3 · MICRO-MARKET -->
+    <section aria-label="Own your micro-market" style="background:var(--surface)">
+      <div class="sec-inner">
+        <div class="gc-mm">
+          <div>
+            <span class="sec-eyebrow">Your territory</span>
+            <h2 class="sec-title" style="max-width:15ch;margin-top:16px">Own your micro-market before your competitors do.</h2>
+          </div>
+          <div class="gc-mm__lede">
+            <p>Real estate is local. Buyers do not search cities - they search neighbourhoods, buildings, price bands and the people who know them. Your card is built around the markets you actually work.</p>
+          </div>
+        </div>
+
+        <div class="gc-terr">
+          <div class="gc-terr__col">
+            <div class="gc-terr__lab"><span class="pip"></span>Open now · the first market</div>
+            <ul class="gc-terr__places">
+              <li><span class="i">01</span>Goregaon West</li>
+              <li><span class="i">02</span>Goregaon East</li>
+              <li><span class="i">03</span>Malad West</li>
+              <li><span class="i">04</span>Malad East</li>
+            </ul>
+          </div>
+          <div class="gc-terr__col">
+            <div class="gc-terr__lab"><span class="pip pip--q"></span>Everywhere else</div>
+            <p class="gc-terr__t">We are building one micro-market properly before expanding across India. Every other market opens as brokers claim it. <b>If you work Goregaon or Malad, you are early</b> - and early is the whole advantage. The brokers buyers find first are the ones who were there first.</p>
+            <div class="gc-terr__who">
+              <span>Independent brokers</span><span>Channel partners</span><span>Consultants</span><span>Local specialists</span>
+            </div>
+            <p class="gc-terr__foot">Built for <em>anyone whose name is their business.</em></p>
+          </div>
+        </div>
+
+        <div class="gc-mm__cta"><a href="claim-card.html" class="btn-text btn-text--red">Claim my card<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a></div>
+      </div>
+    </section>
+
+    <!-- 4 · EVERYTHING INCLUDED (starter kit) -->
+    <section aria-label="What is included" id="kit">
+      <div class="sec-inner">
+        <div class="gc-kit__head">
+          <div>
+            <span class="sec-eyebrow">Included free</span>
+            <h2 class="sec-title" style="max-width:14ch;margin-top:16px">Your professional starter kit.</h2>
+          </div>
+          <p class="gc-kit__lede">Every broker deserves a page they are proud to share. This is everything that comes with yours, on the day you claim it.</p>
+        </div>
+
+        <div class="gc-kit">
+          <div class="gc-assets">
+            <div class="gc-asset">
+              <div class="av"><svg class="gc-qr" viewBox="0 0 48 48" fill="none"><rect width="48" height="48" rx="8" fill="#1a1714"/><g fill="#fff"><rect x="8" y="8" width="10" height="10" rx="1.5"/><rect x="30" y="8" width="10" height="10" rx="1.5"/><rect x="8" y="30" width="10" height="10" rx="1.5"/><rect x="22" y="8" width="3" height="3"/><rect x="22" y="22" width="6" height="6"/><rect x="32" y="22" width="3" height="3"/><rect x="22" y="32" width="3" height="3"/><rect x="30" y="30" width="4" height="4"/><rect x="36" y="34" width="4" height="4"/></g></svg></div>
+              <div class="an">Your QR code</div><div class="ad">Print it anywhere</div>
+            </div>
+            <div class="gc-asset">
+              <div class="av"><span class="gc-vcard">RS</span></div>
+              <div class="an">Digital visiting card</div><div class="ad">Saves to their phone</div>
+            </div>
+            <div class="gc-asset">
+              <div class="av"><span class="gc-urlmini">ghar.tv/your-name</span></div>
+              <div class="an">Your personal URL</div><div class="ad">Yours to keep</div>
+            </div>
+            <div class="gc-asset">
+              <div class="av"><span class="gc-badgemini">MahaRERA verified</span></div>
+              <div class="an">Verified badge</div><div class="ad">Identity, or RERA if you are registered</div>
+            </div>
+          </div>
+
+          <div class="gc-kit__panel">
+            <div>
+              <div class="gc-kit__h">Everything your professional identity should have</div>
+              <p class="gc-kit__p">Claim once and it is all yours, permanently. <b>No websites. No designers. No developers. No monthly maintenance.</b></p>
+              <p class="gc-kit__close">Close deals off it without ever paying us a rupee. That is exactly the point.</p>
+            </div>
+            <div class="gc-checklist">
+              <div class="gc-check"><span class="k"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10.5"/></svg></span>Personal URL</div>
+              <div class="gc-check"><span class="k"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10.5"/></svg></span>QR code</div>
+              <div class="gc-check"><span class="k"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10.5"/></svg></span>Digital visiting card</div>
+              <div class="gc-check"><span class="k"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10.5"/></svg></span>One-tap contact save</div>
+              <div class="gc-check"><span class="k"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10.5"/></svg></span>Post and manage your listings</div>
+              <div class="gc-check"><span class="k"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10.5"/></svg></span>Reviews and track record</div>
+              <div class="gc-check"><span class="k"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10.5"/></svg></span>Your socials and website</div>
+              <div class="gc-check"><span class="k"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10.5"/></svg></span>Every portal profile you use</div>
+              <div class="gc-check"><span class="k"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10.5"/></svg></span>MahaRERA verified badge</div>
+              <div class="gc-check"><span class="k"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10.5"/></svg></span>Weekly business brief</div>
+              <div class="gc-check"><span class="k"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10.5"/></svg></span>Enquiries routed to you</div>
+            </div>
+          </div>
+
+          <div class="gc-grow">
+            <div class="gc-grow__h">As your business grows, so does your card.</div>
+            <div class="gc-grow__items">
+              <div class="gc-gi"><span class="p">+</span><b>GBX Market Exchange</b><span>Trade inventory with verified brokers</span></div>
+              <div class="gc-gi"><span class="p">+</span><b>WhatsApp Listing Sync</b><span>Turn WhatsApp into inventory</span></div>
+              <div class="gc-gi"><span class="p">+</span><b>White Glove Setup</b><span>We build your card for you</span></div>
+              <div class="gc-gi"><span class="p">+</span><b>Priority Visibility</b><span>Stand out in your market</span></div>
+            </div>
+          </div>
+
+          <div class="gc-kit__foot">
+            <p class="gc-philo">The Ghar.tv Card is free. <em class="gc-emph">The business you build on top of it is entirely yours.</em></p>
+            <div style="margin-top:22px"><a href="claim-card.html" class="btn-text btn-text--red">Claim my card<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a></div>
+            <p style="font-size:12.5px;color:var(--muted);margin-top:14px;line-height:1.55">Early brokers shape how their micro-market appears on Ghar.tv.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 · WEEKLY BRIEF (dark) -->
+    <section class="gc-weekly" aria-label="Weekly business brief">
+      <div class="sec-inner">
+        <div class="gc-wk">
+          <div>
+            <span class="sec-eyebrow">Every Monday</span>
+            <h2 class="sec-title" style="max-width:13ch;margin-top:16px">Your weekly business brief.</h2>
+            <p class="gc-wk__lede">One message on WhatsApp with what is worth knowing where you work: launches, price movement, infrastructure and demand.</p>
+            <div class="gc-wk__note"><span class="dot"></span><span><b>Never a blank week.</b> Free with your card, for as long as you keep it.</span></div>
+          </div>
+          <div class="gc-wk__msg">
+            <div class="gc-wk__h"><span class="dot"></span> Monday · Ghar.tv</div>
+            <div class="gc-wk__item"><span class="wi"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V8l7-5 7 5v13"/></svg></span><div><div class="wt">New launch in your market</div><div class="wd">With the brochure ready to share</div></div></div>
+            <div class="gc-wk__item"><span class="wi"><svg viewBox="0 0 24 24"><path d="M4 18l7-7 4 4 5-6"/></svg></span><div><div class="wt">Price correction nearby</div><div class="wd">What it means for your buyers</div></div></div>
+            <div class="gc-wk__item"><span class="wi"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 010 18"/></svg></span><div><div class="wt">Infrastructure update</div><div class="wd">Metro, roads, approvals</div></div></div>
+            <div class="gc-wk__item"><span class="wi"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></span><div><div class="wt">Buyer demand trend</div><div class="wd">What people are asking for</div></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6 · HOW IT WORKS -->
+    <section aria-label="How it works" id="claim">
+      <div class="sec-inner">
+        <div style="text-align:center">
+          <span class="sec-eyebrow">How it works</span>
+          <h2 class="sec-title" style="max-width:16ch;margin:14px auto 0">Live in ninety seconds.</h2>
+        </div>
+        <div class="gc-steps">
+          <div class="gc-step"><div class="gc-step__n">1</div><h3>Enter your number</h3><p>We find what we already have on you. No forms to fill.</p></div>
+          <div class="gc-step"><div class="gc-step__n">2</div><h3>Confirm it's you</h3><p>One code on WhatsApp. Your number stays private.</p></div>
+          <div class="gc-step"><div class="gc-step__n">3</div><h3>Tell us who you are</h3><p>Your name, and a date of birth if you want one. Nothing else is asked.</p></div>
+          <div class="gc-step"><div class="gc-step__n">4</div><h3>Claim your link</h3><p>It arrives built from your name. Publish and your card is live.</p></div>
+        </div>
+        <div class="gc-steps-foot">
+          <a href="claim-card.html" class="btn-text btn-text--red">Claim my card<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+          <p class="gc-steps-foot__note">Launching first in Goregaon West. Early members help define the market.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7 · WHY REPUTATION -->
+    <section aria-label="Why reputation">
+      <div class="sec-inner">
+        <div style="text-align:center">
+          <span class="sec-eyebrow">Why reputation</span>
+          <h2 class="sec-title" style="max-width:16ch;margin:14px auto 0">Almost everything fades. One thing doesn't.</h2>
+          <p class="gc-why-lede">Look at what you work on all day, and what actually lasts.</p>
+        </div>
+        <div class="gc-why-cols">
+          <div class="gc-why-col dep">
+            <div class="cl">Fades away</div>
+            <ul>
+              <li>Listings sell</li>
+              <li>Prices shift</li>
+              <li>Projects complete</li>
+              <li>Campaigns end</li>
+            </ul>
+          </div>
+          <div class="gc-why-col comp">
+            <div class="cl">Compounds</div>
+            <ul>
+              <li>Your media and visibility</li>
+              <li>Your reviews and track record</li>
+              <li>The trust buyers place in you</li>
+              <li>Your reputation</li>
+            </ul>
+          </div>
+        </div>
+        <p class="gc-why-tie">Your reputation compounds. <b>Your card simply keeps up.</b></p>
+      </div>
+    </section>
+
+    <!-- 8 · WHAT IT IS (plain words) -->
+    <section aria-label="What is a Ghar.tv Card" style="background:var(--surface)">
+      <div class="sec-inner">
+        <div>
+          <span class="sec-eyebrow">In plain words</span>
+          <h2 class="sec-title" style="margin-top:16px">What is a Ghar.tv Card?</h2>
+        </div>
+        <div class="gc-zoom">
+          <div>
+            <p class="gc-zoom__say">A free professional profile and digital business card for real estate brokers in India.</p>
+            <div class="gc-zoom__meta">
+              <span>Free forever</span><span>For brokers, channel partners and consultants</span><span>India</span><span>About 90 seconds to claim</span>
+            </div>
+          </div>
+
+          <div>
+            <p class="gc-zoom__lead">A Ghar.tv Card is built for <b>brokers, channel partners and property consultants</b>. It gives you a personal URL at <b>ghar.tv/your-name</b>, a QR code, a digital visiting card, your listings, reviews, social links and a MahaRERA verified badge if you are a registered agent. It is free to create, publish and share, and it stays free.</p>
+            <div class="gc-zoom__rest">
+              <p>Unlike a generic digital business card, a Ghar.tv Card is built specifically for real estate professionals and automatically stays updated with listings, market intelligence and verification.</p>
+              <p>You pick the localities you work in and post your own properties, which takes seconds and can be done from the moment you claim. <b>Automatic listing sync from WhatsApp is available as an optional upgrade.</b></p>
+              <p>Buyers who find your card reach you directly by call or WhatsApp, and enquiries are never sold on or shared.</p>
+              <p>Every Monday, card holders get one WhatsApp message with what is worth knowing in their markets: new launches, price movement, infrastructure updates and buyer demand trends. A card takes about 90 seconds to claim and can be deleted at any time.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 9 · FAQ -->
+    <section aria-label="Frequently asked questions">
+      <div class="sec-inner">
+        <div style="text-align:center;margin-bottom:clamp(28px,3vw,40px)">
+          <span class="sec-eyebrow">Questions</span>
+          <h2 class="sec-title" style="max-width:16ch;margin:14px auto 0">Straight answers.</h2>
+        </div>
+        <div>
+          <details class="br-faq" open>
+            <summary>Is the card really free?<svg class="br-faq__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+            <p class="br-faq__body">Yes. Your card, your identity, your listings, your socials and your reputation are free forever. You can build your whole business off it and never pay us a rupee. Optional upgrades exist for brokers who want an edge - GBX Market Exchange, WhatsApp Listing Sync, White Glove Setup and priority visibility - but you never need them to use your card fully.</p>
+          </details>
+          <details class="br-faq">
+            <summary>Do I have to be exclusive to Ghar.tv?<svg class="br-faq__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+            <p class="br-faq__body">No. Keep working exactly as you do today. The card is yours to use alongside everything else.</p>
+          </details>
+          <details class="br-faq">
+            <summary>Do I need to upload my listings?<svg class="br-faq__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+            <p class="br-faq__body">You post your own listings, and it takes seconds. From the moment you claim your card you can add, edit and remove properties yourself. If you would rather not do it manually, WhatsApp Listing Sync is an upgrade that adds listings for you from the messages you already send.</p>
+          </details>
+          <details class="br-faq">
+            <summary>Do you guarantee leads?<svg class="br-faq__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+            <p class="br-faq__body">No, and we would not claim to. What we promise is a professional page that makes you easier to find and trust, plus one useful message a week about your markets. When buyers do enquire, they reach you directly.</p>
+          </details>
+          <details class="br-faq">
+            <summary>Who sees my phone number?<svg class="br-faq__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+            <p class="br-faq__body">Buyers reach you through the card by call or WhatsApp. Your number is not displayed publicly unless you choose to show it.</p>
+          </details>
+          <details class="br-faq">
+            <summary>What if I am not MahaRERA registered?<svg class="br-faq__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+            <p class="br-faq__body">You can still create your card. Every card carries an identity verified badge once your number is confirmed. Registered agents carry a RERA verified badge instead, checked against the MahaRERA register. Nothing negative ever shows on your card. The one thing registration unlocks is listing new and under construction projects, which needs a registration number by law. Rentals and resale do not.</p>
+          </details>
+          <details class="br-faq">
+            <summary>Can I link my MagicBricks, 99acres or Housing profile?<svg class="br-faq__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+            <p class="br-faq__body">Yes, and we would encourage it. Add any portal profile, your Google reviews, your website, your social channels and anything else you use. Ghar.tv does not replace the tools you already work with, it brings them together in one place. There is no lock-in and no exclusivity.</p>
+          </details>
+          <details class="br-faq">
+            <summary>Can I remove my card?<svg class="br-faq__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+            <p class="br-faq__body">Yes, in one tap, at any time. No questions and no follow-up messages.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10 · FINAL (dark) -->
+    <section class="gc-final" aria-label="Get started">
+      <div class="gc-final__in">
+        <h2>Build a name that lasts.</h2>
+        <p>Your card is ready. Build a name that lasts.</p>
+        <a href="claim-card.html" class="btn-text btn-text--red">Claim my card<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+        <div class="gc-final__re">
+          <span><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10.5"/></svg>Free forever</span>
+          <span><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10.5"/></svg>Your buyers stay yours</span>
+          <span><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10.5"/></svg>Number never shown</span>
+          <span><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10.5"/></svg>Delete any time</span>
+        </div>
+        <div class="gc-final__re gc-final__re--sub">
+          <span>MahaRERA verification</span><span>Ghar.tv property data</span><span>Hyperlocal market intelligence</span><span>Direct enquiry routing</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="gc-foot">Ghar<b>.tv</b> - where your reputation lives, grows and compounds</div>
+
+  </main>
+
+  <!-- ═══ OFF-CANVAS MENU (canonical · driven by main.js) ═══ -->
+  <div id="ocOverlay" onclick="closeOC()"></div>
+  <nav id="ocMenu" aria-label="Main menu">
+    <div class="oc-hdr"> <img src="https://www.ghar.tv/imgbo/logo.svg" alt="Ghar.tv"> <button class="oc-close" onclick="closeOC()" aria-label="Close menu"> <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg> </button></div>
+    <div class="oc-body">
+      <div class="oc-panel oc-panel--l1" id="ocL1">
+        <button class="oc-discover" onclick="openSub('cities')" aria-label="Browse properties by city"> <span class="oc-discover-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></span> <span class="oc-discover-text"><span class="oc-discover-title">Browse By City</span> <span class="oc-discover-sub">Properties across India's leading cities</span></span> <svg class="oc-discover-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg> </button>
+        <div class="oc-prominent"> <a href="/postproperty.php"><svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5V21a1.5 1.5 0 01-1.5 1.5h-15A1.5 1.5 0 013 21z"/><line x1="12" y1="13" x2="12" y2="18"/><line x1="9.5" y1="15.5" x2="14.5" y2="15.5"/></svg> Post Property </a> <a href="/post-your-requirement.php"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg> Post Requirement </a> <button type="button" class="oc-prominent-sub" onclick="openSub('content')"><svg viewBox="0 0 24 24"><path d="M4 4h11a3 3 0 013 3v13H7a3 3 0 01-3-3V4z"/><path d="M4 4v13a3 3 0 003 3"/><line x1="8" y1="9" x2="14" y2="9"/><line x1="8" y1="13" x2="14" y2="13"/></svg> Read &amp; Watch <svg class="oc-prominent-sub-arrow" viewBox="0 0 24 24" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></button> </div>
+        <div class="oc-divider"></div>
+        <a href="/for-buyers-owners" class="oc-item">For Buyers &amp; Owners</a>
+        <a href="/brokers.html" class="oc-item">For Brokers</a>
+        <a href="/for-developers" class="oc-item">For Developers</a>
+        <a href="/for-allied" class="oc-item">For Brand Partners</a>
+        <div class="oc-divider"></div>
+        <a href="/ghartalks" class="oc-item">GharTalks <span style="font-size:11px;color:var(--muted);font-weight:400;margin-left:auto;margin-right:4px">Podcast</span></a>
+        <a href="/videoworks" class="oc-item">VideoWorks <span style="font-size:11px;color:var(--muted);font-weight:400;margin-left:auto;margin-right:4px">Studio</span></a>
+        <a href="/brands" class="oc-item">Brands</a>
+        <a href="/people" class="oc-item">People</a>
+        <div class="oc-divider"></div>
+        <a href="/events" class="oc-item">Events</a>
+        <a href="/aboutus.php" class="oc-item">About Us</a>
+        <a href="/investor.html" class="oc-item">Investor Relations</a>
+        <a href="/contact.php" class="oc-item">Contact</a>
+      </div>
+      <div class="oc-panel oc-panel--l2" id="ocSub-cities"> <button class="oc-back" onclick="closeSub()"><svg viewBox="0 0 24 24" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg> Back</button> <span class="oc-label">Browse By City</span>
+        <div class="oc-city-grid" id="ocCityGrid">
+          <a href="/mumbai" class="oc-city-tile oc-city" data-city="mumbai"><span class="oc-city-tile-label">Mumbai</span></a>
+          <a href="/delhi" class="oc-city-tile oc-city" data-city="delhi"><span class="oc-city-tile-label">Delhi</span></a>
+          <a href="/bengaluru" class="oc-city-tile oc-city" data-city="bengaluru"><span class="oc-city-tile-label">Bengaluru</span></a>
+          <a href="/chennai" class="oc-city-tile oc-city" data-city="chennai"><span class="oc-city-tile-label">Chennai</span></a>
+          <a href="/gurugram" class="oc-city-tile oc-city" data-city="gurugram"><span class="oc-city-tile-label">Gurugram</span></a>
+          <a href="/hyderabad" class="oc-city-tile oc-city" data-city="hyderabad"><span class="oc-city-tile-label">Hyderabad</span></a>
+          <a href="/kolkata" class="oc-city-tile oc-city" data-city="kolkata"><span class="oc-city-tile-label">Kolkata</span></a>
+          <a href="/pune" class="oc-city-tile oc-city" data-city="pune"><span class="oc-city-tile-label">Pune</span></a>
+        </div>
+      </div>
+      <div class="oc-panel oc-panel--l2" id="ocSub-content"> <button class="oc-back" onclick="closeSub()"><svg viewBox="0 0 24 24" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg> Back</button> <span class="oc-label">Read &amp; Watch</span>
+        <a href="/intelligence" class="oc-sub-item">Intelligence</a>
+        <a href="/design" class="oc-sub-item">Design</a>
+        <a href="/voices" class="oc-sub-item">Industry Voices</a>
+        <a href="/videos" class="oc-sub-item">Videos</a>
+      </div>
+    </div>
+    <div class="oc-footer">
+      <div class="oc-footer-links"> <a href="#" onclick="event.preventDefault();closeOC();setTimeout(openSignIn,400)" style="font-weight:600;color:var(--ink)">Sign In</a> <a href="/aboutus.php">About Us</a> <a href="/contact.php">Contact Us</a> <a href="/careers.php">Careers</a> </div>
+    </div>
+  </nav>
+
+  <!-- ═══ JOIN / SIGN-IN MODAL ═══ -->
+  <div id="joinOverlay" onclick="closeSignIn()"></div>
+  <div id="joinModal" role="dialog" aria-modal="true" aria-label="Join Ghar.tv">
+    <div class="jm-hdr"> <span class="jm-hdr-title">Sign In</span> <button class="jm-close" onclick="closeSignIn()" aria-label="Close"> <svg viewBox="0 0 24 24" stroke-linecap="round"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg> </button></div>
+    <div class="jm-body">
+      <div class="jm-step active" id="jmSignIn">
+        <div class="jm-heading">Sign In</div>
+        <p class="jm-subtext">Enter your registered mobile number and password.</p>
+        <div class="jm-phone"> <button type="button" class="jm-cc-btn" id="jmCCBtn" onclick="jmToggleCCList()"> <img src="https://flagcdn.com/w40/in.png" alt="IN" id="jmCCFlag"> <span id="jmCCCode">+91</span> <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg> </button> <input type="tel" id="jmPhoneInput" placeholder="Mobile number" maxlength="10" inputmode="numeric" autocomplete="tel"> </div>
+        <div class="jm-cc-list" id="jmCCList" style="display:none"> <input type="text" class="jm-cc-search" id="jmCCSearch" placeholder="Search country..." oninput="jmFilterCC(this.value)">
+          <div class="jm-cc-options" id="jmCCOptions"></div>
+        </div>
+        <div class="jm-pw-wrap"> <input type="password" id="jmPwInput" class="jm-field" placeholder="Password" autocomplete="current-password"> <button type="button" class="jm-pw-toggle" onclick="jmTogglePw()" aria-label="Show password"> <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.8" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> </button> </div> <button class="jm-btn jm-btn--primary" id="jmSignInBtn" onclick="jmDoSignIn()">Sign In</button>
+        <div class="jm-meta-links"> <a href="#" onclick="event.preventDefault();jmShowForgot()">Forgot Password?</a> <span>·</span> <a href="#" onclick="event.preventDefault();jmShowOTPLogin()">Login with OTP</a> </div>
+        <div class="jm-terms">By signing in, you agree to Ghar.tv's <a href="/terms.html">Terms &amp; Conditions</a> and <a href="/privacy.html">Privacy Policy</a></div>
+      </div>
+      <div class="jm-step" id="jmOTPLogin">
+        <div class="jm-heading">Login with OTP</div>
+        <p class="jm-subtext">We'll send a one-time password to your WhatsApp number.</p>
+        <div class="jm-phone"> <button type="button" class="jm-cc-btn" onclick="jmToggleCCList()"> <img src="https://flagcdn.com/w40/in.png" alt="IN" id="jmCCFlag2"> <span id="jmCCCode2">+91</span> <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg> </button> <input type="tel" id="jmOTPPhoneInput" placeholder="Mobile number" maxlength="10" inputmode="numeric" autocomplete="tel"> </div> <button class="jm-btn jm-btn--primary" id="jmSendOTPBtn" onclick="jmSendOTP()" disabled>Send OTP</button>
+      </div>
+      <div class="jm-step" id="jmOTPVerify">
+        <div class="jm-heading">Enter OTP</div>
+        <p class="jm-subtext" id="jmOtpSentTo">OTP has been sent to +91 ••••••••••</p>
+        <div class="jm-otp-wrap"> <input class="jm-otp-box" type="tel" maxlength="1" inputmode="numeric" data-otp="0"> <input class="jm-otp-box" type="tel" maxlength="1" inputmode="numeric" data-otp="1"> <input class="jm-otp-box" type="tel" maxlength="1" inputmode="numeric" data-otp="2"> <input class="jm-otp-box" type="tel" maxlength="1" inputmode="numeric" data-otp="3"> </div> <button class="jm-btn jm-btn--primary" id="jmOtpBtn" onclick="jmVerifyOTP()" disabled>Verify &amp; Sign In</button>
+      </div>
+      <div class="jm-step" id="jmForgot">
+        <div class="jm-heading">Forgot Password</div>
+        <p class="jm-subtext">Enter your registered mobile number. We'll send a reset link to your WhatsApp.</p>
+        <div class="jm-phone"> <button type="button" class="jm-cc-btn" onclick="jmToggleCCList()"> <img src="https://flagcdn.com/w40/in.png" alt="IN"> <span>+91</span> <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg> </button> <input type="tel" id="jmForgotPhone" placeholder="Mobile number" maxlength="10" inputmode="numeric"> </div> <button class="jm-btn jm-btn--primary" onclick="closeSignIn()">Send Reset Link</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ MOBILE SEARCH MODAL ═══ -->
+  <div id="mobileModal" class="fixed inset-0 z-[300] bg-white flex flex-col" style="display:none">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 20px;flex-shrink:0"> <button onclick="closeMobileSearch()" style="width:32px;height:32px;border-radius:50%;background:#fff;border:1px solid #e5e7eb;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;color:#141414;box-shadow:0 1px 3px rgba(0,0,0,.06)">&times;</button>
+      <div style="width:32px"></div>
+    </div>
+    <div style="flex:1;overflow-y:auto;padding:0 20px 8px">
+      <div id="mobSec_where" class="mob-section active" style="margin-bottom:10px" onclick="mobStepClick('where')">
+        <div id="mobSec_where_expanded" style="padding:20px 22px 18px">
+          <div style="font-size:22px;font-weight:700;color:#141414;margin-bottom:16px;font-family:'Inter',sans-serif;letter-spacing:-.02em">Where?</div>
+          <input id="mobCitySearch" type="text" placeholder="Search city, locality..." autocomplete="off" oninput="mobFilterCities(this.value)" style="width:100%;border:1.5px solid #e5e7eb;border-radius:14px;padding:13px 16px;font-size:14px;outline:none;font-family:inherit">
+          <div id="mobCityChips" style="display:flex;gap:8px;overflow-x:auto;margin-top:16px"></div>
+        </div>
+      </div>
+      <div id="mobSec_mode" class="mob-section collapsed" style="margin-bottom:10px" onclick="mobStepClick('mode')"><div id="mobSec_mode_collapsed" style="padding:18px 22px"><div style="display:flex;align-items:center;justify-content:space-between"><span style="font-size:13px;font-weight:500;color:#6e655b">Mode</span><span id="mobModeValCollapsed" style="font-size:13px;font-weight:600;color:#141414">Buy</span></div></div></div>
+      <div id="mobSec_type" class="mob-section collapsed" style="margin-bottom:10px" onclick="mobStepClick('type')"><div id="mobSec_type_collapsed" style="padding:18px 22px"><div style="display:flex;align-items:center;justify-content:space-between"><span style="font-size:13px;font-weight:500;color:#6e655b">Type</span><span id="mobTypeValCollapsed" style="font-size:13px;font-weight:600;color:#141414">Homes</span></div></div></div>
+    </div>
+    <div style="padding:14px 20px;display:flex;justify-content:space-between;background:#fff;border-top:1px solid #ebebeb"> <button onclick="mobClearAll()" style="font-size:14px;font-weight:600;color:#141414;background:transparent;border:0;cursor:pointer">Clear all</button> <button onclick="mobSubmitSearch()" style="background:#ee324b;color:#fff;font-size:14px;font-weight:600;padding:14px 28px;border-radius:14px;border:0;cursor:pointer">Search</button> </div>
+  </div>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__top">
+        <div>
+          <a href="/" class="footer__logo" aria-label="Ghar.tv">
+            <svg viewBox="0 0 890.6 196.8" fill="#ffffff" aria-hidden="true" style="height:28px;width:auto;display:block">
+              <path d="M180.5,92.6l0,13.8c0,49.9-40.3,90.3-90.2,90.3S0,156.3,0,106.4V60.8c0-10.4,5.1-17.6,13.7-22.2l65.4-36c3-1.5,6.5-2.7,11.1-2.7c4.6,0,8.1,1.2,11.1,2.7l65.4,36l-30.6,23.9v0l0,0L97,40.9c-1.8-0.9-3.9-1.6-6.7-1.6c-2.8,0-4.9,0.7-6.7,1.6L44.3,62.5c-5.1,2.8-8.2,7.1-8.2,13.3v27.4c0,30,24.3,57.5,54.2,57.5c21.8,0,40.6-14.6,49.2-34.1H90.3v-34H180.5z M451.9,65.2h34V194h-34v-11.4c-10.7,8.9-24.4,14.2-40.1,14.2c-36.3,0-64-30-64-67.3c0-37.1,27.7-67.1,64-67.1c15.8,0,29.5,5.3,40.1,14.2L451.9,65.2L451.9,65.2z M449.8,129.5c0-18.3-15-33.3-33.5-33.3s-33.5,15-33.5,33.3c0,18.5,15,33.5,33.5,33.5S449.8,148.1,449.8,129.5z M268.2,62.4c-14.5,0-26.2,5.1-34.8,13.7V4.8h-33.8V194h33.8v-61.7c0-18.8,8.9-36.1,30.2-36.1c20.3,0,29.7,15.5,29.7,31.2V194h34v-66.6C327.4,91.4,308.1,62.4,268.2,62.4z M854.3,65.2L854.3,65.2l-34.8,84.6l-34.5-84.6h-36.3L801.4,194h36.3l52.8-128.8H854.3z M715.1,164.3L715.1,164.3c-9.1,0-14.2-5.6-14.2-15.2V97h35.1V65.2h-35.1V36.5h-34v28.7h-21.3V97h21.3v52.1c0,33,17.5,47,44.7,47c16.5,0,28.5-8.9,35.8-17.3l-20.6-20.6C725,160.3,720.9,164.3,715.1,164.3z M605.6,157.7c-10.9,0-19.8,8.6-19.8,19.6c0,10.9,8.9,19.6,19.8,19.6s19.6-8.6,19.6-19.6C625.1,166.3,616.5,157.7,605.6,157.7z M545.1,82L545.1,82V65.2h-33.8V194h33.8v-50.3c0-39.4,15.5-47.5,39.4-47.5V62.4C567.2,62.4,554.2,69.3,545.1,82z" />
+            </svg>
+          </a>
+          <p class="footer__tag">India's AI-native real estate intelligence</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer">
+          <a href="/intelligence">Intelligence</a>
+          <a href="/design">Design</a>
+          <a href="/people">People</a>
+          <a href="/ghartalks">GharTalks</a>
+          <a href="/videoworks">VideoWorks</a>
+          <a href="/events">Events</a>
+          <a href="/industry-voices">Industry Voices</a>
+        </nav>
+      </div>
+      <div class="footer__bot">
+        <p>&copy; 2026 Ghar.tv &middot; Zybeq Ventures Pvt Ltd</p>
+        <div class="footer__bot-links">
+          <a href="/disclaimer.html">Disclaimer</a>
+          <a href="/privacy.html">Privacy</a>
+          <a href="/terms.html">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══ Nav: transparent over the hero, solid white once scrolled ═══ -->
+  <script>
+    (function () {
+      var nav = document.getElementById('mainNav');
+      if (!nav) return;
+      var solid = null;
+      function sync() {
+        var on = window.scrollY > 8; // same threshold the bundle's nav handler uses
+        if (on === solid) return;
+        solid = on;
+        nav.classList.toggle('is-solid', on);
+      }
+      sync();
+      window.addEventListener('scroll', sync, { passive: true });
+    })();
+  </script>
+
+  <!-- ═══ Hero card slider (one card per step, hold, step) ═══ -->
+  <script>
+    (function(){
+      var stage = document.querySelector('.lt-stage');
+      var track = stage && stage.querySelector('.lt-marquee');
+      if(!track) return;
+      var reduce = window.matchMedia('(prefers-reduced-motion:reduce)');
+      var slides = Array.prototype.slice.call(track.children);
+      var real = Math.floor(slides.length / 2);   // second half is the duplicate set
+      if(real < 2) return;
+
+      var HOLD = 2200, i = 0, timer = null, step = 0;
+
+      function measure(){
+        step = slides.length > 1 ? slides[1].offsetLeft - slides[0].offsetLeft : 0;
+      }
+      function place(animate){
+        track.classList.toggle('is-sliding', !!animate);
+        track.style.transform = 'translateX(' + (-i * step) + 'px)';
+      }
+      function rewind(){
+        // landed on the duplicate of card 1 — identical frame, so snap back with no transition
+        if(i < real) return;
+        i = 0;
+        track.classList.remove('is-sliding');
+        track.style.transform = 'translateX(0px)';
+      }
+      track.addEventListener('transitionend', function(e){
+        if(e.propertyName === 'transform') rewind();
+      });
+      function advance(){
+        i++;
+        place(true);
+      }
+      function start(){ stop(); if(!paused()) timer = window.setInterval(advance, HOLD); }
+      function stop(){ if(timer){ window.clearInterval(timer); timer = null; } }
+      function paused(){ return reduce.matches || window.innerWidth <= 600; }
+
+      stage.addEventListener('mouseenter', stop);
+      stage.addEventListener('mouseleave', start);
+      window.addEventListener('resize', function(){
+        measure();
+        if(paused()){ stop(); i = 0; track.classList.remove('is-sliding'); track.style.transform = ''; }
+        else { place(false); start(); }
+      });
+      (reduce.addEventListener ? reduce.addEventListener.bind(reduce,'change') : reduce.addListener.bind(reduce))(function(){
+        measure(); paused() ? stop() : start();
+      });
+
+      measure();
+      if(!paused()) start();
+    })();
+  </script>
+
+  <!-- ═══ FAQ structured data ═══ -->
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"What is a Ghar.tv Card?","acceptedAnswer":{"@type":"Answer","text":"A Ghar.tv Card is a free professional profile and digital business card for real estate brokers, channel partners and property consultants in India. It is built specifically for real estate professionals and automatically stays updated with listings, market intelligence and verification. It includes a personal URL, QR code, digital visiting card, listings, reviews, social links and a MahaRERA verified badge for registered agents."}},
+  {"@type":"Question","name":"Is the Ghar.tv Card really free?","acceptedAnswer":{"@type":"Answer","text":"Yes. The card, personal URL, QR code, listings, reviews and weekly business brief are free to create, publish and share, permanently. Optional upgrades such as GBX Market Exchange, WhatsApp Listing Sync, White Glove Setup and priority visibility are available when a broker wants an edge."}},
+  {"@type":"Question","name":"Do I need to upload my listings?","acceptedAnswer":{"@type":"Answer","text":"You post your own listings, which takes seconds and can be done from the moment you claim your card. You can add, edit and remove properties yourself at any time. WhatsApp Listing Sync is an optional upgrade that adds listings for you automatically."}},
+  {"@type":"Question","name":"Does Ghar.tv guarantee leads?","acceptedAnswer":{"@type":"Answer","text":"No. Ghar.tv provides a professional page that makes a broker easier to find and trust, plus one useful market message a week. When buyers do enquire, the enquiry reaches the broker directly and is never sold on."}},
+  {"@type":"Question","name":"Can I link other property portal profiles to my Ghar.tv Card?","acceptedAnswer":{"@type":"Answer","text":"Yes. Brokers can add profiles from MagicBricks, 99acres, Housing, NoBroker and any other portal, along with Google reviews, their own website and social channels. There is no lock-in and no exclusivity."}},
+  {"@type":"Question","name":"What if I am not MahaRERA registered?","acceptedAnswer":{"@type":"Answer","text":"You can still create a Ghar.tv Card. Every card carries an identity verified badge once the mobile number is confirmed. Registered agents carry a RERA verified badge instead, checked against the MahaRERA register. Listing new and under construction projects requires a registration number; rentals and resale do not."}}]}
+  </script>
+
+  <!-- ═══ JS — drives nav (openOC, openSignIn, openMobileSearch) ═══ -->
+  <script defer src="https://unpkg.com/gsap@3.14.2/dist/gsap.min.js"></script>
+  <script defer src="https://unpkg.com/gsap@3.14.2/dist/ScrollTrigger.min.js"></script>
+  <script defer src="https://unpkg.com/gsap@3.14.2/dist/Draggable.min.js"></script>
+  <script defer src="dist/main.min.js?v=37"></script>
+</body>
+</html>

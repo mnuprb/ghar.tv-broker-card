@@ -1,0 +1,1729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#faf7f2">
+  <meta name="color-scheme" content="light">
+  <meta name="format-detection" content="telephone=no">
+
+  <title>Claim your Ghar.tv Card · Ghar.tv</title>
+  <meta name="description" content="Claim your Ghar.tv Card. Your number, your code, your name and your link.">
+  <!-- a setup flow, not a landing page: crawlable links out, nothing to index here -->
+  <meta name="robots" content="NOINDEX,FOLLOW">
+
+  <link rel="shortcut icon" href="https://www.ghar.tv/favicon.ico" type="image/x-icon">
+  <script>history.scrollRestoration = 'manual';</script>
+
+  <!-- Analytics · matches index.html -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FPB6WSXDBG"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-FPB6WSXDBG');
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="gazpacho.css">
+
+  <style>
+    /* ═══ Canonical tokens (match live index.html / brokers.html) ═══ */
+    :root {
+      --warm-white:#faf7f2; --bg:#faf7f2;
+      --ink:#1a1714; --espresso:#3a2f27; --ink2:#3a2f27;
+      --rule:#e5dcc8; --muted:#6e655b; --faint:#6e655b;
+      --surface:#f3eee5; --rule-soft:#ece6da;
+      --turmeric:#eda41c; --terracotta:#d5613a; --sand:#e0c199; --sage:#9aa96d;
+      --turmeric-deep:#956204; --terracotta-deep:#be461e; --sage-deep:#59683a;
+      --accent:#ee324b;
+      --turmeric-soft:rgba(237,164,28,.16);
+      /* design-system.html · Forms 05 names --field-rule / --field-rule-hover for selection
+         controls but does not publish the hex: "a light ink tone, not the sand --rule, because
+         a beige box reads as decoration, not as somewhere to act." Derived here as an alpha of
+         --ink rather than a new hue. Swap for the canonical values once they land in styles.css. */
+      --field-rule:rgba(26,23,20,.16);
+      --field-rule-hover:rgba(26,23,20,.34);
+      --card-shadow-hover:0 1px 2px rgba(26,23,20,.06), 0 8px 20px -8px rgba(26,23,20,.10), 0 24px 48px -16px rgba(26,23,20,.14);
+      --ff-display:'Gazpacho',Georgia,serif;
+      --ff-sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+      --ease:cubic-bezier(.4,0,.2,1);
+      --max-w:clamp(1280px,75vw,1840px);
+      --pad-h:clamp(24px,3vw,64px);
+    }
+    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+    html { overflow-x:clip; -webkit-text-size-adjust:100%; }
+    body {
+      font-family:var(--ff-sans);
+      /* this one page runs on white rather than the warm-white canvas: it is a setup form,
+         not an editorial surface, and the brand logos sit cleaner on it */
+      background:#fff;
+      color:var(--ink);
+      line-height:1.7;
+      overflow-x:clip;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+    a { color:inherit; text-decoration:none; }
+    img { display:block; max-width:100%; }
+    button { font-family:inherit; cursor:pointer; background:none; border:0; }
+
+    /* ─── Nav · flow variant. No hero to sit over, so it is solid from the first pixel. ─── */
+    #mainNav {
+      position:fixed; top:0; left:0; right:0; z-index:200;
+      background:#fff;
+      box-shadow:0 1px 0 rgba(0,0,0,.07), 0 2px 8px rgba(0,0,0,.04);
+    }
+    #navRow {
+      display:grid; grid-template-columns:1fr auto; align-items:center; gap:24px;
+      height:76px; padding:0 var(--pad-h); max-width:var(--max-w); margin:0 auto; width:100%;
+    }
+    @media (max-width:743.98px){ #navRow { height:64px; } }
+    .nav-logo { color:var(--ink); height:28px; width:auto; display:block; }
+    .nav-btn {
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 18px; border:1px solid var(--rule); border-radius:999px;
+      background:transparent; color:var(--ink);
+      font-size:14px; font-weight:500; white-space:nowrap;
+      transition:background .25s ease, border-color .25s ease, color .25s ease;
+    }
+    .nav-btn:hover { background:var(--ink); border-color:var(--ink); color:#fff; }
+    .nav-btn:focus-visible { outline:2px solid var(--ink); outline-offset:2px; }
+    .nav-btn svg { width:15px; height:15px; fill:none; stroke:currentColor; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round; }
+
+    /* ═══════════════════════════════════════════════════════════
+       CLAIM FLOW — number → code → who you are → link
+       A form on the page, not a sheet floating over it: no card, no
+       shadow, no panel. Every screen is left-aligned to the fields,
+       and carries only what that step needs to be answered.
+       ═══════════════════════════════════════════════════════════ */
+    /* Top and bottom padding match the nav height, so the rail's auto margins centre it on
+       the viewport rather than on the space under the nav. Auto margins rather than
+       justify-content: a screen taller than the viewport resolves them to zero and scrolls
+       from the top, where centring would have clipped the heading off the top edge. */
+    .cf-page { min-height:100vh; display:flex; flex-direction:column; padding:76px var(--pad-h); }
+    @media (max-width:743.98px){ .cf-page { padding:64px 24px; } }
+    /* the whole flow reads centred, so alignment is set once here and every block below
+       inherits it. Only Back and Skip opt out, because they are corner controls. */
+    .cf-rail { width:100%; max-width:420px; margin:auto; text-align:center; }
+
+    /* Back and Skip share one line above the heading */
+    .cf-nav { display:flex; align-items:center; min-height:30px; margin-bottom:20px; }
+    .cf-back, .cf-skip {
+      display:inline-flex; align-items:center; gap:5px; padding:5px 0;
+      font-family:inherit; font-size:13px; font-weight:500; color:var(--muted);
+      transition:color .16s var(--ease);
+    }
+    .cf-skip { margin-left:auto; }
+    .cf-back[hidden], .cf-skip[hidden] { display:none; }
+    .cf-back:hover, .cf-skip:hover { color:var(--ink); }
+    .cf-back:focus-visible, .cf-skip:focus-visible { outline:2px solid var(--ink); outline-offset:3px; border-radius:6px; }
+    .cf-back svg { width:14px; height:14px; fill:none; stroke:currentColor; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round; }
+
+    .cf-screen { display:none; animation:cf-in .28s var(--ease) both; }
+    .cf-screen.on { display:block; }
+    @keyframes cf-in { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:none} }
+
+    .cf-eyebrow { display:block; font-size:10px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--faint); margin-bottom:10px; }
+    .cf-hd h2 { font-family:var(--ff-display); font-weight:700; font-size:26px; line-height:1.15; letter-spacing:-.025em; color:var(--ink); }
+    .cf-hd p { font-size:14px; color:var(--muted); margin-top:8px; line-height:1.6; }
+    .cf-hd p b { color:var(--ink); font-weight:600; }
+    /* the heading block centres, the form does not: labels and values line up on the left
+       edge of their own fields, which is the only place the eye can scan them */
+    .cf-bd { margin-top:28px; text-align:left; }
+
+    .cf-lb { display:block; font-size:10px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--faint); margin-bottom:10px; }
+    .cf-field { margin-bottom:28px; }
+    .cf-fl { display:flex; align-items:center; gap:8px; font-size:10px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--faint); margin-bottom:9px; }
+    .cf-src { font-size:8px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; padding:3px 7px; border-radius:999px; background:var(--surface); color:var(--muted); }
+
+    /* one field treatment for the whole flow — .jm-field's contract: 1.5px rule, 14px radius,
+       ink border on focus (design-system.html · Forms 01) */
+    .cf-inp { width:100%; border:1.5px solid var(--rule); border-radius:14px; padding:15px 16px; font-family:inherit; font-size:15px; background:transparent; color:var(--ink); transition:border-color .16s var(--ease), box-shadow .16s var(--ease); }
+    .cf-inp:focus { outline:none; border-color:var(--ink); box-shadow:0 0 0 3px rgba(26,23,20,.07); }
+    .cf-inp::placeholder { color:var(--muted); opacity:.6; }
+    .cf-hint { font-size:11.5px; color:var(--muted); margin-top:8px; line-height:1.55; }
+    /* an empty hint must not leave its top margin behind as a phantom gap */
+    .cf-hint:empty { display:none; }
+    /* Forms 03 · a field error is red, not a theme colour. Red is spent here as a functional
+       alert signal, which is the one non-CTA use the accent budget allows. */
+    .cf-hint--bad { color:var(--accent); font-weight:600; }
+    .cf-inp.is-error, .cf-inp.is-error:focus { border-color:var(--accent); }
+    .cf-pre.is-error, .cf-pre.is-error:focus-within { border-color:var(--accent); }
+    /* the valid state is sage, and only where confirmation genuinely helps — here, that the
+       link the broker is about to publish is theirs to take. Focus still outranks it: while
+       the caret is in the field the ink border is the more useful of the two signals, and the
+       status line underneath is already saying the same thing in words. */
+    .cf-pre.is-valid:not(:focus-within) { border-color:var(--sage); }
+
+    /* the per-field error line — icon plus message, matching .jm-field-err */
+    .cf-ferr { display:flex; align-items:flex-start; gap:7px; margin-top:12px; font-size:12px; font-weight:600; line-height:1.5; color:var(--accent); }
+    .cf-ferr[hidden] { display:none; }
+    .cf-ferr svg { flex:0 0 14px; width:14px; height:14px; margin-top:2px; fill:none; stroke:currentColor; stroke-width:2.2; stroke-linecap:round; }
+
+    /* phone and address are the same field with a fixed segment in front */
+    .cf-pre { display:flex; align-items:stretch; border:1.5px solid var(--rule); border-radius:14px; overflow:hidden; transition:border-color .16s var(--ease), box-shadow .16s var(--ease); }
+    .cf-pre:focus-within { border-color:var(--ink); box-shadow:0 0 0 3px rgba(26,23,20,.07); }
+    .cf-pre__f { display:inline-flex; align-items:center; gap:7px; padding:15px 12px 15px 16px; background:var(--surface); border-right:1px solid var(--rule); font-size:15px; font-weight:500; color:var(--muted); white-space:nowrap; }
+    .cf-pre__f img { width:20px; height:auto; border-radius:2px; }
+    .cf-pre input { flex:1; min-width:0; border:0; background:transparent; font-family:inherit; font-size:15px; color:var(--ink); padding:15px 16px; outline:none; }
+    .cf-pre input::placeholder { color:var(--muted); opacity:.6; }
+
+    /* two fields on a line, stacked where they would each be too narrow */
+    .cf-two { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    @media (max-width:399.98px){ .cf-two { grid-template-columns:1fr; } }
+
+    /* date of birth — three parts, read the Indian way. Never a native date picker, whose
+       field order follows the browser locale rather than the one the reader expects. */
+    .cf-dob { display:flex; align-items:center; gap:8px; }
+    .cf-dobi { width:68px; text-align:center; }
+    .cf-dobi--y { width:92px; }
+    .cf-dobs { color:var(--muted); font-size:15px; }
+
+    /* availability reads as a status line, not an error */
+    .cf-avail { display:flex; align-items:center; gap:9px; margin-top:12px; min-height:20px; font-size:12.5px; line-height:1.5; color:var(--muted); }
+    .cf-avail[data-state="idle"] { visibility:hidden; }
+    .cf-avail i { flex:0 0 auto; width:6px; height:6px; border-radius:50%; background:var(--rule); }
+    .cf-avail[data-state="wait"] i { background:var(--turmeric); }
+    .cf-avail[data-state="ok"] { color:var(--sage-deep); font-weight:600; }
+    .cf-avail[data-state="ok"] i { background:var(--sage); }
+    .cf-avail[data-state="bad"] { color:var(--accent); font-weight:600; }
+    .cf-avail[data-state="bad"] i { background:var(--accent); }
+    .cf-sugg { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+    /* 13px of vertical padding takes these to 44px, the touch minimum */
+    .cf-sugg button { border:1px solid var(--rule); background:transparent; border-radius:999px; padding:13px 16px; font-family:inherit; font-size:13px; font-weight:600; color:var(--ink); transition:border-color .16s var(--ease); }
+    .cf-sugg button:hover { border-color:var(--ink); }
+    .cf-sugg button:focus-visible { outline:2px solid var(--ink); outline-offset:2px; }
+
+    /* the code */
+    .cf-otp { display:flex; gap:10px; }
+    .cf-otp input { width:56px; height:62px; text-align:center; font-family:var(--ff-display); font-size:24px; font-weight:700; color:var(--ink); border:1.5px solid var(--rule); border-radius:14px; background:transparent; transition:border-color .14s var(--ease), box-shadow .14s var(--ease); }
+    .cf-otp input:focus { outline:none; border-color:var(--ink); box-shadow:0 0 0 3px rgba(26,23,20,.07); }
+    .cf-otp.bad input { border-color:var(--accent); background:rgba(238,50,75,.05); }
+    .cf-err { display:none; margin-top:12px; }
+    .cf-otp.bad ~ .cf-err { display:flex; }
+    /* the one screen that centres its body: four small boxes left-aligned in a 420px rail
+       leave a hole down the right-hand side, and there is no label column to line up with */
+    .cf-screen[data-s="otp"] .cf-bd { text-align:center; }
+    .cf-screen[data-s="otp"] .cf-otp { justify-content:center; }
+    .cf-screen[data-s="otp"] .cf-ferr { justify-content:center; }
+    @media (max-width:399.98px){ .cf-otp input { width:52px; height:58px; font-size:22px; } }
+
+    /* one action per screen */
+    .cf-cta { display:block; width:100%; border-radius:14px; padding:16px; font-family:inherit; font-size:15px; font-weight:600; text-align:center; color:#fff; background:var(--ink); margin-top:40px; transition:background .2s var(--ease); }
+    .cf-cta:hover:not(:disabled) { background:var(--espresso); }
+    .cf-cta:focus-visible { outline:2px solid var(--ink); outline-offset:3px; }
+    .cf-cta:disabled { background:var(--surface); color:var(--muted); cursor:not-allowed; }
+    .cf-sub { font-size:13px; color:var(--muted); margin-top:16px; }
+    .cf-sub a { color:var(--muted); font-weight:500; cursor:pointer; }
+    .cf-sub a:hover { color:var(--ink); }
+    .cf-sub .wait { font-weight:600; color:var(--espresso); }
+    .cf-terms { margin-top:14px; font-size:11.5px; color:var(--muted); line-height:1.5; }
+
+    /* ─── grouped platforms ─── */
+    .cf-group + .cf-group, #cfExtraGroup { margin-top:26px; padding-top:22px; border-top:1px solid var(--rule-soft); }
+    #cfExtraGroup.is-first { margin-top:0; padding-top:0; border-top:0; }
+    .cf-group__h { font-size:10px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--faint); margin-bottom:13px; }
+
+    /* ─── the picker · design-system.html · Forms 05 state contract ───
+       The outline carries the state; the fill only supports it. Solid ink was ruled out
+       precisely for this screen: half these marks are solid black, and a black logo on an
+       ink fill disappears. The fill is a Foundation tone (--warm-white), never an ink alpha,
+       so a picked tile reads as part of the page rather than as a grey smudge. */
+    .cf-plats { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
+    .cf-plat { display:flex; align-items:center; gap:11px; padding:11px 13px; border:1px solid var(--field-rule); border-radius:14px; background:#fff; font-family:inherit; text-align:left; transition:border-color .16s var(--ease), background .16s var(--ease), box-shadow .16s var(--ease), transform .16s var(--ease); }
+    /* hover is gated so it never sticks on touch */
+    @media (hover:hover){
+      .cf-plat:hover { border-color:var(--field-rule-hover); background:var(--warm-white); box-shadow:0 2px 10px rgba(26,23,20,.07); }
+    }
+    .cf-plat:focus-visible { outline:2px solid var(--ink); outline-offset:2px; }
+    /* the second pixel is an inset shadow, not a wider border: growing 1px to 2px would
+       reflow every neighbour in the grid and the row would twitch as you select through it */
+    .cf-plat.on { border-color:var(--ink); box-shadow:inset 0 0 0 1px var(--ink); background:var(--warm-white); }
+    /* selected + hover changes no colour at all. Restated rather than inherited, so it cannot
+       depend on which rule happens to win the cascade. */
+    @media (hover:hover){
+      .cf-plat.on:hover { border-color:var(--ink); background:var(--warm-white); box-shadow:inset 0 0 0 1px var(--ink), 0 2px 10px rgba(26,23,20,.07); }
+    }
+    /* press feedback for touch, where there is no hover to confirm the tap landed */
+    .cf-plat:active { transform:scale(.985); }
+    @media (prefers-reduced-motion:reduce){ .cf-plat:active { transform:none; } }
+    /* the mark sits on its own white plate, never on the control, so the selection fill can
+       never land behind a logo */
+    .cf-plat__ic { flex:0 0 34px; width:34px; height:34px; border-radius:10px; display:grid; place-items:center; background:#fff; border:1px solid var(--rule-soft); }
+    .cf-plat__t { min-width:0; font-size:12.5px; font-weight:600; color:var(--ink); }
+
+    /* ─── brand marks ───
+       Social platforms carry their own glyph inline. The portals are wordmarks with no
+       glyph to draw, so they come from each site's own favicon and fall back to the
+       monogram if it does not load. */
+    .cf-mark { display:grid; place-items:center; width:100%; height:100%; line-height:1; }
+    .cf-mark svg { width:18px; height:18px; display:block; }
+    .cf-mark img { width:18px; height:18px; object-fit:contain; display:block; }
+    .cf-mark.is-mono { font-size:11px; font-weight:700; color:var(--espresso); }
+
+    /* ─── the links themselves ─── */
+    .cf-litem { position:relative; margin-bottom:10px; }
+    .cf-lrow { display:flex; align-items:center; gap:10px; }
+    /* both sit under the field rather than under the logo, so they read as belonging to the
+       thing being answered. 48px is the mark plus its gap. */
+    /* the question mark carries the offer of help without spending a line on it */
+    .cf-lhelp { position:relative; flex:0 0 30px; width:30px; height:30px; border-radius:50%; border:1px solid var(--rule); background:transparent; display:grid; place-items:center; font-family:inherit; font-size:12px; font-weight:700; line-height:1; color:var(--muted); transition:border-color .16s var(--ease), color .16s var(--ease); }
+    /* the circle stays 30px so the row does not grow, but the tap area reaches 44px. It sits
+       3px clear of the field, so it never steals a tap meant for the input. */
+    .cf-lhelp::before { content:""; position:absolute; top:50%; left:50%; width:44px; height:44px; transform:translate(-50%,-50%); }
+    .cf-lhelp:hover, .cf-lhelp[aria-expanded="true"] { border-color:var(--ink); color:var(--ink); }
+    .cf-lhelp:focus-visible { outline:2px solid var(--ink); outline-offset:2px; }
+
+    /* Closed by default. Click carries it on touch, hover on a pointer.
+       It floats rather than sitting in the flow, and that is not decoration: revealing it
+       inline pushed every row below it down, so moving the pointer from one question mark to
+       the next let the target slide out from under the click. A help bubble must not move
+       the thing it is helping with. */
+    /* full width of the rail rather than aligned to the field: a bubble that half-covers the
+       row beneath reads as a rendering fault, one that covers it reads as floating over it */
+    /* pointer-events:none matters more than it looks: the bubble covers the next row, and
+       without it a tap aimed at that field is swallowed by a piece of help text. Now the tap
+       reaches the field and the same click closes the bubble on its way. */
+    .cf-ltip { display:none; position:absolute; top:100%; left:0; right:0; z-index:5; pointer-events:none; margin-top:6px; padding:11px 14px; background:#fff; border:1px solid var(--rule); border-radius:10px; box-shadow:0 2px 6px rgba(26,23,20,.06), 0 12px 28px -8px rgba(26,23,20,.20); font-size:11.5px; line-height:1.55; color:var(--espresso); }
+    .cf-litem.is-tip .cf-ltip { display:block; }
+    @media (hover:hover){
+      .cf-lrow:has(.cf-lhelp:hover) ~ .cf-ltip { display:block; }
+    }
+    /* same white plate as the picker: one rule for a logo wherever it lands */
+    .cf-lrow__ic { flex:0 0 auto; width:38px; height:38px; border-radius:11px; display:grid; place-items:center; background:#fff; border:1px solid var(--rule-soft); }
+    .cf-lfield { flex:1; min-width:0; display:flex; align-items:stretch; border:1.5px solid var(--rule); border-radius:12px; overflow:hidden; transition:border-color .16s var(--ease); }
+    .cf-lfield:focus-within { border-color:var(--ink); }
+    /* a row that has a link in it stops looking like a row that still wants one */
+    .cf-lfield.is-read { border-color:var(--field-rule-hover); }
+    /* the prefix takes a segment of its own rather than sitting loose in the field: with a
+       centred value, a bare prefix would float off on the far left */
+    .cf-lfield span { display:flex; align-items:center; padding:13px 12px; background:var(--surface); border-right:1px solid var(--rule); font-size:13.5px; color:var(--muted); white-space:nowrap; }
+    /* an author display value beats the UA rule for [hidden] */
+    .cf-lfield span[hidden] { display:none; }
+    .cf-lfield input { flex:1; min-width:0; border:0; outline:none; background:transparent; font-family:inherit; font-size:13.5px; color:var(--ink); padding:13px 12px; }
+    .cf-lfield input::placeholder { color:var(--muted); opacity:.55; }
+
+    /* anything that is not a platform */
+    .cf-xrow { display:grid; grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr) auto; gap:8px; align-items:center; margin-bottom:9px; }
+    /* three controls will not sit on one line on a phone, so the name takes its own row */
+    @media (max-width:479.98px){
+      .cf-xrow { grid-template-columns:minmax(0,1fr) auto; margin-bottom:16px; }
+      .cf-xrow > :first-child { grid-column:1 / -1; }
+    }
+    .cf-xinp { width:100%; min-width:0; border:1.5px solid var(--rule); border-radius:12px; padding:12px 14px; font-family:inherit; font-size:13.5px; background:transparent; color:var(--ink); transition:border-color .16s var(--ease); }
+    .cf-xinp:focus { outline:none; border-color:var(--ink); }
+    .cf-xinp::placeholder { color:var(--muted); opacity:.55; }
+    .cf-xdel { position:relative; width:34px; height:34px; flex:0 0 34px; border-radius:50%; display:grid; place-items:center; border:1px solid var(--rule); color:var(--muted); transition:border-color .16s var(--ease), color .16s var(--ease); }
+    /* the visible circle stays 34px so the row does not grow, but the tap area reaches 44px */
+    .cf-xdel::before { content:""; position:absolute; top:50%; left:50%; width:44px; height:44px; transform:translate(-50%,-50%); }
+    .cf-xdel:hover { border-color:var(--accent); color:var(--accent); }
+    .cf-xdel:focus-visible { outline:2px solid var(--ink); outline-offset:2px; }
+    .cf-xdel svg { width:13px; height:13px; fill:none; stroke:currentColor; stroke-width:2.2; stroke-linecap:round; }
+    .cf-xadd { display:inline-flex; align-items:center; gap:7px; border:1px dashed var(--rule); border-radius:12px; padding:11px 16px; font-family:inherit; font-size:13px; font-weight:600; color:var(--muted); white-space:nowrap; transition:border-color .16s var(--ease), color .16s var(--ease); }
+    .cf-xadd:hover { border-color:var(--ink); color:var(--ink); }
+    .cf-xadd:focus-visible { outline:2px solid var(--ink); outline-offset:2px; }
+    /* an inline SVG with no attributes falls back to 300x150 and eats the label */
+    .cf-xadd svg { flex:0 0 14px; width:14px; height:14px; }
+
+    /* ─── photo and bio ─── */
+    .cf-photo { display:flex; align-items:center; gap:16px; padding:0; text-align:left; }
+    .cf-photo:hover .cf-ava { border-color:var(--ink); color:var(--ink); }
+    .cf-photo:focus-visible { outline:2px solid var(--ink); outline-offset:4px; border-radius:14px; }
+    .cf-photo__t { display:block; font-size:14px; font-weight:600; color:var(--ink); }
+    /* the limits are stated before the picker opens, not after a rejected upload: a file
+       thrown back on a mobile connection is a wasted minute */
+    .cf-photo__h { display:block; font-size:11.5px; font-weight:400; color:var(--muted); margin-top:3px; line-height:1.5; }
+    /* once a photo is in, Change and Remove sit right below: a line saying the same thing
+       again is the help text the rules tell you to delete */
+    .cf-photo__h:empty { display:none; }
+    .cf-ava { position:relative; flex:0 0 76px; width:76px; height:76px; border-radius:50%; display:grid; place-items:center; background:var(--surface); border:1px dashed var(--rule); color:var(--muted); transition:border-color .16s var(--ease), color .16s var(--ease); }
+    .cf-ava svg { width:30px; height:30px; fill:none; stroke:currentColor; stroke-width:1.5; }
+    /* the affordance: it hangs off the corner, so .cf-ava must never clip its overflow.
+       The white ring keeps it legible over the dashed edge and over a photo alike. */
+    .cf-ava b { position:absolute; right:-1px; bottom:-1px; z-index:1; width:26px; height:26px; border-radius:50%; background:var(--ink); color:#fff; display:grid; place-items:center; font-size:16px; font-weight:400; line-height:1; box-shadow:0 0 0 2px #fff; }
+    /* no overflow:hidden — it would clip the badge that hangs off the corner. The image
+       carries its own radius instead. */
+    .cf-ava.has-img { border-style:solid; border-color:var(--rule); }
+    .cf-ava.has-img svg { display:none; }
+    .cf-ava.has-img img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:50%; }
+    .cf-pacts { display:flex; gap:16px; margin-top:4px; }
+    /* an author display value beats the UA rule for [hidden], so it has to be restated */
+    .cf-pacts[hidden] { display:none; }
+    /* 20px of line box plus 12px either side is exactly the 44px touch minimum, with no
+       visible box to draw. Line-height is pinned rather than left to the UA default, which
+       varies by font and would put the total a few pixels under. */
+    .cf-pacts button { padding:12px 0; line-height:20px; font-family:inherit; font-size:12.5px; font-weight:600; color:var(--muted); text-decoration:underline; text-underline-offset:3px; transition:color .16s var(--ease); }
+    .cf-pacts button:hover { color:var(--ink); }
+    .cf-pacts button:last-child:hover { color:var(--accent); }
+    .cf-pacts button:focus-visible { outline:2px solid var(--ink); outline-offset:2px; border-radius:6px; }
+
+    /* ─── cropper ───
+       The stage is the exported square; the circle inscribed in it is what the avatar
+       shows. Panning and zooming move the image behind a fixed frame, which is why the
+       export maths can read straight off the transform. */
+    .cf-crop[hidden] { display:none; }
+    .cf-crop__stage { position:relative; width:100%; max-width:260px; aspect-ratio:1; margin:0 auto; overflow:hidden; border-radius:16px; background:var(--surface); cursor:grab; touch-action:none; -webkit-user-select:none; user-select:none; }
+    .cf-crop__stage.is-drag { cursor:grabbing; }
+    .cf-crop__stage img { position:absolute; top:0; left:0; max-width:none; will-change:transform; -webkit-user-drag:none; }
+    /* an outward spread on a circle, clipped by the stage, dims everything outside it */
+    .cf-crop__mask { position:absolute; inset:0; pointer-events:none; border-radius:50%; box-shadow:0 0 0 999px rgba(255,255,255,.76); }
+    .cf-crop__mask::after { content:""; position:absolute; inset:0; border-radius:50%; border:1px solid rgba(26,23,20,.22); }
+    /* dragging is not discoverable on touch, where there is no cursor to change */
+    .cf-crop__hint { max-width:260px; margin:12px auto 0; text-align:center; font-size:11.5px; color:var(--muted); }
+    .cf-crop__zoom { display:flex; align-items:center; gap:12px; max-width:260px; margin:14px auto 0; }
+    .cf-crop__zoom span { font-size:10px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--faint); }
+    .cf-crop__zoom input { flex:1; min-width:0; -webkit-appearance:none; appearance:none; height:2px; background:var(--rule); border-radius:2px; outline:none; }
+    .cf-crop__zoom input::-webkit-slider-thumb { -webkit-appearance:none; width:18px; height:18px; border-radius:50%; background:var(--ink); border:2px solid #fff; box-shadow:0 0 0 1px var(--ink); cursor:pointer; }
+    .cf-crop__zoom input::-moz-range-thumb { width:18px; height:18px; border-radius:50%; background:var(--ink); border:2px solid #fff; box-shadow:0 0 0 1px var(--ink); cursor:pointer; }
+    .cf-crop__zoom input:focus-visible { outline:2px solid var(--ink); outline-offset:4px; }
+    .cf-crop__acts { display:flex; gap:10px; max-width:260px; margin:20px auto 0; }
+    .cf-crop__acts button { flex:1; border-radius:12px; padding:12px; font-family:inherit; font-size:13.5px; font-weight:600; transition:background .2s var(--ease), border-color .2s var(--ease); }
+    .cf-crop__acts button:focus-visible { outline:2px solid var(--ink); outline-offset:2px; }
+    .cf-crop__use { background:var(--ink); color:#fff; }
+    .cf-crop__use:hover { background:var(--espresso); }
+    .cf-crop__cancel { border:1px solid var(--rule); color:var(--ink); }
+    .cf-crop__cancel:hover { border-color:var(--ink); }
+    textarea.cf-inp { resize:vertical; min-height:92px; line-height:1.6; }
+    .cf-count { margin-top:6px; text-align:right; font-size:11px; color:var(--muted); }
+    /* the bio filter has to explain itself the moment it bites, or it reads as a broken field.
+       Not red: nothing is blocked and nothing needs fixing, the characters are simply not
+       carried over. Red is reserved for a field that will not pass. */
+    .cf-strip { font-size:11.5px; color:var(--espresso); font-weight:600; margin-top:8px; opacity:0; transition:opacity .2s var(--ease); }
+    .cf-strip.on { opacity:1; }
+
+    /* ─── published ─── */
+    .cf-tick { width:56px; height:56px; border-radius:50%; background:var(--turmeric); display:grid; place-items:center; margin:0 auto 20px; }
+    .cf-tick svg { width:26px; height:26px; color:var(--ink); stroke:currentColor; fill:none; stroke-width:3; stroke-linecap:round; stroke-linejoin:round; }
+    /* the card follows the heading with nothing between them — no rule, no label. It is the
+       only thing on the screen, so there is nothing to separate it from. */
+    .cf-rev { margin-top:30px; }
+    /* a picture of the card, not the card, so nothing inside it responds to a pointer */
+    .cf-prev { display:flex; justify-content:center; pointer-events:none; }
+    .cf-prev .lt-card { max-width:300px; padding:22px 18px 18px; }
+    .cf-build { display:block; width:100%; margin-top:20px; padding:15px; border:1px solid var(--rule); border-radius:14px; color:var(--ink); font-family:inherit; font-size:14px; font-weight:600; text-align:center; transition:border-color .2s var(--ease); }
+    .cf-build:hover { border-color:var(--ink); }
+    .cf-build:focus-visible { outline:2px solid var(--ink); outline-offset:3px; }
+
+    /* bottom centre on mobile, bottom right on desktop, ink on every variant — the toast
+       placement the rest of the portal uses */
+    .cf-toast { position:fixed; left:50%; bottom:26px; transform:translateX(-50%) translateY(20px); background:var(--ink); color:#fff; font-size:12.5px; font-weight:600; padding:13px 20px; border-radius:12px; opacity:0; transition:opacity .25s var(--ease), transform .25s var(--ease); pointer-events:none; z-index:402; }
+    .cf-toast.on { opacity:1; transform:translateX(-50%); }
+    @media (min-width:744px){
+      .cf-toast { left:auto; right:26px; transform:translateY(20px); }
+      .cf-toast.on { transform:none; }
+    }
+
+    /* ─── the card component, used by the published preview ─── */
+    .lt-card { width:100%; max-width:380px; background:#fff; border:1px solid var(--rule-soft); border-radius:28px; box-shadow:var(--card-shadow-hover); padding:26px 22px 22px; text-align:center; }
+    .lt-card__ava { width:76px; height:76px; border-radius:50%; margin:0 auto 12px; display:flex; align-items:center; justify-content:center; font-family:var(--ff-display); font-weight:700; font-size:24px; color:#fff; box-shadow:0 8px 22px rgba(0,0,0,.14), inset 0 0 0 3px rgba(255,255,255,.5); }
+    .lt-card__ava--a { background:var(--turmeric); }
+    .lt-card__ava--photo { background:var(--surface); overflow:hidden; box-shadow:0 8px 22px rgba(0,0,0,.14); }
+    .lt-card__ava--photo img { width:100%; height:100%; object-fit:cover; display:block; border-radius:50%; }
+    .lt-card__name { font-family:var(--ff-display); font-weight:700; font-size:21px; color:var(--ink); }
+    .lt-card__handle { font-size:12.5px; color:var(--muted); margin-top:3px; }
+    .lt-card__verified { display:inline-flex; align-items:center; gap:6px; margin-top:11px; font-size:9.5px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--turmeric-deep); background:var(--turmeric-soft); border:1px solid rgba(237,164,28,.35); padding:6px 12px; border-radius:999px; }
+    .lt-card__verified svg { width:12px; height:12px; stroke:var(--turmeric-deep); fill:none; stroke-width:2.6; stroke-linecap:round; stroke-linejoin:round; }
+    /* the badge every card gets. Neutral, never a warning — absence of RERA is not a flaw. */
+    .lt-card__verified--id { color:var(--muted); background:rgba(110,101,91,.08); border-color:var(--rule); }
+    .lt-card__verified--id svg { stroke:var(--muted); }
+    .lt-card__bio { font-size:12px; line-height:1.55; color:var(--muted); margin-top:11px; }
+    .lt-links { display:flex; flex-direction:column; gap:9px; margin-top:18px; }
+    .lt-link { display:flex; align-items:center; gap:12px; padding:13px 15px; border-radius:16px; background:var(--surface); border:1px solid var(--rule-soft); text-align:left; }
+    .lt-link__ic { width:34px; height:34px; flex:0 0 34px; border-radius:11px; display:flex; align-items:center; justify-content:center; }
+    .lt-link__ic svg { width:17px; height:17px; stroke:currentColor; fill:none; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; }
+    .lt-link__t { flex:1; font-size:13.5px; font-weight:600; color:var(--ink); }
+    .lt-link--call .lt-link__ic { background:var(--accent); color:#fff; }
+    .lt-link--wa .lt-link__ic { background:var(--sage); color:var(--ink); }
+    .lt-link--ink .lt-link__ic { background:rgba(26,23,20,.06); color:var(--ink); }
+    /* sized so all eight sit on one line inside the 300px preview, not just inside the card
+       at full width: a row that wraps seven and one looks like a fault in the mock-up */
+    .lt-socials { display:flex; gap:7px; justify-content:center; margin-top:18px; flex-wrap:wrap; }
+    /* A rounded square, not a ring. Half these marks are circles in their own right, and a
+       hairline circle drawn around a circular logo read as two concentric circles rather than
+       as a container. The soft fill is the same --surface the two link rows above sit on, so
+       the bottom of the card holds together instead of ending in a strip of loose stickers. */
+    .lt-social { width:26px; height:26px; border-radius:8px; background:var(--surface); display:flex; align-items:center; justify-content:center; color:var(--muted); }
+    /* No fill or stroke override here. There used to be `fill:none; stroke:currentColor`,
+       left over from when these were line glyphs, and it was painting a 1.8px muted outline
+       over every brand mark and repainting Instagram's pink stroke dark. A brand logo brings
+       its own colours; the only thing this rule gets to decide is how big it is. */
+    .lt-social .cf-mark svg, .lt-social .cf-mark img { width:16px; height:16px; }
+    .lt-social .cf-mark.is-mono { font-size:9.5px; font-weight:700; color:var(--espresso); }
+    .lt-card__foot { font-size:9.5px; color:var(--muted); margin-top:16px; letter-spacing:.02em; }
+
+    /* ─── Footer (matches brokers.html / investor.html) ─── */
+    .footer { background:var(--ink); padding:36px 0; }
+    .footer__inner { max-width:var(--max-w); margin:0 auto; padding:0 var(--pad-h); }
+    .footer__top { display:flex; justify-content:space-between; align-items:flex-end; gap:32px; padding-bottom:24px; margin-bottom:24px; border-bottom:1px solid rgba(255,255,255,.08); }
+    .footer__logo { display:inline-block; line-height:1; }
+    .footer__tag { font-size:12px; color:rgba(255,255,255,.45); margin-top:8px; }
+    .footer__nav { display:flex; align-items:center; gap:4px; flex-wrap:wrap; }
+    .footer__nav a { font-size:13px; color:rgba(255,255,255,.55); padding:8px 14px; border-radius:8px; transition:background .25s, color .25s; }
+    .footer__nav a:hover { color:#fff; background:rgba(255,255,255,.06); }
+    .footer__bot { display:flex; justify-content:space-between; align-items:center; gap:16px; }
+    .footer__bot p { font-size:11px; color:rgba(255,255,255,.25); }
+    .footer__bot-links { display:flex; gap:18px; }
+    .footer__bot-links a { font-size:11px; color:rgba(255,255,255,.4); transition:color .25s; }
+    .footer__bot-links a:hover { color:rgba(255,255,255,.6); }
+    @media (max-width:767px) {
+      .footer__top { flex-direction:column; align-items:flex-start; }
+      .footer__bot { flex-direction:column; align-items:flex-start; }
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+      *,*::before,*::after { animation-duration:.01ms !important; transition-duration:.01ms !important; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═══ NAV (flow variant · logo + a way out) ═══ -->
+  <nav id="mainNav">
+    <div id="navRow">
+      <a href="/" style="line-height:1;justify-self:start" aria-label="Ghar.tv">
+        <svg class="nav-logo" viewBox="0 0 890.6 196.8" fill="currentColor" aria-hidden="true">
+          <path d="M180.5,92.6l0,13.8c0,49.9-40.3,90.3-90.2,90.3S0,156.3,0,106.4V60.8c0-10.4,5.1-17.6,13.7-22.2l65.4-36c3-1.5,6.5-2.7,11.1-2.7c4.6,0,8.1,1.2,11.1,2.7l65.4,36l-30.6,23.9v0l0,0L97,40.9c-1.8-0.9-3.9-1.6-6.7-1.6c-2.8,0-4.9,0.7-6.7,1.6L44.3,62.5c-5.1,2.8-8.2,7.1-8.2,13.3v27.4c0,30,24.3,57.5,54.2,57.5c21.8,0,40.6-14.6,49.2-34.1H90.3v-34H180.5z M451.9,65.2h34V194h-34v-11.4c-10.7,8.9-24.4,14.2-40.1,14.2c-36.3,0-64-30-64-67.3c0-37.1,27.7-67.1,64-67.1c15.8,0,29.5,5.3,40.1,14.2L451.9,65.2L451.9,65.2z M449.8,129.5c0-18.3-15-33.3-33.5-33.3s-33.5,15-33.5,33.3c0,18.5,15,33.5,33.5,33.5S449.8,148.1,449.8,129.5z M268.2,62.4c-14.5,0-26.2,5.1-34.8,13.7V4.8h-33.8V194h33.8v-61.7c0-18.8,8.9-36.1,30.2-36.1c20.3,0,29.7,15.5,29.7,31.2V194h34v-66.6C327.4,91.4,308.1,62.4,268.2,62.4z M854.3,65.2L854.3,65.2l-34.8,84.6l-34.5-84.6h-36.3L801.4,194h36.3l52.8-128.8H854.3z M715.1,164.3L715.1,164.3c-9.1,0-14.2-5.6-14.2-15.2V97h35.1V65.2h-35.1V36.5h-34v28.7h-21.3V97h21.3v52.1c0,33,17.5,47,44.7,47c16.5,0,28.5-8.9,35.8-17.3l-20.6-20.6C725,160.3,720.9,164.3,715.1,164.3z M605.6,157.7c-10.9,0-19.8,8.6-19.8,19.6c0,10.9,8.9,19.6,19.8,19.6s19.6-8.6,19.6-19.6C625.1,166.3,616.5,157.7,605.6,157.7z M545.1,82L545.1,82V65.2h-33.8V194h33.8v-50.3c0-39.4,15.5-47.5,39.4-47.5V62.4C567.2,62.4,554.2,69.3,545.1,82z" />
+        </svg>
+      </a>
+      <a href="for-brokers-linktree-v3.html" class="nav-btn" style="justify-self:end">
+        <svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg>
+        Exit setup
+      </a>
+    </div>
+  </nav>
+
+  <main class="cf-page">
+    <div class="cf-rail">
+
+      <div class="cf-nav">
+        <button class="cf-back" type="button" id="cfBack" hidden onclick="cfBack()">
+          <svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg>Back
+        </button>
+        <button class="cf-skip" type="button" id="cfSkip" hidden onclick="cfFinish()">Skip</button>
+      </div>
+
+      <!-- STEP 1 · mobile number -->
+      <div class="cf-screen on" data-s="number">
+        <div class="cf-hd">
+          <span class="cf-eyebrow">Step 1 of 4</span>
+          <h2>Your mobile number</h2>
+          <p>We send a four digit code on WhatsApp.</p>
+        </div>
+        <div class="cf-bd">
+          <label class="cf-lb" for="cfPhone">Mobile number</label>
+          <div class="cf-pre">
+            <span class="cf-pre__f"><img src="https://flagcdn.com/w40/in.png" alt="India">+91</span>
+            <input id="cfPhone" type="tel" inputmode="numeric" maxlength="10" autocomplete="tel" placeholder="10 digit number" aria-label="Mobile number">
+          </div>
+          <button class="cf-cta" id="cfSend" type="button" disabled onclick="cfToCode()">Send me the code</button>
+        </div>
+      </div>
+
+      <!-- STEP 2 · code -->
+      <div class="cf-screen" data-s="otp">
+        <div class="cf-hd">
+          <span class="cf-eyebrow">Step 2 of 4</span>
+          <h2>Enter your code</h2>
+          <p>Sent on WhatsApp to <b id="cfMasked">+91 98xxx xx943</b>.</p>
+        </div>
+        <div class="cf-bd">
+          <label class="cf-lb">Four digit code</label>
+          <div class="cf-otp" id="cfOtp">
+            <input maxlength="1" inputmode="numeric" autocomplete="one-time-code" aria-label="Digit 1">
+            <input maxlength="1" inputmode="numeric" aria-label="Digit 2">
+            <input maxlength="1" inputmode="numeric" aria-label="Digit 3">
+            <input maxlength="1" inputmode="numeric" aria-label="Digit 4">
+          </div>
+          <div class="cf-ferr cf-err" id="cfOtpErr" role="alert">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.4v.1"/></svg>
+            <span>That code did not match. Check the four digits and try again.</span>
+          </div>
+
+          <button class="cf-cta" id="cfVerify" type="button" disabled onclick="cfVerify()">Verify and continue</button>
+
+          <div class="cf-sub" id="cfResend">Did not get it? <span class="wait">Resend in <b id="cfCd">28</b>s</span></div>
+          <div class="cf-sub"><a onclick="cfSms()">Send it by SMS</a> &nbsp;·&nbsp; <a onclick="cfBackToNumber()">Use a different number</a></div>
+        </div>
+      </div>
+
+      <!-- STEP 3 · who you are. Comes before the address, because the address is built
+           out of the name and the date of birth entered here. -->
+      <div class="cf-screen" data-s="confirm">
+        <div class="cf-hd">
+          <span class="cf-eyebrow">Step 3 of 4</span>
+          <h2>Your name</h2>
+        </div>
+        <div class="cf-bd">
+
+          <div class="cf-field">
+            <div class="cf-two">
+              <input class="cf-inp" id="cfCFirst" placeholder="First name" autocomplete="given-name" aria-label="First name">
+              <input class="cf-inp" id="cfCLast" placeholder="Surname" autocomplete="family-name" aria-label="Surname">
+            </div>
+          </div>
+
+          <div class="cf-field">
+            <div class="cf-fl">Date of birth <span class="cf-src">Optional</span></div>
+            <div class="cf-dob">
+              <input class="cf-inp cf-dobi" id="cfCDobD" type="text" inputmode="numeric" maxlength="2" placeholder="DD" autocomplete="bday-day" aria-label="Day of birth" aria-describedby="cfDobHint">
+              <span class="cf-dobs">/</span>
+              <input class="cf-inp cf-dobi" id="cfCDobM" type="text" inputmode="numeric" maxlength="2" placeholder="MM" autocomplete="bday-month" aria-label="Month of birth" aria-describedby="cfDobHint">
+              <span class="cf-dobs">/</span>
+              <input class="cf-inp cf-dobi cf-dobi--y" id="cfCDobY" type="text" inputmode="numeric" maxlength="4" placeholder="YYYY" autocomplete="bday-year" aria-label="Year of birth" aria-describedby="cfDobHint">
+            </div>
+            <!-- empty until the date is wrong: this line is validation only, not explanation -->
+            <div class="cf-hint" id="cfDobHint" role="alert"></div>
+          </div>
+
+          <div class="cf-field">
+            <div class="cf-fl">RERA registration <span class="cf-src">Optional</span></div>
+            <input class="cf-inp" id="cfCRera" placeholder="Registration number" aria-label="RERA registration">
+          </div>
+
+          <button class="cf-cta" id="cfWhoNext" type="button" disabled onclick="cfToHandle()">Continue</button>
+        </div>
+      </div>
+
+      <!-- STEP 4 · the link, built from the name and date of birth above. Called a link
+           rather than an address throughout: to a broker, an address is a property.
+           Publishing happens here, so this is the last screen before the card is live. -->
+      <div class="cf-screen" data-s="handle">
+        <div class="cf-hd">
+          <span class="cf-eyebrow">Step 4 of 4</span>
+          <h2>Your link</h2>
+        </div>
+        <div class="cf-bd">
+          <label class="cf-lb" for="cfHandle">Your Ghar.tv link</label>
+          <div class="cf-pre" id="cfHandleWrap">
+            <span class="cf-pre__f">ghar.tv/</span>
+            <input id="cfHandle" type="text" placeholder="your-name" autocomplete="off" spellcheck="false" aria-label="Your Ghar.tv link" aria-describedby="cfAvail">
+          </div>
+          <div class="cf-avail" id="cfAvail" data-state="idle" aria-live="polite">
+            <i></i><span id="cfAvailTxt"></span>
+          </div>
+          <div class="cf-sugg" id="cfSugg"></div>
+
+          <button class="cf-cta" id="cfPublishBtn" type="button" disabled onclick="cfPublish()">Publish my card</button>
+
+          <div class="cf-terms">Buyer enquiries and market updates go to your WhatsApp. Stop any time.</div>
+        </div>
+      </div>
+
+      <!-- STEP 5 · platforms. The card is live from here on, so every remaining screen
+           carries Skip and lands straight on the live card. -->
+      <div class="cf-screen" data-s="platforms">
+        <div class="cf-hd">
+          <h2>Your other profiles</h2>
+        </div>
+        <div class="cf-bd">
+          <div id="cfPlats"></div>
+          <button class="cf-cta" type="button" onclick="cfToLinks()">Continue</button>
+        </div>
+      </div>
+
+      <!-- STEP 6 · links. Only the platforms picked above appear here. -->
+      <div class="cf-screen" data-s="links">
+        <div class="cf-hd">
+          <h2>Add your links</h2>
+        </div>
+        <div class="cf-bd">
+          <div id="cfLinks"></div>
+
+          <div class="cf-group" id="cfExtraGroup">
+            <div class="cf-group__h">Additional links</div>
+            <div id="cfExtras"></div>
+            <button class="cf-xadd" type="button" onclick="cfAddExtra()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+              Add a link
+            </button>
+          </div>
+
+          <button class="cf-cta" type="button" onclick="cfToProfile()">Continue</button>
+        </div>
+      </div>
+
+      <!-- STEP 7 · photo and bio -->
+      <div class="cf-screen" data-s="profile">
+        <div class="cf-hd">
+          <h2>Photo and bio</h2>
+        </div>
+        <div class="cf-bd">
+          <input type="file" id="cfPhotoFile" accept="image/*" hidden aria-hidden="true" tabindex="-1">
+
+          <div id="cfPhotoPick">
+            <button class="cf-photo" type="button" onclick="cfPickPhoto()">
+              <span class="cf-ava" id="cfAva">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="4"/><path d="M4.5 21a7.5 7.5 0 0115 0"/></svg>
+                <b>+</b>
+              </span>
+              <span>
+                <span class="cf-photo__t" id="cfPhotoT">Upload a photo</span>
+                <span class="cf-photo__h" id="cfPhotoH">JPG, PNG or WEBP, up to 8 MB</span>
+              </span>
+            </button>
+            <div class="cf-pacts" id="cfPhotoActs" hidden>
+              <button type="button" onclick="cfCropOpen()">Edit</button>
+              <button type="button" onclick="cfPickPhoto()">Change</button>
+              <button type="button" onclick="cfClearPhoto()">Remove</button>
+            </div>
+            <div class="cf-ferr" id="cfPhotoErr" role="alert" hidden>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.4v.1"/></svg>
+              <span id="cfPhotoErrTxt"></span>
+            </div>
+          </div>
+
+          <!-- the cropper takes over the photo block rather than floating over it, so the
+               page keeps its one-thing-at-a-time shape -->
+          <div class="cf-crop" id="cfCrop" hidden>
+            <div class="cf-crop__stage" id="cfCropStage">
+              <img id="cfCropImg" alt="" draggable="false">
+              <div class="cf-crop__mask"></div>
+            </div>
+            <div class="cf-crop__hint">Drag to reposition</div>
+            <div class="cf-crop__zoom">
+              <span>Zoom</span>
+              <input type="range" id="cfCropZoom" min="1" max="3" step="0.01" value="1" aria-label="Zoom">
+            </div>
+            <div class="cf-crop__acts">
+              <button type="button" class="cf-crop__cancel" onclick="cfCropCancel()">Cancel</button>
+              <button type="button" class="cf-crop__use" onclick="cfCropApply()">Use this photo</button>
+            </div>
+          </div>
+
+          <div class="cf-field" style="margin-top:28px">
+            <div class="cf-fl">About you <span class="cf-src">Optional</span></div>
+            <textarea class="cf-inp" id="cfPBio" maxlength="160" aria-label="About you" aria-describedby="cfBioStrip"
+                      placeholder="The areas you work and what you are known for."></textarea>
+            <div class="cf-count"><b id="cfBioCount">0</b>/160</div>
+            <div class="cf-strip" id="cfBioStrip" aria-live="polite">Emoji and special characters are not carried onto your card.</div>
+          </div>
+
+          <button class="cf-cta" type="button" onclick="cfFinish()">Done</button>
+        </div>
+      </div>
+
+      <!-- PUBLISHED · card is live -->
+      <div class="cf-screen" data-s="published">
+        <div class="cf-hd">
+          <div class="cf-tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10.5"/></svg></div>
+          <h2>Your card is live</h2>
+        </div>
+
+        <!-- nothing between the heading and the card. No url box, no preview button and no
+             badge: the card sitting right there already carries the link and the badge, and
+             every one of those was the same fact printed twice. -->
+        <div class="cf-rev">
+          <div class="cf-prev" id="cfPrev"></div>
+          <a class="cf-build" id="cfBuildLink" href="/dashboard?view=build">Continue in the dashboard</a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+  <div class="cf-toast" id="cfToastEl" role="status" aria-live="polite"></div>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__top">
+        <div>
+          <a href="/" class="footer__logo" aria-label="Ghar.tv">
+            <svg viewBox="0 0 890.6 196.8" fill="#ffffff" aria-hidden="true" style="height:28px;width:auto;display:block">
+              <path d="M180.5,92.6l0,13.8c0,49.9-40.3,90.3-90.2,90.3S0,156.3,0,106.4V60.8c0-10.4,5.1-17.6,13.7-22.2l65.4-36c3-1.5,6.5-2.7,11.1-2.7c4.6,0,8.1,1.2,11.1,2.7l65.4,36l-30.6,23.9v0l0,0L97,40.9c-1.8-0.9-3.9-1.6-6.7-1.6c-2.8,0-4.9,0.7-6.7,1.6L44.3,62.5c-5.1,2.8-8.2,7.1-8.2,13.3v27.4c0,30,24.3,57.5,54.2,57.5c21.8,0,40.6-14.6,49.2-34.1H90.3v-34H180.5z M451.9,65.2h34V194h-34v-11.4c-10.7,8.9-24.4,14.2-40.1,14.2c-36.3,0-64-30-64-67.3c0-37.1,27.7-67.1,64-67.1c15.8,0,29.5,5.3,40.1,14.2L451.9,65.2L451.9,65.2z M449.8,129.5c0-18.3-15-33.3-33.5-33.3s-33.5,15-33.5,33.3c0,18.5,15,33.5,33.5,33.5S449.8,148.1,449.8,129.5z M268.2,62.4c-14.5,0-26.2,5.1-34.8,13.7V4.8h-33.8V194h33.8v-61.7c0-18.8,8.9-36.1,30.2-36.1c20.3,0,29.7,15.5,29.7,31.2V194h34v-66.6C327.4,91.4,308.1,62.4,268.2,62.4z M854.3,65.2L854.3,65.2l-34.8,84.6l-34.5-84.6h-36.3L801.4,194h36.3l52.8-128.8H854.3z M715.1,164.3L715.1,164.3c-9.1,0-14.2-5.6-14.2-15.2V97h35.1V65.2h-35.1V36.5h-34v28.7h-21.3V97h21.3v52.1c0,33,17.5,47,44.7,47c16.5,0,28.5-8.9,35.8-17.3l-20.6-20.6C725,160.3,720.9,164.3,715.1,164.3z M605.6,157.7c-10.9,0-19.8,8.6-19.8,19.6c0,10.9,8.9,19.6,19.8,19.6s19.6-8.6,19.6-19.6C625.1,166.3,616.5,157.7,605.6,157.7z M545.1,82L545.1,82V65.2h-33.8V194h33.8v-50.3c0-39.4,15.5-47.5,39.4-47.5V62.4C567.2,62.4,554.2,69.3,545.1,82z" />
+            </svg>
+          </a>
+          <p class="footer__tag">India's AI-native real estate intelligence</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer">
+          <a href="/intelligence">Intelligence</a>
+          <a href="/design">Design</a>
+          <a href="/people">People</a>
+          <a href="/ghartalks">GharTalks</a>
+          <a href="/videoworks">VideoWorks</a>
+          <a href="/events">Events</a>
+          <a href="/industry-voices">Industry Voices</a>
+        </nav>
+      </div>
+      <div class="footer__bot">
+        <p>&copy; 2026 Ghar.tv &middot; Zybeq Ventures Pvt Ltd</p>
+        <div class="footer__bot-links">
+          <a href="/disclaimer.html">Disclaimer</a>
+          <a href="/privacy.html">Privacy</a>
+          <a href="/terms.html">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══ Claim flow ═══ -->
+  <script>
+    (function(){
+      function el(id){ return document.getElementById(id); }
+      function val(id){ return (el(id).value || '').trim(); }
+
+      var phone = el('cfPhone');
+      var send = el('cfSend');
+      var otp = el('cfOtp');
+      var digits = Array.prototype.slice.call(otp.querySelectorAll('input'));
+      var verifyBtn = el('cfVerify');
+      var cdTimer = null;
+
+      /* Back goes to the screen before, with one exception: the screen after the code steps
+         back to the number rather than to the code, since a code already spent is a dead end
+         to land on. published is filled in at runtime — Skip can reach it from any of the
+         three enrichment screens, so the way back is wherever they actually left from. */
+      var BACK = { otp:'number', confirm:'number', handle:'confirm',
+                   platforms:'handle', links:'platforms', profile:'links',
+                   published:'profile' };
+      var atScreen = '';
+
+      function step(name){
+        atScreen = name;
+        document.querySelectorAll('.cf-screen').forEach(function(s){
+          s.classList.toggle('on', s.dataset.s === name);
+        });
+        /* Skip only exists where there is nothing left to lose: the card is already live by
+           then, so walking past these screens costs the broker nothing. */
+        el('cfSkip').hidden = ['platforms','links','profile'].indexOf(name) === -1;
+        el('cfBack').hidden = !BACK[name];
+        window.scrollTo(0, 0);
+      }
+
+      window.cfBack = function(){
+        var prev = BACK[atScreen];
+        if(!prev) return;
+        if(prev === 'number'){ cfBackToNumber(); return; }  // also clears the resend timer
+        step(prev);
+        if(prev === 'confirm') setTimeout(function(){ el('cfCFirst').focus(); }, 60);
+        if(prev === 'handle') setTimeout(function(){ handleInp.focus(); }, 60);
+      };
+
+      /* ── step 1 — number */
+      phone.addEventListener('input', function(){
+        phone.value = phone.value.replace(/\D/g,'').slice(0,10);
+        send.disabled = phone.value.length !== 10;
+      });
+      phone.addEventListener('keydown', function(e){
+        if(e.key === 'Enter' && !send.disabled) cfToCode();
+      });
+      window.cfToCode = function(){
+        var d = phone.value;
+        el('cfMasked').textContent = '+91 ' + d.slice(0,2) + 'xxx xx' + d.slice(7);
+        step('otp');
+        digits.forEach(function(i){ i.value = ''; });
+        otp.classList.remove('bad');
+        verifyBtn.disabled = true;
+        countdown();
+        setTimeout(function(){ digits[0].focus(); }, 60);
+      };
+      window.cfBackToNumber = function(){
+        if(cdTimer){ clearInterval(cdTimer); cdTimer = null; }
+        step('number');
+        setTimeout(function(){ phone.focus(); }, 60);
+      };
+
+      /* ── step 2 — code */
+      function code(){ return digits.map(function(i){ return i.value; }).join(''); }
+      function check(){ verifyBtn.disabled = code().length !== 4; }
+      digits.forEach(function(inp, i){
+        inp.addEventListener('input', function(){
+          inp.value = inp.value.replace(/\D/g,'');
+          otp.classList.remove('bad');
+          if(inp.value && digits[i+1]) digits[i+1].focus();
+          check();
+        });
+        inp.addEventListener('keydown', function(e){
+          if(e.key === 'Backspace' && !inp.value && digits[i-1]) digits[i-1].focus();
+        });
+        inp.addEventListener('paste', function(e){
+          var d = ((e.clipboardData || window.clipboardData).getData('text') || '').replace(/\D/g,'').slice(0,4);
+          if(!d.length) return;
+          e.preventDefault();
+          d.split('').forEach(function(c, j){ if(digits[j]) digits[j].value = c; });
+          check();
+          digits[Math.min(d.length, 3)].focus();
+        });
+      });
+      window.cfVerify = function(){
+        if(code() === '0000'){ otp.classList.add('bad'); return; }
+        if(cdTimer){ clearInterval(cdTimer); cdTimer = null; }
+        step('confirm');
+        setTimeout(function(){ el('cfCFirst').focus(); }, 60);
+      };
+      function countdown(){
+        var t = 28, resend = el('cfResend');
+        resend.innerHTML = 'Did not get it? <span class="wait">Resend in <b id="cfCd">28</b>s</span>';
+        if(cdTimer) clearInterval(cdTimer);
+        cdTimer = setInterval(function(){
+          t--;
+          var e = el('cfCd');
+          if(e) e.textContent = t;
+          if(t <= 0){
+            clearInterval(cdTimer); cdTimer = null;
+            resend.innerHTML = 'Did not get it? <a onclick="cfAgain()">Send a new code</a>';
+          }
+        }, 1000);
+      }
+      window.cfAgain = function(){ cfToast('Demo. A new code would be sent.'); countdown(); };
+      window.cfSms = function(){ cfToast('Demo. The code would arrive by SMS instead.'); };
+
+      /* ── step 3 — your name.
+         Name splits in two so the address can be built from the parts. The date of birth is
+         optional, but a half-filled date is not: it would produce a nonsense address. */
+      var dobD = el('cfCDobD'), dobM = el('cfCDobM'), dobY = el('cfCDobY');
+      var THIS_YEAR = new Date().getFullYear();
+
+      function pad2(n){ return (n < 10 ? '0' : '') + n; }
+      function cfDob(){
+        var d = val('cfCDobD'), m = val('cfCDobM'), y = val('cfCDobY');
+        if(!d && !m && !y) return { empty:true, ok:true };
+        if(!d || !m || y.length !== 4) return { empty:false, ok:false };
+        var dd = +d, mm = +m, yy = +y;
+        /* a plausible calendar date is the whole test. The date only feeds address
+           suggestions, so there is nothing here worth gating on age. */
+        if(dd < 1 || dd > 31 || mm < 1 || mm > 12 || yy < 1900 || yy > THIS_YEAR){
+          return { empty:false, ok:false };
+        }
+        return { empty:false, ok:true, dd:pad2(dd), mm:pad2(mm), yyyy:String(yy) };
+      }
+
+      /* A half-typed date is not a mistake yet. The error only lands once focus has left all
+         three boxes, so "04" on its own never turns the field red mid-keystroke. Continue
+         stays disabled throughout either way, so nothing incomplete gets past. */
+      var dobSeen = false;
+      [dobD, dobM, dobY].forEach(function(inp, i, all){
+        inp.addEventListener('input', function(){
+          var clean = inp.value.replace(/\D/g,'').slice(0, inp.maxLength);
+          if(inp.value !== clean) inp.value = clean;
+          /* day and month jump on once they are full */
+          if(clean.length === inp.maxLength && all[i+1]) all[i+1].focus();
+          /* a date that has come good clears the error at once, without waiting for blur */
+          if(cfDob().ok) dobSeen = false;
+          cfSyncWho();
+        });
+        inp.addEventListener('keydown', function(e){
+          if(e.key === 'Backspace' && !inp.value && all[i-1]) all[i-1].focus();
+        });
+        inp.addEventListener('blur', function(e){
+          /* moving between the three boxes is still the same field, so it does not count */
+          if(all.indexOf(e.relatedTarget) > -1) return;
+          dobSeen = true;
+          cfSyncWho();
+        });
+      });
+
+      function cfHasRera(){ return val('cfCRera').length >= 6; }
+      function cfFullName(){ return (val('cfCFirst') + ' ' + val('cfCLast')).trim(); }
+
+      function cfSyncWho(){
+        var d = cfDob();
+        var bad = !d.ok && dobSeen;
+        var hint = el('cfDobHint');
+        hint.classList.toggle('cf-hint--bad', bad);
+        hint.textContent = bad ? 'Enter the full date as DD / MM / YYYY, or clear it.' : '';
+        /* the border, the message and aria-invalid move together, so none is left behind */
+        [dobD, dobM, dobY].forEach(function(inp){
+          inp.classList.toggle('is-error', bad);
+          if(bad) inp.setAttribute('aria-invalid', 'true');
+          else inp.removeAttribute('aria-invalid');
+        });
+
+        var named = val('cfCFirst').length > 1 && val('cfCLast').length > 1;
+        el('cfWhoNext').disabled = !(named && d.ok);
+      }
+      ['cfCFirst','cfCLast','cfCRera'].forEach(function(id){
+        el(id).addEventListener('input', cfSyncWho);
+      });
+      el('cfCLast').addEventListener('keydown', function(e){
+        if(e.key === 'Enter' && !el('cfWhoNext').disabled) cfToHandle();
+      });
+
+      /* ── step 4 — the link.
+         Demo only: a real build checks the register server side. The reserved list exists so
+         the taken state is reachable, otherwise nobody ever sees it. */
+      var TAKEN = ['rajesh-sharma','meera-nair','arjun-patel','admin','ghar','support','mumbai','broker'];
+      var handleInp = el('cfHandle');
+      var availEl = el('cfAvail');
+      var availTxt = el('cfAvailTxt');
+      var publishBtn = el('cfPublishBtn');
+      var claimed = '';
+      var availT = null;
+
+      /* hyphens, never spaces or case — the address has to survive being read out on a call */
+      function ghtSlug(v){
+        return (v || '').toLowerCase().replace(/[^a-z0-9-]+/g,'-').replace(/-{2,}/g,'-').replace(/^-/,'').replace(/-$/,'');
+      }
+      var handleWrap = el('cfHandleWrap');
+      function setAvail(state, msg){
+        availEl.dataset.state = state;
+        availTxt.textContent = msg;
+        /* sage only where the confirmation earns its place: this link is the broker's to take */
+        handleWrap.classList.toggle('is-valid', state === 'ok');
+        handleWrap.classList.toggle('is-error', state === 'bad');
+        if(state === 'bad') handleInp.setAttribute('aria-invalid', 'true');
+        else handleInp.removeAttribute('aria-invalid');
+      }
+      function cfBaseSlug(){ return ghtSlug(val('cfCFirst') + '-' + val('cfCLast')); }
+
+      /* a taken address is a dead end unless we hand back something to click. The date of
+         birth earns its place here: rajesh-sharma-0412 belongs to a person, rajesh74 does not.
+         Localities are the fallback for anyone who left the date blank. */
+      var SUGG_SUFFIX = ['andheri','powai','thane','realty'];
+      function cfSuggestions(base){
+        var out = [];
+        var d = cfDob();
+        if(d.ok && !d.empty){
+          out.push(base + '-' + d.dd + d.mm);
+          out.push(base + '-' + d.yyyy);
+          out.push(base + '-' + d.yyyy.slice(2));
+        }
+        SUGG_SUFFIX.forEach(function(s){ out.push(base + '-' + s); });
+        return out.filter(function(s, i){
+          return TAKEN.indexOf(s) === -1 && out.indexOf(s) === i && s !== base;
+        }).slice(0, 4);
+      }
+      function showSuggestions(base){
+        var box = el('cfSugg');
+        box.innerHTML = '';
+        cfSuggestions(base).forEach(function(s){
+          var b = document.createElement('button');
+          b.type = 'button';
+          b.textContent = s;
+          b.addEventListener('click', function(){
+            handleInp.value = s;
+            /* a picked suggestion is a decision, so going back and editing the name
+               must not silently overwrite it */
+            handleInp.dataset.auto = '0';
+            syncHandle();
+            handleInp.focus();
+          });
+          box.appendChild(b);
+        });
+      }
+
+      function syncHandle(){
+        var v = ghtSlug(handleInp.value);
+        if(handleInp.value !== v) handleInp.value = v;
+        claimed = '';
+        publishBtn.disabled = true;
+        el('cfSugg').innerHTML = '';
+        if(availT){ clearTimeout(availT); availT = null; }
+
+        /* nothing said while they are still obviously mid-word */
+        if(v.replace(/-/g,'').length < 3){ setAvail('idle', ''); return; }
+        /* three letters minimum. Digits are fine inside an address but never carry it:
+           ghar.tv/9876543210 reads as a phone number, not as a person. */
+        if((v.match(/[a-z]/g) || []).length < 3){
+          setAvail('bad', 'Use at least three letters.');
+          return;
+        }
+        setAvail('wait', 'Checking ghar.tv/' + v);
+        availT = setTimeout(function(){
+          if(TAKEN.indexOf(v) > -1){
+            setAvail('bad', 'ghar.tv/' + v + ' is taken. These are free:');
+            showSuggestions(v);
+            return;
+          }
+          claimed = v;
+          publishBtn.disabled = false;
+          setAvail('ok', 'ghar.tv/' + v + ' is available.');
+        }, 420);
+      }
+      handleInp.addEventListener('input', syncHandle);
+      /* once it has been touched by hand, the name no longer overwrites it */
+      handleInp.addEventListener('input', function(){ handleInp.dataset.auto = '0'; });
+      handleInp.addEventListener('keydown', function(e){
+        if(e.key === 'Enter' && !publishBtn.disabled) cfPublish();
+      });
+
+      window.cfToHandle = function(){
+        /* the address is proposed, not imposed: it arrives filled in from the name and stays
+           editable, so the common case is one glance and Publish. */
+        var base = cfBaseSlug();
+        if(base && (!handleInp.value || handleInp.dataset.auto === '1')){
+          handleInp.value = base;
+          handleInp.dataset.auto = '1';
+        }
+        step('handle');
+        syncHandle();
+        setTimeout(function(){ handleInp.focus(); }, 60);
+      };
+
+      /* ── steps 5 and 6.
+         Two groups: where a broker lists, then where a broker posts. Every portal named here
+         is one the landing page already names in its own FAQ. WhatsApp is absent on purpose:
+         the card carries it as a contact rail either way. Connecting an account belongs in
+         the dashboard, so these are addresses, nothing more. */
+      var GLOBE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 010 18M12 3a15 15 0 000 18"/></svg>';
+
+      /* Social platforms have a real glyph, so they are drawn inline in their own colour:
+         no network, crisp at any size, and correct offline. The portals are wordmarks with
+         nothing to draw, so they load each site's own favicon and fall back to the monogram. */
+      var LOGOS = {
+        instagram:'<svg viewBox="0 0 24 24" fill="none" stroke="#E4405F" stroke-width="2"><rect x="2.5" y="2.5" width="19" height="19" rx="5.4"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.25" fill="#E4405F" stroke="none"/></svg>',
+        youtube:'<svg viewBox="0 0 24 24"><path fill="#FF0000" d="M23 12s0-3.9-.5-5.8a3 3 0 0 0-2.1-2.1C18.5 3.6 12 3.6 12 3.6s-6.5 0-8.4.5a3 3 0 0 0-2.1 2.1C1 8.1 1 12 1 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 8.4.5 8.4.5s6.5 0 8.4-.5a3 3 0 0 0 2.1-2.1C23 15.9 23 12 23 12z"/><path fill="#fff" d="M9.9 15.6V8.4L16.1 12z"/></svg>',
+        facebook:'<svg viewBox="0 0 24 24"><path fill="#1877F2" d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.8 3.7-3.8 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.7l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"/></svg>',
+        linkedin:'<svg viewBox="0 0 24 24"><path fill="#0A66C2" d="M20.4 2H3.6A1.6 1.6 0 0 0 2 3.6v16.8A1.6 1.6 0 0 0 3.6 22h16.8a1.6 1.6 0 0 0 1.6-1.6V3.6A1.6 1.6 0 0 0 20.4 2zM8.3 18.7H5.4V9.4h2.9zM6.9 8.1a1.7 1.7 0 1 1 0-3.4 1.7 1.7 0 0 1 0 3.4zm11.8 10.6h-2.9v-4.5c0-1.1 0-2.5-1.5-2.5s-1.8 1.2-1.8 2.4v4.6H9.6V9.4h2.8v1.3a3.1 3.1 0 0 1 2.8-1.5c3 0 3.5 2 3.5 4.5z"/></svg>'
+      };
+
+      var GROUPS = [
+        { id:'portal', t:'Real estate', items:[
+          { k:'magicbricks', m:'MB', t:'MagicBricks',  host:'magicbricks.com' },
+          { k:'acres',       m:'99', t:'99acres',      host:'99acres.com' },
+          { k:'housing',     m:'HG', t:'Housing',      host:'housing.com' },
+          { k:'squareyards', m:'SY', t:'Square Yards', host:'squareyards.com' }
+        ]},
+        /* `find` is the one line that answers "where do I get this". Written to the shape of
+           the app rather than to a named button, because the button moves between releases
+           and a broker following stale steps trusts the next instruction less. */
+        /* `home` is the canonical profile path. A pasted link that sits on that exact path
+           collapses to the handle after it; anything else is kept whole, because
+           youtube.com/c/name and youtube.com/@name are two different pages, not two
+           spellings of one. */
+        { id:'social', t:'Social', items:[
+          { k:'instagram', m:'IG', t:'Instagram', host:'instagram.com', home:'instagram.com/',
+            find:'Open your profile in the app, tap Share profile, then Copy link.' },
+          { k:'youtube',   m:'YT', t:'YouTube',   host:'youtube.com',   home:'youtube.com/@',
+            find:'Tap your photo, open your own channel, then Share and Copy link.' },
+          { k:'facebook',  m:'FB', t:'Facebook',  host:'facebook.com',  home:'facebook.com/',
+            find:'Open your profile or page, tap the three dots, then Copy link.' },
+          { k:'linkedin',  m:'IN', t:'LinkedIn',  host:'linkedin.com',  home:'linkedin.com/in/',
+            find:'Open your profile, tap the three dots, then Copy link to profile.' }
+        ]}
+      ];
+
+      /* the portals have no reliable share button, so the honest instruction is the browser
+         one. Generated from the host rather than written out four times. */
+      function findHelp(p){
+        return p.find || ('Open your profile page on ' + p.host +
+                          ' and copy the address from the top of your browser.');
+      }
+
+      /* ── what the broker actually does ───────────────────────────────────────────
+         Nobody knows their LinkedIn slug, and a MagicBricks profile URL is forty
+         characters of nothing. What every broker on this platform already does daily is
+         open the app, tap Share, copy the link and paste it into WhatsApp. So the field
+         asks for exactly that and does the tidying itself. Nothing is ever rejected: an
+         unrecognised link is kept whole rather than argued with. */
+      var JUNK = /^(utm_|fbclid$|gclid$|igshid$|igsh$|si$|mibextid$|rdid$|_rdr$)/i;
+
+      /* strips the tracking tail an app adds to a shared link, which is most of the length
+         of a pasted Instagram or Facebook URL and none of the meaning */
+      function cleanUrl(raw){
+        var s = String(raw || '').trim().replace(/\s+/g, '');
+        var hash = s.indexOf('#'); if(hash > -1) s = s.slice(0, hash);
+        var q = s.indexOf('?');
+        if(q > -1){
+          var keep = s.slice(q + 1).split('&').filter(function(kv){
+            return kv && !JUNK.test(kv.split('=')[0]);
+          });
+          s = s.slice(0, q) + (keep.length ? '?' + keep.join('&') : '');
+        }
+        return s.replace(/\/+$/, '');
+      }
+
+      /* → { handle:'rajesh.realty' } when it lands on the canonical profile path,
+         → { url:'https://…' }       when it is anything else we should not rewrite,
+         → null                       when the field is empty */
+      function readLink(p, raw){
+        var s = cleanUrl(raw);
+        if(!s) return null;
+        var bare = s.replace(/^https?:\/\//i, '').replace(/^www\.|^m\./i, '');
+
+        if(p.home){
+          /* a leading @ settles it, dots and all: rajesh.realty is a real Instagram name */
+          if(s.charAt(0) === '@' && !/[\/?]/.test(s)) return { handle: s.slice(1) };
+
+          if(bare.toLowerCase().indexOf(p.home) === 0){
+            var rest = bare.slice(p.home.length).replace(/^@/, '');
+            /* one segment only — instagram.com/name/tagged is not a profile */
+            if(rest && !/[\/?]/.test(rest)) return { handle: rest };
+          }
+          /* no slash anywhere, so it is a name and not an address. Dots stay in: half the
+             Instagram names in this market have one, and reading rajesh.realty as a domain
+             is the far likelier mistake. This is also what makes a second read of an already
+             collapsed field return the same handle rather than re-inflating it to a URL. */
+          if(!/[\/?]/.test(bare)) return { handle: bare };
+        }
+        return { url: /^https?:\/\//i.test(s) ? s : 'https://' + bare };
+      }
+
+      /* one mark, used by the picker, the link rows and the card preview alike */
+      function mark(p){
+        var s = document.createElement('span');
+        s.className = 'cf-mark';
+        if(LOGOS[p.k]){ s.innerHTML = LOGOS[p.k]; return s; }
+        if(p.host){
+          var im = document.createElement('img');
+          im.src = 'https://www.google.com/s2/favicons?domain=' + p.host + '&sz=64';
+          im.alt = '';
+          im.loading = 'lazy';
+          /* a logo that will not load leaves a hole, so the monogram takes over */
+          im.addEventListener('error', function(){
+            s.textContent = p.m;
+            s.classList.add('is-mono');
+          });
+          s.appendChild(im);
+          return s;
+        }
+        s.textContent = p.m || '';
+        s.classList.add('is-mono');
+        return s;
+      }
+      var ALL = GROUPS.reduce(function(a, g){ return a.concat(g.items); }, []);
+      function plat(k){ return ALL.filter(function(x){ return x.k === k; })[0]; }
+
+      var picked = [];
+      /* values live outside the DOM so stepping back and forward never loses what was typed */
+      var linkVals = {};
+
+      function groupBox(g){
+        var box = document.createElement('div');
+        box.className = 'cf-group';
+        var h = document.createElement('div');
+        h.className = 'cf-group__h';
+        h.textContent = g.t;
+        box.appendChild(h);
+        return box;
+      }
+
+      (function buildPlats(){
+        var wrap = el('cfPlats');
+        GROUPS.forEach(function(g){
+          var box = groupBox(g);
+          var grid = document.createElement('div');
+          grid.className = 'cf-plats';
+          g.items.forEach(function(p){
+            var b = document.createElement('button');
+            b.type = 'button';
+            b.className = 'cf-plat';
+            var ic = document.createElement('span');
+            ic.className = 'cf-plat__ic';
+            ic.appendChild(mark(p));
+            var tx = document.createElement('span');
+            tx.className = 'cf-plat__t';
+            tx.textContent = p.t;
+            b.appendChild(ic); b.appendChild(tx);
+            b.addEventListener('click', function(){
+              var at = picked.indexOf(p.k);
+              if(at > -1) picked.splice(at, 1); else picked.push(p.k);
+              b.classList.toggle('on', picked.indexOf(p.k) > -1);
+            });
+            grid.appendChild(b);
+          });
+          box.appendChild(grid);
+          wrap.appendChild(box);
+        });
+      })();
+
+      /* a pinned bubble behaves like every other pop-over on the portal: one at a time, and
+         anything else the broker touches puts it away */
+      function cfShutTips(){
+        document.querySelectorAll('.cf-litem.is-tip').forEach(function(it){
+          it.classList.remove('is-tip');
+          it.querySelector('.cf-lhelp').setAttribute('aria-expanded', 'false');
+        });
+      }
+      document.addEventListener('click', cfShutTips);
+      document.addEventListener('keydown', function(e){ if(e.key === 'Escape') cfShutTips(); });
+
+      function cfRenderLinks(){
+        var wrap = el('cfLinks');
+        wrap.innerHTML = '';
+        GROUPS.forEach(function(g){
+          var mine = g.items.filter(function(p){ return picked.indexOf(p.k) > -1; });
+          if(!mine.length) return;
+          var box = groupBox(g);
+          mine.forEach(function(p){
+            var item = document.createElement('div');
+            item.className = 'cf-litem';
+            var tipId = 'cfTip-' + p.k;
+            item.innerHTML =
+              '<div class="cf-lrow">' +
+                '<span class="cf-lrow__ic"></span>' +
+                '<label class="cf-lfield">' +
+                  '<span hidden></span>' +
+                  '<input type="text" inputmode="url" autocapitalize="off" autocorrect="off" ' +
+                         'spellcheck="false" aria-label="' + p.t + '">' +
+                '</label>' +
+                /* the mark stays put whether the row is answered or not: removing it once a
+                   link lands would widen the field and jump the layout under the pointer */
+                '<button class="cf-lhelp" type="button" aria-expanded="false" ' +
+                        'aria-controls="' + tipId + '" ' +
+                        'aria-label="Where do I find my ' + p.t + ' link?">?</button>' +
+              '</div>' +
+              '<p class="cf-ltip" id="' + tipId + '"></p>';
+
+            item.querySelector('.cf-lrow__ic').appendChild(mark(p));
+            var field = item.querySelector('.cf-lfield');
+            var pre   = item.querySelector('.cf-lfield span');
+            var inp   = item.querySelector('input');
+            var help  = item.querySelector('.cf-lhelp');
+            var tip   = item.querySelector('.cf-ltip');
+            inp.placeholder = 'Paste your ' + p.t + ' link';
+            tip.textContent = findHelp(p);
+
+            /* the prefix is a result, never a prompt: it appears only once a link has been
+               read, so an empty field never asks for a word like "handle" */
+            function draw(){
+              var v = linkVals[p.k];
+              var isHandle = v && v.handle;
+              pre.hidden = !isHandle;
+              pre.textContent = isHandle ? p.home : '';
+              field.classList.toggle('is-read', !!v);
+              if(document.activeElement !== inp){
+                inp.value = v ? (v.handle || v.url) : '';
+              }
+              /* an answered row has no question left, so anything still open closes */
+              if(v) closeTip();
+            }
+            function read(){
+              linkVals[p.k] = readLink(p, inp.value);
+              draw();
+            }
+            function closeTip(){
+              if(!item.classList.contains('is-tip')) return;
+              item.classList.remove('is-tip');
+              help.setAttribute('aria-expanded', 'false');
+            }
+            /* hover opens it on a pointer, handled in CSS. Click is the one that has to work
+               on a phone, where there is no hover at all. */
+            help.addEventListener('click', function(e){
+              e.stopPropagation();
+              var open = !item.classList.contains('is-tip');
+              cfShutTips();
+              item.classList.toggle('is-tip', open);
+              help.setAttribute('aria-expanded', String(open));
+            });
+            draw();
+            /* read on the way out, not on every keystroke: rewriting the field under a
+               half-typed word is how a form starts fighting the person filling it */
+            inp.addEventListener('blur', read);
+            inp.addEventListener('paste', function(){ setTimeout(read, 0); });
+            inp.addEventListener('keydown', function(e){ if(e.key === 'Enter') inp.blur(); });
+            box.appendChild(item);
+          });
+          wrap.appendChild(box);
+        });
+        el('cfExtraGroup').classList.toggle('is-first', !wrap.children.length);
+      }
+
+      window.cfToLinks = function(){
+        cfRenderLinks();
+        cfRenderExtras();
+        step('links');
+      };
+
+      /* ── additional links. A platform picker can never cover a brochure, a builder page or
+         a reviews link, so anything else gets a name and an address of its own. */
+      var extras = [];
+
+      /* a half-filled row is not a link yet, so the card never shows one */
+      function namedExtras(){
+        return extras.filter(function(x){ return x.label.trim() && x.url.trim(); });
+      }
+
+      window.cfAddExtra = function(){
+        extras.push({ label:'', url:'' });
+        cfRenderExtras();
+        var rows = el('cfExtras').querySelectorAll('.cf-xrow');
+        var last = rows[rows.length - 1];
+        if(last) last.querySelector('input').focus();
+      };
+
+      function cfRenderExtras(){
+        var wrap = el('cfExtras');
+        wrap.innerHTML = '';
+        extras.forEach(function(x, i){
+          var row = document.createElement('div');
+          row.className = 'cf-xrow';
+
+          var lab = document.createElement('input');
+          lab.className = 'cf-xinp';
+          lab.type = 'text';
+          lab.placeholder = 'Name';
+          lab.setAttribute('aria-label', 'Link name');
+          lab.maxLength = 28;
+          lab.value = x.label;
+          lab.addEventListener('input', function(){ x.label = lab.value; });
+
+          var url = document.createElement('input');
+          url.className = 'cf-xinp';
+          url.type = 'url';
+          url.inputMode = 'url';
+          url.placeholder = 'Paste the link';
+          url.setAttribute('aria-label', 'Link address');
+          url.autocapitalize = 'off';
+          url.spellcheck = false;
+          url.value = x.url;
+          url.addEventListener('input', function(){ x.url = url.value; });
+          /* same tidy-up as the platform rows: a shared link drags a tracking tail with it */
+          url.addEventListener('blur', function(){
+            var s = cleanUrl(url.value);
+            if(s && !/^https?:\/\//i.test(s)) s = 'https://' + s;
+            url.value = s; x.url = s;
+          });
+
+          var del = document.createElement('button');
+          del.type = 'button';
+          del.className = 'cf-xdel';
+          del.setAttribute('aria-label', 'Remove this link');
+          del.innerHTML = '<svg viewBox="0 0 24 24"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>';
+          del.addEventListener('click', function(){ extras.splice(i, 1); cfRenderExtras(); });
+
+          row.appendChild(lab); row.appendChild(url); row.appendChild(del);
+          wrap.appendChild(row);
+        });
+      }
+
+      /* ── step 7 — photo and bio */
+      window.cfToProfile = function(){ step('profile'); };
+
+      var photoData = '';   // the cropped 512px square that goes on the card
+      var rawSrc = '';      // the downscaled original, so Edit can re-crop it
+      var MAX_MB = 8;
+      /* stated on the button and in the rejection message from the same value, so the two
+         can never drift apart */
+      var PHOTO_HINT = 'JPG, PNG or WEBP, up to ' + MAX_MB + ' MB';
+      var fileInp = el('cfPhotoFile');
+
+      function photoErr(msg){
+        el('cfPhotoErr').hidden = !msg;
+        el('cfPhotoErrTxt').textContent = msg || '';
+      }
+
+      window.cfPickPhoto = function(){ fileInp.click(); };
+      window.cfClearPhoto = function(){ photoData = ''; rawSrc = ''; photoErr(''); cfRenderPhoto(); };
+
+      fileInp.addEventListener('change', function(){
+        var f = this.files && this.files[0];
+        /* cleared straight away so choosing the same file twice in a row still fires */
+        this.value = '';
+        if(!f) return;
+        if(f.type.indexOf('image/') !== 0){
+          photoErr('That file is not an image. Pick a JPG, PNG or WEBP.');
+          return;
+        }
+        if(f.size > MAX_MB * 1024 * 1024){
+          photoErr('That photo is over ' + MAX_MB + ' MB. Pick a smaller one.');
+          return;
+        }
+        photoErr('');
+        var r = new FileReader();
+        r.onerror = function(){ photoErr('That photo could not be read. Try another one.'); };
+        r.onload = function(){
+          /* the original is kept, downscaled, so Edit can reopen the cropper later without
+             asking for the file again */
+          cfDownscale(String(r.result), 1600, function(url){
+            rawSrc = url;
+            cfCropOpen();
+          });
+        };
+        r.readAsDataURL(f);
+      });
+
+      /* a 6000px phone photo is far more than a 512px avatar will ever need, and holding it
+         at full size just to crop from it is wasteful */
+      function cfDownscale(src, max, done){
+        var img = new Image();
+        img.onerror = function(){ photoErr('That photo could not be read. Try another one.'); };
+        img.onload = function(){
+          var w = img.naturalWidth, h = img.naturalHeight;
+          if(!w || !h){ done(src); return; }
+          if(Math.max(w, h) <= max){ done(src); return; }
+          var k = max / Math.max(w, h);
+          var c = document.createElement('canvas');
+          c.width = Math.round(w * k);
+          c.height = Math.round(h * k);
+          c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+          try { done(c.toDataURL('image/jpeg', .92)); }
+          catch(e){ done(src); }     // never lose the photo over an export that failed
+        };
+        img.src = src;
+      }
+
+      /* ── the cropper.
+         The stage is the square that gets exported; the circle drawn on it is the avatar.
+         Pan and zoom move the image behind that fixed frame, so the export is a straight
+         read of the current transform rather than a second set of maths. */
+      var cropEl   = el('cfCrop');
+      var cropPick = el('cfPhotoPick');
+      var stage    = el('cfCropStage');
+      var cropImg  = el('cfCropImg');
+      var zoomInp  = el('cfCropZoom');
+      var S = 0, base = 1, zoom = 1, tx = 0, ty = 0, natW = 0, natH = 0;
+
+      function cropDims(){ return { w: natW * base * zoom, h: natH * base * zoom }; }
+
+      /* the frame can never show empty space, so the image is pinned to its own edges */
+      function clamp(){
+        var d = cropDims();
+        tx = Math.min(0, Math.max(S - d.w, tx));
+        ty = Math.min(0, Math.max(S - d.h, ty));
+      }
+      function draw(){
+        var d = cropDims();
+        cropImg.style.width  = d.w + 'px';
+        cropImg.style.height = d.h + 'px';
+        cropImg.style.transform = 'translate(' + tx + 'px,' + ty + 'px)';
+      }
+
+      window.cfCropOpen = function(){
+        if(!rawSrc){ cfPickPhoto(); return; }   // nothing to crop yet
+        photoErr('');
+        cropPick.hidden = true;
+        cropEl.hidden = false;
+        var img = new Image();
+        img.onload = function(){
+          natW = img.naturalWidth; natH = img.naturalHeight;
+          S = stage.clientWidth || 260;
+          base = Math.max(S / natW, S / natH);   // cover, so the frame is always filled
+          zoom = 1; zoomInp.value = '1';
+          var d = cropDims();
+          tx = (S - d.w) / 2; ty = (S - d.h) / 2;   // opens centred, as the old auto-crop did
+          cropImg.src = rawSrc;
+          draw();
+        };
+        img.onerror = function(){
+          cfCropCancel();
+          photoErr('That photo could not be read. Try another one.');
+        };
+        img.src = rawSrc;
+      };
+
+      window.cfCropCancel = function(){
+        cropEl.hidden = true;
+        cropPick.hidden = false;
+      };
+
+      window.cfCropApply = function(){
+        var out = 512;
+        var sc = base * zoom;
+        var c = document.createElement('canvas');
+        c.width = c.height = out;
+        var ctx = c.getContext('2d');
+        /* the stage shows the image at scale sc offset by (tx,ty), so the source rectangle
+           is that mapping run backwards into natural pixels */
+        ctx.drawImage(cropImg, -tx / sc, -ty / sc, S / sc, S / sc, 0, 0, out, out);
+        try { photoData = c.toDataURL('image/jpeg', .85); }
+        catch(e){ photoData = rawSrc; }
+        cfCropCancel();
+        cfRenderPhoto();
+      };
+
+      zoomInp.addEventListener('input', function(){
+        var d0 = cropDims();
+        /* zoom about the centre of the frame, not the top-left, or the subject drifts away */
+        var cx = (S / 2 - tx) / d0.w, cy = (S / 2 - ty) / d0.h;
+        zoom = parseFloat(zoomInp.value) || 1;
+        var d1 = cropDims();
+        tx = S / 2 - cx * d1.w;
+        ty = S / 2 - cy * d1.h;
+        clamp(); draw();
+      });
+
+      var dragId = null, dragX = 0, dragY = 0;
+      stage.addEventListener('pointerdown', function(e){
+        if(cropEl.hidden) return;
+        dragId = e.pointerId;
+        dragX = e.clientX - tx; dragY = e.clientY - ty;
+        stage.classList.add('is-drag');
+        stage.setPointerCapture(dragId);
+      });
+      stage.addEventListener('pointermove', function(e){
+        if(dragId === null || e.pointerId !== dragId) return;
+        tx = e.clientX - dragX; ty = e.clientY - dragY;
+        clamp(); draw();
+      });
+      function endDrag(e){
+        if(dragId === null || (e && e.pointerId !== dragId)) return;
+        try { stage.releasePointerCapture(dragId); } catch(err){}
+        dragId = null;
+        stage.classList.remove('is-drag');
+      }
+      stage.addEventListener('pointerup', endDrag);
+      stage.addEventListener('pointercancel', endDrag);
+
+      /* the stage is fluid under 260px, so a rotation or resize has to refit the image */
+      window.addEventListener('resize', function(){
+        if(cropEl.hidden || !natW) return;
+        var prev = S;
+        S = stage.clientWidth || S;
+        if(!prev || prev === S) return;
+        var k = S / prev;
+        base = Math.max(S / natW, S / natH);
+        tx *= k; ty *= k;
+        clamp(); draw();
+      });
+
+      function cfRenderPhoto(){
+        var ava = el('cfAva');
+        var old = ava.querySelector('img');
+        if(old) old.remove();
+        ava.classList.toggle('has-img', !!photoData);
+        if(photoData){
+          var im = document.createElement('img');
+          im.src = photoData;
+          im.alt = '';
+          ava.insertBefore(im, ava.firstChild);
+        }
+        el('cfPhotoT').textContent = photoData ? 'Your photo' : 'Upload a photo';
+        /* the format line has done its job once a photo is in, and Change says the rest */
+        el('cfPhotoH').textContent = photoData ? '' : PHOTO_HINT;
+        el('cfPhotoActs').hidden = !photoData;
+      }
+
+      /* ── the About box.
+         A bio sitting next to a verified badge should read like a professional wrote it, so
+         emoji, hashes, handles and box characters are dropped as they are typed. Letters,
+         digits and the punctuation an ordinary sentence needs are all that survive. */
+      var BIO_BAD = /[^A-Za-z0-9 \n.,'()&\/-]/g;
+      var bio = el('cfPBio');
+      var stripT = null;
+      bio.addEventListener('input', function(){
+        var raw = bio.value;
+        var clean = raw.replace(BIO_BAD, '');
+        if(clean !== raw){
+          /* dropping a character leaves the gap it sat in, so "2014 x resale" would end up
+             double-spaced. Only ever runs after a strip, so ordinary typing is untouched. */
+          clean = clean.replace(/[ \t]{2,}/g, ' ').replace(/^[ \t]+/, '');
+          /* keep the caret where the typing was, not at the end of the field */
+          var at = bio.selectionStart - (raw.length - clean.length);
+          bio.value = clean;
+          try { bio.setSelectionRange(at, at); } catch(e){}
+          var strip = el('cfBioStrip');
+          strip.classList.add('on');
+          clearTimeout(stripT);
+          stripT = setTimeout(function(){ strip.classList.remove('on'); }, 2600);
+        }
+        el('cfBioCount').textContent = bio.value.length;
+      });
+
+      /* ── publish — card is live */
+      window.cfPublish = function(){
+        /* the badge is the whole trust model: two facts, never one score, never a warning.
+           It is drawn once, on the card itself, by cfPreview(). */
+
+        /* the handle rides along so the dashboard knows which card to open */
+        var slug = claimed || cfBaseSlug();
+        el('cfBuildLink').href = '/dashboard?view=build&card=' + encodeURIComponent(slug);
+
+        step('platforms');
+      };
+
+      var ICON_CALL = '<svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg>';
+      var ICON_WA   = '<svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 01-12.3 7.6L3 21l1.9-5.7A8.5 8.5 0 1121 11.5z"/></svg>';
+
+      /* the card, drawn from the live fields rather than anything cached, so Skip at any
+         point still renders an honest card. Every broker-typed value goes in as textContent;
+         innerHTML is only ever handed static icon markup. */
+      function cfPreview(){
+        var first = val('cfCFirst') || 'Your';
+        var name  = cfFullName() || 'Your name';
+        var slug  = claimed || cfBaseSlug() || ghtSlug(name);
+        var rera  = cfHasRera();
+        var about = val('cfPBio');
+
+        var card = document.createElement('div');
+        card.className = 'lt-card';
+
+        var ava = document.createElement('div');
+        if(photoData){
+          ava.className = 'lt-card__ava lt-card__ava--photo';
+          var pim = document.createElement('img');
+          pim.src = photoData;
+          pim.alt = '';
+          ava.appendChild(pim);
+        } else {
+          ava.className = 'lt-card__ava lt-card__ava--a';
+          ava.textContent = (first.charAt(0) + (val('cfCLast').charAt(0) || '')).toUpperCase();
+        }
+        card.appendChild(ava);
+
+        var nm = document.createElement('div'); nm.className = 'lt-card__name';   nm.textContent = name;              card.appendChild(nm);
+        var hd = document.createElement('div'); hd.className = 'lt-card__handle'; hd.textContent = 'ghar.tv/' + slug; card.appendChild(hd);
+
+        var vf = document.createElement('div');
+        vf.className = 'lt-card__verified' + (rera ? '' : ' lt-card__verified--id');
+        vf.innerHTML = '<svg viewBox="0 0 24 24"><path d="M8 12.5l2.5 2.5 5-5.5"/></svg>';
+        vf.appendChild(document.createTextNode(rera ? 'MahaRERA verified' : 'Identity verified'));
+        card.appendChild(vf);
+
+        if(about){
+          var bo = document.createElement('div'); bo.className = 'lt-card__bio'; bo.textContent = about;
+          card.appendChild(bo);
+        }
+
+        /* the number was verified in step 2, so these two rails always exist */
+        var links = document.createElement('div');
+        links.className = 'lt-links';
+        [['call', ICON_CALL, 'Call ' + first], ['wa', ICON_WA, 'WhatsApp']].forEach(function(r){
+          var row = document.createElement('div');
+          row.className = 'lt-link lt-link--' + r[0];
+          var ic = document.createElement('span'); ic.className = 'lt-link__ic'; ic.innerHTML = r[1];
+          var tx = document.createElement('span'); tx.className = 'lt-link__t';  tx.textContent = r[2];
+          row.appendChild(ic); row.appendChild(tx);
+          links.appendChild(row);
+        });
+        /* an additional link is a row of its own, not a monogram: nobody recognises a
+           brochure or a reviews page from an icon */
+        namedExtras().forEach(function(x){
+          var row = document.createElement('div');
+          row.className = 'lt-link lt-link--ink';
+          var ic = document.createElement('span'); ic.className = 'lt-link__ic'; ic.innerHTML = GLOBE;
+          var tx = document.createElement('span'); tx.className = 'lt-link__t';  tx.textContent = x.label;
+          row.appendChild(ic); row.appendChild(tx);
+          links.appendChild(row);
+        });
+        card.appendChild(links);
+
+        if(picked.length){
+          var soc = document.createElement('div');
+          soc.className = 'lt-socials';
+          picked.forEach(function(k){
+            var s = document.createElement('span');
+            s.className = 'lt-social';
+            s.appendChild(mark(plat(k)));
+            soc.appendChild(s);
+          });
+          card.appendChild(soc);
+        }
+
+        var ft = document.createElement('div'); ft.className = 'lt-card__foot'; ft.textContent = 'powered by Ghar.tv';
+        card.appendChild(ft);
+
+        var wrap = el('cfPrev');
+        wrap.innerHTML = '';
+        wrap.appendChild(card);
+      }
+
+      window.cfFinish = function(){
+        /* Skip fires this from platforms, links or profile — Back should return to whichever
+           of those they actually left from, not always to the last one */
+        if(atScreen) BACK.published = atScreen;
+        cfPreview();
+        step('published');
+      };
+
+      window.cfToast = function(m){
+        var t = el('cfToastEl');
+        t.textContent = m;
+        t.classList.add('on');
+        clearTimeout(window._cfTt);
+        /* 4s is the portal default, and 2.2s was not long enough to finish reading a sentence */
+        window._cfTt = setTimeout(function(){ t.classList.remove('on'); }, 4000);
+      };
+
+      cfSyncWho();
+      cfRenderPhoto();
+      step('number');
+      setTimeout(function(){ phone.focus(); }, 60);
+    })();
+  </script>
+
+</body>
+</html>

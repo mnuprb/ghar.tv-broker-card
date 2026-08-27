@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- the resolved value of indigo-deep at 42% over ink, the page colour below -->
+  <meta name="theme-color" content="#272d43">
+  <meta name="color-scheme" content="light">
+  <meta name="format-detection" content="telephone=no">
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       THE GHAR.TV CARD · OPTION THREE, the indigo card.
+       Built to the structure of the Card-Colors study (CodePen, suhas-kataria):
+       dark surface, cream blocks, paired contact buttons, a Profile and
+       Listings switch, a stat strip and intent rows. Rendered in our palette and
+       type rather than the study’s own.
+       Sits beside card.html and card-v2.html, which still carry the illustrative
+       broker. This one is drawn from member 441 on the live record.
+       ═══════════════════════════════════════════════════════════════════════ -->
+
+  <title>Allwyn Borde · Rentals and resale in Goregaon West · Ghar.tv</title>
+  <meta name="description" content="Allwyn Borde works rentals and resale in Goregaon West, Mumbai. Call, WhatsApp, listings and profiles, on one card.">
+  <link rel="canonical" href="https://www.ghar.tv/allwyn-borde">
+  <meta property="og:type" content="profile">
+  <meta property="og:title" content="Allwyn Borde · Ghar.tv Card">
+  <meta property="og:description" content="Rentals and resale in Goregaon West, Mumbai.">
+  <meta property="og:url" content="https://www.ghar.tv/allwyn-borde">
+
+  <link rel="shortcut icon" href="https://www.ghar.tv/favicon.ico" type="image/x-icon">
+
+  <!-- Analytics · matches index.html -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FPB6WSXDBG"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-FPB6WSXDBG');
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="gazpacho.css">
+
+  <style>
+
+    /* ═══ Canonical tokens (match live index.html / brokers.html / claim-card.html) ═══ */
+    :root {
+      --warm-white:#faf7f2; --bg:#faf7f2;
+      --ink:#1a1714; --espresso:#3a2f27; --ink2:#3a2f27;
+      --rule:#e5dcc8; --muted:#6e655b; --faint:#6e655b;
+      --surface:#f3eee5; --rule-soft:#ece6da;
+      --turmeric:#eda41c; --terracotta:#d5613a; --sand:#e0c199; --sage:#9aa96d;
+      --indigo:#5f71a9; --aubergine:#895772;
+      --turmeric-deep:#956204; --terracotta-deep:#be461e; --sage-deep:#59683a;
+      --indigo-deep:#3a4a80; --aubergine-deep:#5e3a4d;
+      --accent:#ee324b;
+      --turmeric-soft:rgba(237,164,28,.16);
+      --card-shadow-hover:0 1px 2px rgba(26,23,20,.06), 0 8px 20px -8px rgba(26,23,20,.10), 0 24px 48px -16px rgba(26,23,20,.14);
+      --ff-display:'Gazpacho',Georgia,serif;
+      --ff-sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+      --ease:cubic-bezier(.4,0,.2,1);
+      --max-w:clamp(1280px,75vw,1840px);
+      --pad-h:clamp(24px,3vw,64px);
+
+      /* THE CARD'S COLOUR.
+         --hue   the theme colour itself. It IS the card, so an Olive card is
+                 #9aa96d and not a dark reading of it.
+         --shade the same pigment's deep, which frames the card as the page.
+         --on    text on the card. Our palette: Olive carries --ink, Indigo and
+                 Aubergine carry white.
+         --off   the inverse of --on, for solid plates and for darkening panels.
+         Default is Indigo. */
+      --hue:95 113 169;    /* indigo       #5f71a9 */
+      --shade:58 74 128;   /* indigo-deep  #3a4a80 */
+      --on:250 247 242;
+      --off:26 23 20;
+      /* the page behind the card: a base, how much of the shade washes over it, and
+         the text that sits on the result. Dark for the colour themes, paper for the
+         light one, so the nav and the picker follow the page rather than assume it. */
+      --page-base:26 23 20;
+      --wash:.52;
+      --page-on:250 247 242;
+    }
+    body[data-theme="olive"]     { --hue:154 169 109; --shade:89 104 58; --on:26 23 20;    --off:250 247 242; }
+    body[data-theme="indigo"]    { --hue:95 113 169;  --shade:58 74 128; --on:250 247 242; --off:26 23 20; }
+    body[data-theme="aubergine"] { --hue:137 87 114;  --shade:94 58 77;  --on:250 247 242; --off:26 23 20; }
+    /* Warm white is the one ground that cannot be pushed lighter, so its panels are a
+       little ink instead, and sand carries the hem and the frame in place of a deep. */
+    body[data-theme="warm-white"] {
+      --hue:250 247 242; --shade:224 193 153; --on:26 23 20; --off:250 247 242;
+      /* sand over paper rather than sand over ink: a warm-white card wants a light
+         mat under it, not a dark one */
+      --page-base:250 247 242;
+      --wash:.45;
+      --page-on:26 23 20;
+      --panel:rgb(26 23 20 / .05);
+      --panel-hov:rgb(26 23 20 / .09);
+      --panel-bd:rgb(26 23 20 / .13);
+      /* sand, the pigment this theme already frames itself with. Paper cannot be
+         pushed away from ink, so both tiers raise into sand instead. */
+      --plate:rgb(var(--shade) / .6);
+      --plate-bd:rgb(var(--shade) / .95);
+      --well:rgb(var(--shade) / .42);
+      --well-bd:rgb(var(--shade) / .8);
+    }
+    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+    html { overflow-x:clip; -webkit-text-size-adjust:100%; }
+    body {
+      /* a panel is the ground pushed away from its own text, so it gains contrast in
+         either polarity rather than always lightening. Declared here and not on :root:
+         a custom property resolves its var() where it is declared, and the theme lives
+         on this element. */
+      --panel:rgb(var(--off) / .1);
+      --panel-hov:rgb(var(--off) / .17);
+      --panel-bd:rgb(var(--on) / .22);
+
+      /* tier two. The card has exactly two solid plates on it, Call and WhatsApp, and
+         everything that used to compete with them sits here instead: the selected tab,
+         the intent icons, the platform tag.
+         It is --panel taken further, not --panel inverted: pushing away from the text
+         keeps the contrast climbing, where frosting toward the text drops 13px bold
+         type to about 3:1 on the indigo and aubergine cards. */
+      --plate:rgb(var(--off) / .28);
+      --plate-bd:rgb(var(--on) / .3);
+
+      /* the well an icon sits in. It has to darken for the same reason --plate does:
+         a glyph is drawn in --on, so lightening the disc behind it closes the gap and
+         the icon disappears into its own plate. One step shallower than --plate. */
+      --well:rgb(var(--off) / .24);
+      --well-bd:rgb(var(--on) / .18);
+
+      font-family:var(--ff-sans);
+      /* deep indigo: indigo-deep laid over ink. Flat rather than a gradient, because
+         the fixed nav has to paint the same value to vanish into it. */
+      background-color:rgb(var(--page-base));
+      background-image:linear-gradient(rgb(var(--shade) / var(--wash)), rgb(var(--shade) / var(--wash)));
+      color:rgb(var(--page-on));
+      line-height:1.7;
+      overflow-x:clip;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+    a { color:inherit; text-decoration:none; }
+    img { display:block; max-width:100%; }
+    button { font-family:inherit; cursor:pointer; background:none; border:0; color:inherit; }
+
+    /* ─── Nav · card variant. No hero to sit over, so it is solid from the first pixel. ─── */
+    /* no bar and no rule: the nav is the page, with a logo and a button on it */
+    #mainNav {
+      position:fixed; top:0; left:0; right:0; z-index:200;
+      background-color:rgb(var(--page-base));
+      background-image:linear-gradient(rgb(var(--shade) / var(--wash)), rgb(var(--shade) / var(--wash)));
+    }
+    #navRow {
+      max-width:var(--max-w); margin:0 auto; padding:0 var(--pad-h);
+      height:64px; display:grid; grid-template-columns:auto 1fr auto; align-items:center;
+    }
+    .nav-logo { height:22px; width:auto; color:rgb(var(--page-on)); display:block; }
+    .nav-btn {
+      display:inline-flex; align-items:center; gap:7px;
+      height:40px; padding:0 16px; border:1px solid rgb(var(--page-on) / .3); border-radius:999px;
+      font-size:13px; font-weight:600; color:rgb(var(--page-on));
+      transition:border-color .2s var(--ease), background .2s var(--ease);
+    }
+    .nav-btn:hover { border-color:rgb(var(--page-on) / .65); background:rgb(var(--page-on) / .08); }
+    .nav-btn:focus-visible { outline:2px solid rgb(var(--page-on)); outline-offset:3px; }
+    .nav-btn:active { transform:translateY(1px); }
+
+    /* ─── the page is a rail with one card in it ─── */
+    .cardpage {
+      min-height:100svh;
+      padding:calc(64px + 32px) 20px 56px;
+      display:flex; flex-direction:column; align-items:center;
+    }
+    @media (min-width:744px){ .cardpage { padding:calc(64px + 56px) var(--pad-h) 80px; } }
+
+
+    /* ── REVIEW CONTROL, not part of the card. A row of the card colours so the
+         same card can be read in each. Delete this block, its markup and its script
+         before the page ships. ── */
+    .themepick { display:flex; flex-wrap:wrap; gap:7px; justify-content:center; margin-bottom:26px; }
+    .themepick__b {
+      display:inline-flex; align-items:center; gap:8px;
+      min-height:40px; padding:0 14px 0 10px; border-radius:999px;
+      background:rgb(var(--page-on) / .08); border:1px solid rgb(var(--page-on) / .2);
+      font-size:12px; font-weight:600; color:rgb(var(--page-on) / .85);
+      transition:background .2s var(--ease), border-color .2s var(--ease), color .2s var(--ease);
+    }
+    .themepick__b i { width:14px; height:14px; border-radius:50%; display:block; box-shadow:inset 0 0 0 1px rgba(0,0,0,.18); }
+    .themepick__b:hover { background:rgb(var(--page-on) / .14); border-color:rgb(var(--page-on) / .36); color:rgb(var(--page-on)); }
+    .themepick__b:focus-visible { outline:2px solid rgb(var(--page-on)); outline-offset:3px; }
+    .themepick__b[aria-pressed="true"] { background:rgb(var(--page-on)); border-color:rgb(var(--page-on)); color:rgb(var(--page-base)); }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       THE CARD · option three, the indigo card.
+       Built to the structure of the Card-Colors study: a dark card with
+       cream blocks lifting off it, big paired contact buttons, a Profile and
+       Listings switch, a stat strip, and intent rows that ask the visitor what
+       they came for instead of waiting to be asked.
+
+       It carries its own `ec-` namespace rather than extending `.lt-card`. The
+       visual contract is inverted here (dark surface, cream rows), so sharing
+       class names with options one and two would mean every rule fighting an
+       override.
+
+       Colours take the study's structure but not its Earth hue: indigo falling
+       deep indigo and white, and nothing else. Every action is a white plate on
+       indigo, so hierarchy comes from order and from an inverted icon plate rather
+       than from a second hue. WhatsApp keeps its mark but not its green.
+       ═══════════════════════════════════════════════════════════════════════ */
+    .ec-card {
+      position:relative; isolation:isolate;
+      width:100%; max-width:400px;
+      background:rgb(var(--hue));
+      border-radius:30px;
+      box-shadow:0 30px 90px -30px rgba(8,10,18,.7), 0 2px 10px rgba(8,10,18,.35);
+      overflow:hidden;
+      color:rgb(var(--on));
+      text-align:center;
+    }
+    @media (min-width:744px){ .ec-card { max-width:440px; border-radius:34px; } }
+
+    /* the surface: deep indigo over ink, so the whole card sits in the dark end of
+       the hue rather than starting bright and falling away. The crown lift is the
+       lighter indigo, not a warm light, which keeps the surface one colour.
+       Alphas of two palette colours over a third, nothing mixed in. */
+    .ec-card::before {
+      content:''; position:absolute; inset:0; z-index:-1;
+      background:
+        radial-gradient(460px 300px at 50% -8%, rgb(255 255 255 / .12), transparent 62%),
+        linear-gradient(180deg, transparent 38%, rgb(var(--shade) / .4) 100%);
+    }
+    .ec-inner { padding:34px 20px 32px; display:flex; flex-direction:column; align-items:center; }
+    @media (min-width:744px){ .ec-inner { padding:38px 24px 34px; } }
+
+    /* ── identity ── */
+    .ec-ava {
+      width:96px; height:96px; border-radius:50%; overflow:hidden;
+      background:rgb(var(--on) / .1);
+      box-shadow:0 14px 34px rgba(0,0,0,.4), 0 0 0 3px rgb(var(--on)), inset 0 0 0 1px rgb(var(--on) / .18);
+    }
+    /* the platform stores portraits as full 2:3 shots, not as head crops, so a plain
+       cover leaves a whole torso inside a 96px circle. Scaling about a point up in the
+       frame pulls the face out of it. Server-side face detection would replace this;
+       until there is one, these numbers suit a standing portrait. */
+    .ec-ava img {
+      width:100%; height:100%; object-fit:cover; display:block;
+      object-position:50% 16%; transform:scale(1.7); transform-origin:50% 28%;
+    }
+    @media (min-width:744px){ .ec-ava { width:104px; height:104px; } }
+
+    .ec-name { font-family:var(--ff-display); font-weight:700; font-size:25px; letter-spacing:-.02em; line-height:1.15; margin-top:16px; }
+    .ec-handle { font-size:12.5px; color:rgb(var(--on) / .66); margin-top:4px; }
+    .ec-bio { font-size:13.5px; line-height:1.55; color:rgb(var(--on) / .78); margin-top:12px; max-width:32ch; }
+    @media (min-width:744px){ .ec-name { font-size:27px; } }
+
+    /* where he works. cityid + locid on the record, which every member has, so this
+       line is the one piece of the address a card can always draw. The street and the
+       pincode stay off the face and go into the vCard instead. */
+    .ec-where {
+      display:inline-flex; align-items:center; gap:5px; margin-top:7px;
+      font-size:11.5px; font-weight:600; letter-spacing:.01em; color:rgb(var(--on) / .72);
+    }
+    .ec-where svg { width:13px; height:13px; flex:0 0 13px; stroke:rgb(var(--on) / .6); fill:none; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; }
+
+    /* the firm he works under. A link, because a firm has a card of its own. */
+    .ec-firm {
+      display:inline-flex; align-items:center; gap:9px; margin-top:14px;
+      background:var(--panel); border:1px solid var(--panel-bd);
+      border-radius:13px; padding:9px 13px;
+      transition:border-color .2s var(--ease), background .2s var(--ease), transform .2s var(--ease);
+    }
+    .ec-firm:hover { background:rgb(var(--on) / .13); border-color:rgb(var(--on) / .3); transform:translateY(-1px); }
+    .ec-firm:focus-visible { outline:2px solid rgb(var(--on)); outline-offset:3px; }
+    .ec-firm:active { transform:translateY(0); }
+    .ec-firm__i {
+      width:28px; height:28px; flex:0 0 28px; border-radius:50%;
+      background:rgb(var(--on));
+      color:rgb(var(--off)); display:flex; align-items:center; justify-content:center;
+      font-family:var(--ff-display); font-weight:700; font-size:11px;
+    }
+    /* the record carries a company logo of its own (uploadcompanylogo). When one is
+       set it replaces the monogram; when it is not, the initials stay. A logo arrives
+       as a trimmed mark on white, so it gets the same white plate it was drawn for. */
+    /* a monogram fits a circle; a wordmark does not. So the plate goes to a wide
+       rounded rect the moment it holds a real logo, and keeps the circle otherwise. */
+    .ec-firm__i--logo { width:44px; flex-basis:44px; border-radius:8px; }
+    .ec-firm__i img { width:100%; height:100%; object-fit:contain; padding:4px; background:#fff; }
+    .ec-firm__x { text-align:left; }
+    /* the label is an eyebrow and belongs above the name, not in front of it. As
+       inline spans the two shared a line and broke it at 390px once the logo plate
+       took its width; stacking them is both the intended reading and the fix. */
+    .ec-firm__l { display:block; font-size:8.5px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:rgb(var(--on) / .58); line-height:1.4; }
+    .ec-firm__n { display:block; font-size:12.5px; font-weight:600; margin-top:1px; line-height:1.3; }
+    .ec-firm__a { margin-left:4px; width:14px; height:14px; stroke:rgb(var(--on) / .45); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+
+    /* the badge is the whole trust model: one fact, never a score. The --id variant
+       is what a broker without a registration renders. Absence of RERA is never
+       drawn as a warning, so there is no negative state in here at all.
+
+       It used to be a solid plate, which put a second black pill directly above the
+       two black CTAs and left the card with no loudest element. A credential is a
+       fact and not an action, so it now sits in tier two: ringed, legible, quiet. */
+    .ec-badge {
+      display:inline-flex; align-items:center; gap:6px; margin-top:13px;
+      font-size:9.5px; font-weight:700; letter-spacing:.05em; text-transform:uppercase;
+      /* .8 and not lower: at 9.5px uppercase the label needs 4.5:1, and .72 measured
+         4.01 on the aubergine card */
+      color:rgb(var(--on) / .8); background:var(--panel);
+      border:1px solid rgb(var(--on) / .3);
+      padding:6px 13px; border-radius:999px;
+    }
+    .ec-badge svg { width:12px; height:12px; stroke:rgb(var(--on)); fill:none; stroke-width:2.6; stroke-linecap:round; stroke-linejoin:round; }
+    /* the register name is the label, the number is the fact, so the number carries
+       the weight. Tabular figures and wider tracking so it reads as an identifier to
+       be copied rather than as a word to be skimmed. */
+    .ec-badge b { color:rgb(var(--on)); font-weight:700; letter-spacing:.09em; font-variant-numeric:tabular-nums; }
+    /* the identity state is the same shape one step quieter, so the two read as one
+       scale rather than as two different objects */
+    .ec-badge--id { color:rgb(var(--on) / .8); background:rgb(var(--on) / .08); border-color:rgb(var(--on) / .18); }
+    .ec-badge--id svg { stroke:rgb(var(--on) / .8); }
+
+    /* what he actually deals in: the keyskills field, split on the comma. Chips and
+       not prose, because this is the line a visitor scans to decide whether they are
+       on the right card at all. */
+    .ec-chips { display:flex; flex-wrap:wrap; gap:6px; justify-content:center; width:100%; margin-top:12px; }
+    .ec-chip {
+      font-size:10.5px; font-weight:600; letter-spacing:.01em;
+      padding:5px 11px; border-radius:999px;
+      background:rgb(var(--on) / .1); border:1px solid rgb(var(--on) / .16); color:rgb(var(--on) / .84);
+    }
+
+    /* ── the two contact buttons, paired ── */
+    .ec-contact { display:grid; grid-template-columns:1fr 1fr; gap:9px; width:100%; margin-top:24px; }
+    .ec-cb {
+      display:flex; align-items:center; justify-content:center; gap:8px;
+      min-height:52px; padding:14px; border-radius:999px;
+      font-size:13.5px; font-weight:700; letter-spacing:.01em;
+      transition:transform .2s var(--ease), box-shadow .2s var(--ease);
+    }
+    .ec-cb svg { width:17px; height:17px; stroke:currentColor; fill:none; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; }
+    .ec-cb:hover { transform:translateY(-2px); box-shadow:0 10px 24px -8px rgba(0,0,0,.5); }
+    .ec-cb:focus-visible { outline:2px solid rgb(var(--on)); outline-offset:3px; }
+    .ec-cb:active { transform:translateY(0); }
+    .ec-cb--call { background:rgb(var(--on)); color:rgb(var(--off)); }
+    .ec-cb--wa { background:rgb(var(--on)); color:rgb(var(--off)); }
+    /* the real WhatsApp mark is solid, not stroked, so it opts out of the rule above */
+    .ec-cb--wa svg { fill:currentColor; stroke:none; width:18px; height:18px; }
+
+    /* ── Profile / Listings ── */
+    .ec-tabs {
+      display:flex; gap:5px; width:100%; margin-top:22px; padding:5px;
+      background:var(--panel); border:1px solid var(--panel-bd); border-radius:999px;
+    }
+    .ec-tab {
+      flex:1; min-height:44px; padding:11px; border-radius:999px;
+      font-size:13px; font-weight:700; color:rgb(var(--on) / .72);
+      transition:background .2s var(--ease), color .2s var(--ease);
+    }
+    .ec-tab:hover { color:rgb(var(--on)); }
+    .ec-tab:focus-visible { outline:2px solid rgb(var(--on)); outline-offset:2px; }
+    /* a switch, not a call to action. It only has to beat the tab beside it, and a
+       raised panel against a sunk one does that without a third solid plate. */
+    .ec-tab[aria-selected="true"] {
+      background:var(--plate); color:rgb(var(--on));
+      box-shadow:inset 0 0 0 1px var(--plate-bd);
+    }
+    .ec-pane { width:100%; }
+    .ec-pane[hidden] { display:none; }
+
+    /* ── the stat strip. Broker-stated and platform-counted, side by side. ── */
+    .ec-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:14px; }
+    .ec-st { background:var(--panel); border:1px solid var(--panel-bd); border-radius:20px; padding:14px 8px; }
+    .ec-st__stars { color:rgb(var(--on)); font-size:10px; letter-spacing:1.5px; margin-bottom:3px; }
+    .ec-st__v { font-family:var(--ff-display); font-weight:700; font-size:19px; }
+    .ec-st__l { font-size:9px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:rgb(var(--on) / .64); margin-top:4px; }
+    .ec-st__l--top { margin:0 0 4px; }
+
+    /* ── the rows. Not cream blocks any more: the same translucent panel the stat
+         tiles use, so the whole card is one surface at different opacities and the
+         only solid white left on it is what you are meant to press. ── */
+    .ec-row {
+      display:flex; align-items:center; gap:13px; width:100%;
+      background:var(--panel); border:1px solid var(--panel-bd);
+      color:rgb(var(--on));
+      border-radius:22px; padding:14px 16px; margin-top:10px;
+      text-align:left;
+      transition:transform .2s var(--ease), background .2s var(--ease), border-color .2s var(--ease);
+    }
+    /* a shadow does nothing against a dark ground, so hover lifts the panel itself */
+    .ec-row:hover { transform:translateY(-2px); background:var(--panel-hov); border-color:rgb(var(--on) / .4); }
+    .ec-row:focus-visible { outline:2px solid rgb(var(--on)); outline-offset:3px; }
+    .ec-row:active { transform:translateY(0); }
+    .ec-row__ic {
+      width:38px; height:38px; flex:0 0 38px; border-radius:50%;
+      background:var(--well); box-shadow:inset 0 0 0 1px var(--well-bd);
+      display:flex; align-items:center; justify-content:center;
+    }
+    /* 1.8 was too fine to hold at 18px once the disc behind it had any weight */
+    .ec-row__ic svg { width:18px; height:18px; stroke:rgb(var(--on)); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+    .ec-row__bd { flex:1; min-width:0; }
+    .ec-row__ut { display:block; font-size:9.5px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:rgb(var(--on) / .62); margin-bottom:3px; }
+    .ec-row__ut i { font-style:normal; opacity:.45; margin:0 4px; }
+    .ec-row__t { display:block; font-size:14px; font-weight:700; line-height:1.25; }
+    .ec-row__d { display:block; font-size:11.5px; line-height:1.4; color:rgb(var(--on) / .74); margin-top:2px; }
+    .ec-row__d i { font-style:normal; opacity:.45; margin:0 5px; }
+    .ec-row__ch { width:16px; height:16px; flex:0 0 16px; stroke:rgb(var(--on) / .62); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; transition:transform .2s var(--ease); }
+    .ec-row:hover .ec-row__ch { transform:translateX(2px); }
+
+    /* the two intent rows lead the list, so their icon plate is heavier than the ones
+       below it. Heavier, not solid: a filled plate here read as a third and fourth
+       button and pulled the eye away from the only two things that are. */
+    .ec-row--intent .ec-row__ic { background:var(--plate); box-shadow:inset 0 0 0 1px var(--plate-bd); }
+    .ec-row--intent .ec-row__ic svg { stroke:rgb(var(--on)); stroke-width:2; }
+    .ec-row--intent .ec-row__ch { stroke:rgb(var(--on) / .75); }
+    /* the one thing that changed since the last visit, ringed rather than filled */
+    .ec-row--fresh { border-color:rgb(var(--on) / .5); }
+    .ec-row--fresh .ec-row__ic { background:var(--plate); box-shadow:inset 0 0 0 1px var(--plate-bd); }
+
+    /* who stands behind a row: the platform, or the broker. Two steps of the same
+       scale the badges use, rather than filled against outlined, which put another
+       solid plate on a card that should only have two. */
+    .ec-tag { font-size:7.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; padding:4px 6px; border-radius:5px; white-space:nowrap; border:1px solid transparent; }
+    .ec-tag--ok { background:var(--plate); color:rgb(var(--on)); border-color:var(--plate-bd); }
+    .ec-tag--own { background:rgb(var(--on) / .08); color:rgb(var(--on) / .72); border-color:rgb(var(--on) / .18); }
+
+    /* the certifications the record already holds (uploadawards[]). A count would be a
+       claim; the sheets themselves are the evidence, so the row carries thumbnails and
+       the row itself opens them. Four at most, then a +n, because the row is a row. */
+    .ec-cred__th { display:flex; gap:5px; flex:0 0 auto; }
+    .ec-cred__th img,
+    .ec-cred__th span {
+      width:26px; height:32px; border-radius:5px; display:block; object-fit:cover;
+      background:rgb(var(--on) / .12); box-shadow:0 0 0 1px rgb(var(--on) / .2);
+    }
+    .ec-cred__th span {
+      display:flex; align-items:center; justify-content:center;
+      font-size:9px; font-weight:700; color:rgb(var(--on) / .74);
+    }
+    /* a sheet of paper at 26px, which is all a certificate scan can be at this size.
+       The rule across it is the only detail that survives, and it is enough to read
+       the stack as documents rather than as empty tiles. Paper is paper in every
+       theme, so like the code plate this one opts out of the polarity. */
+    .ec-cred__th .is-doc {
+      background:#faf7f2;
+      background-image:linear-gradient(rgba(26,23,20,.28), rgba(26,23,20,.28));
+      background-size:13px 1px; background-position:50% 62%; background-repeat:no-repeat;
+      box-shadow:0 0 0 1px rgb(var(--on) / .2);
+    }
+
+    /* ── listings ── */
+    .ec-prop { display:flex; gap:13px; width:100%; background:var(--panel); border:1px solid var(--panel-bd); color:rgb(var(--on)); border-radius:22px; padding:12px; margin-top:10px; text-align:left; transition:transform .2s var(--ease), background .2s var(--ease), border-color .2s var(--ease); }
+    .ec-prop:hover { transform:translateY(-2px); background:var(--panel-hov); border-color:rgb(var(--on) / .4); }
+    .ec-prop:focus-visible { outline:2px solid rgb(var(--on)); outline-offset:3px; }
+    .ec-prop:active { transform:translateY(0); }
+    .ec-prop__im { width:84px; height:70px; flex:0 0 84px; border-radius:16px; overflow:hidden; background:rgb(var(--on) / .1); position:relative; }
+    .ec-prop__im img { width:100%; height:100%; object-fit:cover; display:block; }
+    /* the colour treatment the house style asks for on every photograph */
+    .ec-prop__im::after { content:''; position:absolute; inset:0; background:linear-gradient(140deg, rgb(var(--shade) / .3), transparent 66%); mix-blend-mode:multiply; }
+    .ec-prop__i { flex:1; min-width:0; display:flex; flex-direction:column; justify-content:center; }
+    .ec-prop__p { font-family:var(--ff-display); font-weight:700; font-size:17px; }
+    /* the unit is a unit, not a price: sans face, and light enough to read on the panel */
+    .ec-prop__u { font-family:var(--ff-sans); font-size:11px; font-weight:600; color:rgb(var(--on) / .8); }
+    .ec-prop__d { font-size:11.5px; color:rgb(var(--on) / .74); margin-top:3px; }
+    .ec-prop__tag { align-self:flex-start; margin-top:6px; padding:3px 8px; border-radius:6px; font-size:9px; font-weight:700; letter-spacing:.03em; text-transform:uppercase; color:rgb(var(--on) / .84); background:rgb(var(--on) / .14); }
+    .ec-more {
+      display:block; width:100%; margin-top:12px; padding:15px; border-radius:999px;
+      background:var(--panel); border:1px solid var(--panel-bd);
+      color:rgb(var(--on)); font-size:12.5px; font-weight:700; text-align:center;
+      transition:background .2s var(--ease), border-color .2s var(--ease);
+    }
+    .ec-more:hover { background:var(--panel-hov); border-color:rgb(var(--on) / .4); }
+    .ec-more:focus-visible { outline:2px solid rgb(var(--on)); outline-offset:3px; }
+
+    /* ── where else he is ── */
+    .ec-soclab { font-size:9px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:rgb(var(--on) / .62); margin-top:28px; }
+    .ec-socs { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:14px; }
+    .ec-so {
+      width:44px; height:44px; border-radius:50%;
+      border:1px solid var(--well-bd); background:var(--well);
+      display:flex; align-items:center; justify-content:center;
+      font-size:9.5px; font-weight:700; color:rgb(var(--on) / .82);
+      transition:background .2s var(--ease), border-color .2s var(--ease), color .2s var(--ease), transform .2s var(--ease);
+    }
+    .ec-so:hover { background:var(--plate); border-color:var(--plate-bd); color:rgb(var(--on)); transform:translateY(-2px); }
+    .ec-so:focus-visible { outline:2px solid rgb(var(--on)); outline-offset:3px; }
+    .ec-so:active { transform:translateY(0); }
+    /* every mark inherits the link's colour, which is the whole point of drawing them
+       in one ink: the row lights up as a set on hover instead of eight brands each
+       doing their own thing */
+    .ec-so .lt-mark svg { width:18px; height:18px; display:block; }
+    .lt-mark { display:flex; align-items:center; justify-content:center; }
+
+    .ec-pnote { font-size:10.5px; line-height:1.5; color:rgb(var(--on) / .62); margin-top:16px; max-width:34ch; }
+
+    /* ── the foot: the code, the two quiet actions, the mark ── */
+    .ec-foot { margin-top:26px; display:flex; flex-direction:column; align-items:center; }
+    /* a code has to stay dark-on-light to scan, so this plate does not follow the polarity */
+    .ec-qr { width:60px; height:60px; border-radius:10px; background:#faf7f2; padding:6px; }
+    .ec-qr svg { width:100%; height:100%; display:block; }
+    .ec-qr__l { font-size:9px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:rgb(var(--on) / .56); margin-top:8px; }
+    /* three actions now that the record's email is one of them, so the row wraps
+       rather than pushing past the card at 360px */
+    .ec-acts { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-top:16px; }
+    .ec-act {
+      display:inline-flex; align-items:center; gap:7px; min-height:44px; padding:0 16px;
+      border:1px solid rgb(var(--on) / .18); border-radius:999px;
+      font-size:12.5px; font-weight:600; color:rgb(var(--on));
+      transition:background .2s var(--ease), border-color .2s var(--ease), transform .2s var(--ease);
+    }
+    .ec-act svg { width:14px; height:14px; stroke:currentColor; fill:none; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; }
+    .ec-act:hover { background:rgb(var(--on) / .1); border-color:rgb(var(--on) / .34); }
+    .ec-act:focus-visible { outline:2px solid rgb(var(--on)); outline-offset:3px; }
+    .ec-act:active { transform:translateY(1px); }
+    .ec-fu { font-size:11px; color:rgb(var(--on) / .64); margin-top:18px; }
+    .ec-fu a { font-weight:600; color:rgb(var(--on)); border-bottom:1px solid rgb(var(--on) / .3); }
+    .ec-fu a:hover { border-color:rgb(var(--on)); color:rgb(var(--on)); }
+    .ec-fu a:focus-visible { outline:2px solid rgb(var(--on)); outline-offset:3px; }
+
+    /* one line under the card, for the person reading it rather than the broker */
+    .cardpage__note { margin-top:22px; font-size:12px; color:rgb(var(--page-on) / .75); text-align:center; max-width:400px; }
+    .cardpage__note a { font-weight:600; color:rgb(var(--page-on)); border-bottom:1px solid rgb(var(--page-on) / .4); white-space:nowrap; }
+    .cardpage__note a:hover { border-color:rgb(var(--page-on)); }
+
+    /* bottom centre on mobile, bottom right on desktop, ink on every variant */
+    .lt-toast {
+      position:fixed; left:50%; bottom:26px; transform:translateX(-50%) translateY(20px);
+      background:var(--ink); color:#fff; font-size:12.5px; font-weight:600;
+      padding:13px 20px; border-radius:12px;
+      opacity:0; transition:opacity .25s var(--ease), transform .25s var(--ease);
+      pointer-events:none; z-index:402;
+    }
+    .lt-toast.on { opacity:1; transform:translateX(-50%); }
+    @media (min-width:744px){
+      .lt-toast { left:auto; right:26px; transform:translateY(20px); }
+      .lt-toast.on { transform:none; }
+    }
+    @media (prefers-reduced-motion:reduce) {
+      *,*::before,*::after { animation-duration:.01ms !important; transition-duration:.01ms !important; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═══ NAV ═══ -->
+  <nav id="mainNav">
+    <div id="navRow">
+      <a href="/" style="line-height:1;justify-self:start" aria-label="Ghar.tv">
+        <svg class="nav-logo" viewBox="0 0 890.6 196.8" fill="currentColor" aria-hidden="true">
+          <path d="M180.5,92.6l0,13.8c0,49.9-40.3,90.3-90.2,90.3S0,156.3,0,106.4V60.8c0-10.4,5.1-17.6,13.7-22.2l65.4-36c3-1.5,6.5-2.7,11.1-2.7c4.6,0,8.1,1.2,11.1,2.7l65.4,36l-30.6,23.9v0l0,0L97,40.9c-1.8-0.9-3.9-1.6-6.7-1.6c-2.8,0-4.9,0.7-6.7,1.6L44.3,62.5c-5.1,2.8-8.2,7.1-8.2,13.3v27.4c0,30,24.3,57.5,54.2,57.5c21.8,0,40.6-14.6,49.2-34.1H90.3v-34H180.5z M451.9,65.2h34V194h-34v-11.4c-10.7,8.9-24.4,14.2-40.1,14.2c-36.3,0-64-30-64-67.3c0-37.1,27.7-67.1,64-67.1c15.8,0,29.5,5.3,40.1,14.2L451.9,65.2L451.9,65.2z M449.8,129.5c0-18.3-15-33.3-33.5-33.3s-33.5,15-33.5,33.3c0,18.5,15,33.5,33.5,33.5S449.8,148.1,449.8,129.5z M268.2,62.4c-14.5,0-26.2,5.1-34.8,13.7V4.8h-33.8V194h33.8v-61.7c0-18.8,8.9-36.1,30.2-36.1c20.3,0,29.7,15.5,29.7,31.2V194h34v-66.6C327.4,91.4,308.1,62.4,268.2,62.4z M854.3,65.2L854.3,65.2l-34.8,84.6l-34.5-84.6h-36.3L801.4,194h36.3l52.8-128.8H854.3z M715.1,164.3L715.1,164.3c-9.1,0-14.2-5.6-14.2-15.2V97h35.1V65.2h-35.1V36.5h-34v28.7h-21.3V97h21.3v52.1c0,33,17.5,47,44.7,47c16.5,0,28.5-8.9,35.8-17.3l-20.6-20.6C725,160.3,720.9,164.3,715.1,164.3z M605.6,157.7c-10.9,0-19.8,8.6-19.8,19.6c0,10.9,8.9,19.6,19.8,19.6s19.6-8.6,19.6-19.6C625.1,166.3,616.5,157.7,605.6,157.7z M545.1,82L545.1,82V65.2h-33.8V194h33.8v-50.3c0-39.4,15.5-47.5,39.4-47.5V62.4C567.2,62.4,554.2,69.3,545.1,82z" />
+        </svg>
+      </a>
+      <a href="claim-card.html" class="nav-btn" style="justify-self:end">Get your card</a>
+    </div>
+  </nav>
+  <main class="cardpage">
+
+    <!-- REVIEW CONTROL · the card colours. Not part of the card; remove with
+         its CSS and its script before this page ships. -->
+    <div class="themepick" role="group" aria-label="Card colour">
+      <button class="themepick__b" type="button" data-theme="olive"     aria-pressed="false"><i style="background:#9aa96d"></i>Olive</button>
+      <button class="themepick__b" type="button" data-theme="indigo"    aria-pressed="true"><i style="background:#5f71a9"></i>Indigo</button>
+      <button class="themepick__b" type="button" data-theme="aubergine" aria-pressed="false"><i style="background:#895772"></i>Aubergine</button>
+      <button class="themepick__b" type="button" data-theme="warm-white" aria-pressed="false"><i style="background:#faf7f2"></i>Warm white</button>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         ONE CARD, built to the Card-Colors structure. Everything the claim flow
+         collects is here, plus what that study adds: the firm he works under, a
+         stat strip, intent rows, and a Listings side.
+
+         Real, from member 441: the name, the firm and its logo, the portrait, the
+         location, the registration number, the years of experience, the languages,
+         and the YouTube id behind the film row.
+         Still placeholder: the phone and email (a real mobile does not belong on a
+         review page), the rating and review count, the deal count, the skill chips,
+         the listings, and the code, which does not scan.
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <article class="ec-card" aria-labelledby="btName">
+      <div class="ec-inner">
+
+        <!-- ── who he is ──────────────────────────────────────────────────── -->
+        <!-- the portrait on the member record itself, served the way the platform
+             already serves it. alt is empty on purpose: the name is the next line,
+             and a screen reader reading it twice tells nobody anything. -->
+        <div class="ec-ava">
+          <img src="https://ghar.tv/photos/441/sqftmemb_441.png"
+               alt="" width="240" height="240" decoding="async">
+        </div>
+
+        <h1 class="ec-name" id="btName">Allwyn Borde</h1>
+        <p class="ec-handle">ghar.tv/allwyn-borde</p>
+
+        <!-- cityid + locid off the member record. Every member has both, so this line
+             always draws; the street and pincode go to the vCard, not to the face. -->
+        <p class="ec-where">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10.5c0 5.2-8 12-8 12s-8-6.8-8-12a8 8 0 1116 0z"/><circle cx="12" cy="10.3" r="2.9"/></svg>
+          Goregaon West, Mumbai
+        </p>
+
+        <p class="ec-bio">Rentals and resale in Goregaon West. Ask me what a flat is worth before it goes on a portal.</p>
+
+        <!-- the firm he works under, from parentid. A link, because a firm has a card
+             of its own. The plate takes the company logo when the record holds one and
+             falls back to initials when it does not. -->
+        <a class="ec-firm" href="#firm">
+          <span class="ec-firm__i ec-firm__i--logo" aria-hidden="true"><img src="https://ghar.tv/photos/441/sqftcomp_441.jpg" alt="" width="44" height="28" loading="lazy"></span>
+          <span class="ec-firm__x">
+            <span class="ec-firm__l">Works with</span>
+            <!-- the `established` column belongs on the firm's own card, which this
+                 row links to. A broker's card is about the broker. -->
+            <span class="ec-firm__n">Realspace Assets LLP</span>
+          </span>
+          <svg class="ec-firm__a" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+        </a>
+
+        <!-- Only the higher of the two badges is ever drawn. A broker without a
+             registration gets .ec-badge--id reading "Identity verified".
+             RERA state  = memreraid is set and checked against the register.
+             ID state    = otpverified + membadminverified, which everyone clears. -->
+        <!-- the badge carries the number itself rather than the word "verified".
+             A claim asks to be believed; a registration number can be pasted into
+             the MahaRERA register. The broker with no registration falls back to
+             .ec-badge--id reading "Identity verified", which has no number to print. -->
+        <p class="ec-badge">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 12.5l2.5 2.5 5-5.5"/></svg>
+          MahaRERA <b>A51800008100</b>
+        </p>
+
+        <!-- ── the two ways to reach him. Verified at claim, so both always exist.
+             mobile and membwhatsappno are separate columns on the record and are
+             often separate numbers, so the two hrefs are built independently. ── -->
+        <div class="ec-contact">
+          <a class="ec-cb ec-cb--call" href="tel:+919999900000">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg>
+            Call
+          </a>
+          <a class="ec-cb ec-cb--wa" href="https://wa.me/919999900000" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+            WhatsApp
+          </a>
+        </div>
+
+        <!-- ── two sides to the card: who he is, and what he has ── -->
+        <div class="ec-tabs" role="tablist" aria-label="Card sections">
+          <button class="ec-tab" type="button" role="tab" id="ecTabProfile"
+                  aria-selected="true" aria-controls="ecPaneProfile">Profile</button>
+          <button class="ec-tab" type="button" role="tab" id="ecTabListings"
+                  aria-selected="false" aria-controls="ecPaneListings">Listings</button>
+        </div>
+
+        <!-- ── PROFILE ────────────────────────────────────────────────────── -->
+        <div class="ec-pane" id="ecPaneProfile" role="tabpanel" aria-labelledby="ecTabProfile">
+
+          <div class="ec-stats">
+            <div class="ec-st">
+              <div class="ec-st__stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <div class="ec-st__v">4.9</div>
+              <div class="ec-st__l">31 reviews</div>
+            </div>
+            <div class="ec-st">
+              <div class="ec-st__v">18</div>
+              <div class="ec-st__l">Live listings</div>
+            </div>
+            <!-- the experience field is stored as a count of years, not as a start
+                 year, so the tile prints what the record actually holds -->
+            <div class="ec-st">
+              <div class="ec-st__l ec-st__l--top">Experience</div>
+              <div class="ec-st__v">15 yrs</div>
+            </div>
+          </div>
+
+          <!-- keyskills, split on the comma. What he deals in, before what he has. -->
+          <div class="ec-chips">
+            <span class="ec-chip">Resale</span>
+            <span class="ec-chip">Rentals</span>
+            <span class="ec-chip">Commercial</span>
+            <span class="ec-chip">Redevelopment</span>
+          </div>
+
+          <!-- the two intent rows. The card asks what you came for rather than
+               waiting to be asked, which is the whole idea this option adds. -->
+          <a class="ec-row ec-row--intent" href="#buy">
+            <span class="ec-row__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 10.5L12 4l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/><path d="M9.5 21v-6h5v6"/></svg></span>
+            <span class="ec-row__bd">
+              <span class="ec-row__t">I'm looking to buy or rent</span>
+              <span class="ec-row__d">Tell Allwyn your budget and area, he'll shortlist</span>
+            </span>
+            <svg class="ec-row__ch" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+          </a>
+
+          <a class="ec-row ec-row--intent" href="#sell">
+            <span class="ec-row__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 8h11l5 4-5 4H4z"/><path d="M8 12h.01"/></svg></span>
+            <span class="ec-row__bd">
+              <span class="ec-row__t">I want to sell or rent out</span>
+              <span class="ec-row__d">Get a valuation for your flat this week</span>
+            </span>
+            <svg class="ec-row__ch" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+          </a>
+
+          <!-- the one thing that changed since the last visit -->
+          <a class="ec-row ec-row--fresh" href="#launch">
+            <span class="ec-row__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V9l7-5 7 5v12"/><path d="M10 21v-5h4v5"/></svg></span>
+            <span class="ec-row__bd">
+              <span class="ec-row__ut">New launch<i>&middot;</i>Yesterday</span>
+              <span class="ec-row__t">Bangur Nagar</span>
+              <span class="ec-row__d">Two and three BHK residences now available</span>
+            </span>
+            <svg class="ec-row__ch" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+          </a>
+
+          <a class="ec-row" href="#about">
+            <span class="ec-row__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.6"/><path d="M5 20a7 7 0 0114 0"/></svg></span>
+            <span class="ec-row__bd">
+              <span class="ec-row__t">About Allwyn</span>
+              <!-- languageids[] and dealclosed, surfaced here rather than buried behind
+                   the row. Language is the first thing a caller wants to know in this
+                   market, and a deal count is the broker's own claim, so it sits in his
+                   own line and not in the platform-counted stat strip above. -->
+              <span class="ec-row__d">Speaks English, Hindi, Marathi<i>&middot;</i>320 deals closed</span>
+            </span>
+            <svg class="ec-row__ch" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+          </a>
+
+          <!-- the certifications on the record (uploadawards[]), shown as the sheets
+               themselves. A count is a claim; a thumbnail you can open is not. -->
+          <a class="ec-row" href="#credentials">
+            <span class="ec-row__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="9.5" r="5.2"/><path d="M8.6 14.2L7.5 21l4.5-2.3L16.5 21l-1.1-6.8"/></svg></span>
+            <span class="ec-row__bd">
+              <span class="ec-row__t">Credentials</span>
+              <span class="ec-row__d">Registration and certifications</span>
+            </span>
+            <span class="ec-cred__th" aria-hidden="true">
+              <span class="is-doc"></span>
+              <span class="is-doc"></span>
+              <span>+2</span>
+            </span>
+          </a>
+
+          <a class="ec-row" href="#reviews">
+            <span class="ec-row__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4l2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4L4.2 9.7l5.4-.8z"/></svg></span>
+            <span class="ec-row__bd">
+              <span class="ec-row__t">What clients said</span>
+              <span class="ec-row__d">31 reviews, 4.9 average</span>
+            </span>
+            <span class="ec-tag ec-tag--ok">Verified</span>
+          </a>
+
+          <!-- videolink on the record is a bare YouTube id, not a URL, so the href is
+               assembled from it. No id on the record means no row. -->
+          <a class="ec-row" href="https://www.youtube.com/watch?v=CTDmuV-Itsc" target="_blank" rel="noopener">
+            <span class="ec-row__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M10.5 8.8l5 3.2-5 3.2z"/></svg></span>
+            <span class="ec-row__bd">
+              <span class="ec-row__t">Meet Allwyn</span>
+              <span class="ec-row__d">A forty second introduction</span>
+            </span>
+            <span class="ec-tag ec-tag--own">Broker provided</span>
+          </a>
+
+          <a class="ec-row" href="#ask">
+            <span class="ec-row__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 01-12.3 7.6L3 21l1.9-5.7A8.5 8.5 0 1121 11.5z"/></svg></span>
+            <span class="ec-row__bd">
+              <span class="ec-row__t">Ask Allwyn</span>
+              <span class="ec-row__d">Tell him what you're looking for</span>
+            </span>
+            <svg class="ec-row__ch" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+
+        <!-- ── LISTINGS ───────────────────────────────────────────────────── -->
+        <!-- Order is not recency. The record carries topagentlistids, a hand-picked
+             sequence of listing ids, and that sequence leads; everything else follows
+             by date behind it. "See all" drops the pick and shows the lot. -->
+        <div class="ec-pane" id="ecPaneListings" role="tabpanel" aria-labelledby="ecTabListings" hidden>
+          <a class="ec-prop" href="#l1">
+            <span class="ec-prop__im"><img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=336&amp;h=280&amp;fit=crop&amp;q=80" alt="" width="168" height="140" loading="lazy"></span>
+            <span class="ec-prop__i">
+              <span class="ec-prop__p">&#8377;2.35 Cr</span>
+              <span class="ec-prop__d">2 BHK, 720 sq ft carpet, Goregaon West</span>
+              <span class="ec-prop__tag">Resale</span>
+            </span>
+          </a>
+          <a class="ec-prop" href="#l2">
+            <span class="ec-prop__im"><img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=336&amp;h=280&amp;fit=crop&amp;q=80" alt="" width="168" height="140" loading="lazy"></span>
+            <span class="ec-prop__i">
+              <span class="ec-prop__p">&#8377;68,000 <small class="ec-prop__u">/ month</small></span>
+              <span class="ec-prop__d">3 BHK, semi furnished, Malad West</span>
+              <span class="ec-prop__tag">Rental</span>
+            </span>
+          </a>
+          <a class="ec-prop" href="#l3">
+            <span class="ec-prop__im"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=336&amp;h=280&amp;fit=crop&amp;q=80" alt="" width="168" height="140" loading="lazy"></span>
+            <span class="ec-prop__i">
+              <span class="ec-prop__p">&#8377;1.42 Cr</span>
+              <span class="ec-prop__d">1 BHK, 465 sq ft carpet, Jogeshwari West</span>
+              <span class="ec-prop__tag">Resale</span>
+            </span>
+          </a>
+          <a class="ec-prop" href="#l4">
+            <span class="ec-prop__im"><img src="https://images.unsplash.com/photo-1600573472556-e636c2acda88?w=336&amp;h=280&amp;fit=crop&amp;q=80" alt="" width="168" height="140" loading="lazy"></span>
+            <span class="ec-prop__i">
+              <span class="ec-prop__p">&#8377;3.9 Cr</span>
+              <span class="ec-prop__d">Shop, 540 sq ft, main road, Goregaon West</span>
+              <span class="ec-prop__tag">Commercial</span>
+            </span>
+          </a>
+          <a class="ec-more" href="/search.html">See all 18 listings</a>
+        </div>
+
+        <!-- ── where else he is ───────────────────────────────────────────── -->
+        <!-- one icon per link the record actually holds: website, socialgp (Instagram),
+             the YouTube channel behind videolink, socialfb, socialtw, sociallinkedin.
+             An empty field draws nothing, so a broker with two links gets two icons.
+
+             Every mark is drawn in the card's own ink. The card already decided this
+             for the contact pair, where WhatsApp keeps its shape but not its green;
+             eight brand colours down here were the one place that ignored it, and a
+             row of red, blue and magenta discs pulled harder than the two buttons
+             that matter. A silhouette is what makes these marks recognisable anyway.
+             -->
+        <p class="ec-soclab">Connect with Allwyn</p>
+        <div class="ec-socs">
+          <a class="ec-so" href="https://www.realspace.in" target="_blank" rel="noopener" aria-label="Website">
+            <span class="lt-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 010 18a15 15 0 010-18z"/></svg></span>
+          </a>
+          <a class="ec-so" href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+            <span class="lt-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><rect x="2.6" y="2.6" width="18.8" height="18.8" rx="5.4"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span>
+          </a>
+          <a class="ec-so" href="https://www.youtube.com/watch?v=CTDmuV-Itsc" target="_blank" rel="noopener" aria-label="YouTube">
+            <span class="lt-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M23 12s0-3.9-.5-5.8a3 3 0 0 0-2.1-2.1C18.5 3.6 12 3.6 12 3.6s-6.5 0-8.4.5a3 3 0 0 0-2.1 2.1C1 8.1 1 12 1 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 8.4.5 8.4.5s6.5 0 8.4-.5a3 3 0 0 0 2.1-2.1C23 15.9 23 12 23 12zM9.9 15.6V8.4L16.1 12z"/></svg></span>
+          </a>
+          <a class="ec-so" href="https://facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">
+            <span class="lt-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.52 1.5-3.91 3.77-3.91 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.78-1.63 1.57v1.89h2.78l-.45 2.91h-2.33V22c4.78-.79 8.44-4.94 8.44-9.94z"/></svg></span>
+          </a>
+          <a class="ec-so" href="https://x.com/" target="_blank" rel="noopener" aria-label="X">
+            <span class="lt-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.65l-5.22-6.82-5.96 6.82H1.68l7.73-8.84L1.25 2.25h6.82l4.71 6.23zm-1.16 17.52h1.83L7.08 4.13H5.11z"/></svg></span>
+          </a>
+          <!-- the badge, not a bare "in": the letters knock out of the square the way
+               they do on YouTube and Facebook above, so all three carry the same weight
+               in the row instead of LinkedIn reading a shade lighter than its neighbours -->
+          <a class="ec-so" href="https://linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <span class="lt-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.4 2H3.6A1.6 1.6 0 0 0 2 3.6v16.8A1.6 1.6 0 0 0 3.6 22h16.8a1.6 1.6 0 0 0 1.6-1.6V3.6A1.6 1.6 0 0 0 20.4 2zM8.3 18.7H5.4V9.4h2.9zM6.9 8.1a1.7 1.7 0 1 1 0-3.4 1.7 1.7 0 0 1 0 3.4zm11.8 10.6h-2.9v-4.5c0-1.1 0-2.5-1.5-2.5s-1.8 1.2-1.8 2.4v4.6H9.6V9.4h2.8v1.3a3.1 3.1 0 0 1 2.8-1.5c3 0 3.5 2 3.5 4.5z"/></svg></span>
+          </a>
+        </div>
+
+        <p class="ec-pnote">Allwyn chooses what appears on this card. Ghar.tv verifies the badge and the reviews, nothing else.</p>
+
+        <!-- ── the foot ───────────────────────────────────────────────────── -->
+        <div class="ec-foot">
+          <!-- PLACEHOLDER, does not scan. Generate the real code server side from
+               CARD.url and drop the SVG in here before this page ships. -->
+          <div class="ec-qr" aria-hidden="true">
+            <svg viewBox="0 0 21 21" shape-rendering="crispEdges">
+              <path fill="#1a1714" d="M0 0h7v7H0zM2 2h3v3H2zM14 0h7v7h-7zM16 2h3v3h-3zM0 14h7v7H0zM2 16h3v3H2zM9 0h1v1H9zM11 1h1v1h-1zM9 2h2v1H9zM12 3h1v1h-1zM9 4h1v2H9zM11 5h2v1h-2zM8 8h2v1H8zM11 8h1v2h-1zM13 8h1v1h-1zM15 9h1v1h-1zM17 8h2v1h-2zM20 9h1v1h-1zM8 10h1v1H8zM10 10h2v1h-2zM13 10h2v1h-2zM16 11h1v1h-1zM18 10h1v1h-1zM20 11h1v1h-1zM8 12h2v1H8zM11 12h1v1h-1zM14 12h1v2h-1zM17 12h1v1h-1zM19 13h2v1h-2zM9 14h1v1H9zM11 14h2v1h-2zM15 14h1v1h-1zM18 14h1v2h-1zM20 15h1v1h-1zM9 16h2v1H9zM12 16h1v1h-1zM14 16h2v1h-2zM17 17h2v1h-2zM20 17h1v1h-1zM9 18h1v1H9zM11 18h1v2h-1zM13 18h2v1h-2zM16 18h1v1h-1zM19 19h2v1h-2zM9 20h3v1H9zM14 20h2v1h-2zM17 20h1v1h-1z"/>
+            </svg>
+          </div>
+          <p class="ec-qr__l">Scan to save</p>
+
+          <div class="ec-acts">
+            <button class="ec-act" type="button" id="btSave">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0l-4-4m4 4l4-4M5 19h14"/></svg>
+              Save contact
+            </button>
+            <button class="ec-act" type="button" id="btShare">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V4m0 0L8 8m4-4l4 4M5 14v5h14v-5"/></svg>
+              Share
+            </button>
+            <!-- the record's email. Quiet rather than paired with Call and WhatsApp,
+                 because nobody emails a broker about a flat they want to see today. -->
+            <a class="ec-act" href="mailto:allwyn@example.in">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.6 6.5L12 12.6l8.4-6.1"/></svg>
+              Email
+            </a>
+          </div>
+
+          <p class="ec-fu">powered by <a href="/">Ghar.tv</a></p>
+        </div>
+
+      </div>
+    </article>
+
+    <p class="cardpage__note">
+      Every broker on Ghar.tv gets a card like this, free.
+      <a href="claim-card.html">Claim yours</a>.
+    </p>
+  </main>
+
+  <div class="lt-toast" id="btToast" role="status" aria-live="polite"></div>
+
+
+
+  <script>
+    (function(){
+      /* ─────────────────────────────────────────────────────────────────────────
+         The card's data, in one place. Server-render this object per broker.
+         Every key names the member column it comes from, so the render is a
+         mapping and not a translation.
+
+         Columns that stay off the card, deliberately:
+           password, plan, listinglimit, sourceid, isdummy, byrealspace,
+           adminaddlisting, status, membremarks (the form calls that one
+           NOT TO DISPLAY), and noprofilepg, which decides whether there is a
+           card at all rather than what goes on it.
+         ───────────────────────────────────────────────────────────────────────── */
+      var CARD = {
+        first:'Allwyn',                       /* name, split on the first space   */
+        last:'Borde',
+        typeid:2,                             /* 1 Owner 2 Agent 3 Developer      */
+        role:'Rentals and resale broker',
+        phone:'+919999900000',                /* mobile                           */
+        whatsapp:'+919999900000',             /* membwhatsappno, a separate column
+                                                 and often a separate number      */
+        email:'allwyn@example.in',            /* email                            */
+        company:'Realspace Assets LLP',       /* companyname / parentid           */
+        street:'Bangur Nagar, Goregaon West', /* address                          */
+        area:'Goregaon West, Mumbai',         /* locid + cityid                   */
+        state:'Maharashtra',                  /* stateid                          */
+        pin:'400104',                         /* pincode                          */
+        rera:'A51800008100',                  /* memreraid, empty for most brokers*/
+        url:'https://www.ghar.tv/allwyn-borde'
+      };
+
+      var toastEl = document.getElementById('btToast');
+      var toastT = null;
+      function toast(m){
+        toastEl.textContent = m;
+        toastEl.classList.add('on');
+        clearTimeout(toastT);
+        toastT = setTimeout(function(){ toastEl.classList.remove('on'); }, 2400);
+      }
+
+
+
+      /* REVIEW CONTROL · the theme switch. ?theme=olive in the address picks one
+         directly, so a single option can be sent to someone as a link; otherwise the
+         last pick is remembered. Remove with the markup and CSS before shipping. */
+      var THEMES = ['olive','indigo','aubergine','warm-white'];
+      var META = { olive:'#2e3324', indigo:'#272d43', aubergine:'#2b1e28', 'warm-white':'#eedfca' };
+      function setTheme(name){
+        if(THEMES.indexOf(name) < 0) name = 'indigo';
+        document.body.setAttribute('data-theme', name);
+        document.querySelectorAll('.themepick__b').forEach(function(btn){
+          btn.setAttribute('aria-pressed', String(btn.getAttribute('data-theme') === name));
+        });
+        var m = document.querySelector('meta[name="theme-color"]');
+        if(m) m.setAttribute('content', META[name]);
+        try { localStorage.setItem('ghtCardTheme', name); } catch(e){}
+      }
+      document.querySelectorAll('.themepick__b').forEach(function(btn){
+        btn.addEventListener('click', function(){ setTheme(btn.getAttribute('data-theme')); });
+      });
+      var fromUrl = new URLSearchParams(location.search).get('theme');
+      var saved = null;
+      try { saved = localStorage.getItem('ghtCardTheme'); } catch(e){}
+      setTheme(fromUrl || saved || 'indigo');
+
+      /* Profile and Listings. Two panes, one visible, and the tab that owns the
+         visible one carries aria-selected. Arrow keys move between them, which is
+         what a tablist is expected to do. */
+      var tabs = [document.getElementById('ecTabProfile'), document.getElementById('ecTabListings')];
+      var panes = [document.getElementById('ecPaneProfile'), document.getElementById('ecPaneListings')];
+      function showTab(i){
+        tabs.forEach(function(t, n){ t.setAttribute('aria-selected', String(n === i)); });
+        panes.forEach(function(p, n){ p.hidden = n !== i; });
+      }
+      tabs.forEach(function(t, i){
+        t.addEventListener('click', function(){ showTab(i); });
+        t.addEventListener('keydown', function(e){
+          if(e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+          var next = (i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length;
+          showTab(next); tabs[next].focus(); e.preventDefault();
+        });
+      });
+
+      /* Save contact writes a vCard rather than opening a form. On a phone the file
+         hands straight to the contacts app, which is the whole point of a card. */
+      document.getElementById('btSave').addEventListener('click', function(){
+        /* comma, semicolon and backslash separate values inside a vCard, so an
+           address like "Bangur Nagar, Goregaon West" splits into two fields unless
+           it is escaped first */
+        function esc(s){ return String(s == null ? '' : s).replace(/([\\,;])/g, '\\$1'); }
+
+        /* the card face keeps only what a stranger reads at a glance. The vCard is
+           where the rest of the record belongs: the firm, the office address, the
+           email, the second number, and the registration, which is exactly what
+           someone wants six months later when they look the broker up again. */
+        var v = [
+          'BEGIN:VCARD',
+          'VERSION:3.0',
+          'N:' + esc(CARD.last) + ';' + esc(CARD.first) + ';;;',
+          'FN:' + esc(CARD.first + ' ' + CARD.last),
+          'TITLE:' + esc(CARD.role),
+          'ORG:' + esc(CARD.company),
+          'TEL;TYPE=CELL,VOICE:' + CARD.phone
+        ];
+        /* a second entry only when the WhatsApp number is genuinely a second number,
+           or the contact lands with the same digits twice */
+        if(CARD.whatsapp && CARD.whatsapp !== CARD.phone) v.push('TEL;TYPE=CELL:' + CARD.whatsapp);
+        v.push(
+          'EMAIL;TYPE=WORK:' + esc(CARD.email),
+          /* post-office box; extended; street; city; region; postcode; country */
+          'ADR;TYPE=WORK:;;' + esc(CARD.street) + ';' + esc(CARD.area.split(',').pop().trim()) +
+            ';' + esc(CARD.state) + ';' + esc(CARD.pin) + ';India',
+          'URL:' + CARD.url,
+          'NOTE:' + esc(CARD.area + (CARD.rera ? ' · MahaRERA ' + CARD.rera : '')),
+          'END:VCARD'
+        );
+        v = v.join('\r\n');
+
+        var blob = new Blob([v], { type:'text/vcard;charset=utf-8' });
+        var a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = CARD.first.toLowerCase() + '-' + CARD.last.toLowerCase() + '.vcf';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(function(){ URL.revokeObjectURL(a.href); }, 1000);
+        toast('Contact saved');
+      });
+
+      /* the share sheet where there is one, the clipboard where there is not */
+      document.getElementById('btShare').addEventListener('click', function(){
+        var data = { title: CARD.first + ' ' + CARD.last + ' on Ghar.tv', url: CARD.url };
+        if(navigator.share){
+          navigator.share(data).catch(function(){ /* dismissed, nothing to say */ });
+          return;
+        }
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(CARD.url).then(function(){ toast('Link copied'); })
+            .catch(function(){ toast(CARD.url); });
+          return;
+        }
+        toast(CARD.url);
+      });
+    })();
+  </script>
+
+</body>
+</html>
