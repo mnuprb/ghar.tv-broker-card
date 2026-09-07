@@ -181,6 +181,68 @@
     .lt-btn--white:hover { background:var(--ink); color:#fff; transform:translateY(-2px); box-shadow:0 14px 30px -10px rgba(26,23,20,.45); }
     .lt-btn--sm { padding:12px 20px; font-size:14px; }
 
+    /* the hero now carries two calls, so the row wraps rather than overflowing */
+    .lt-hero__cta { margin-top:4px; display:flex; flex-wrap:wrap; gap:12px; }
+
+    /* ═══ REGISTER VIA WHATSAPP · modal ═══ */
+    #waRegOverlay {
+      position:fixed; inset:0; z-index:400; background:rgba(26,23,20,.55);
+      opacity:0; pointer-events:none; transition:opacity .22s var(--ease);
+      -webkit-backdrop-filter:blur(2px); backdrop-filter:blur(2px);
+    }
+    #waRegOverlay.is-open { opacity:1; pointer-events:auto; }
+    #waRegModal {
+      position:fixed; z-index:401; left:50%; top:50%;
+      transform:translate(-50%,-46%) scale(.97);
+      width:min(360px,calc(100vw - 32px)); max-height:calc(100dvh - 32px); overflow-y:auto;
+      overscroll-behavior:contain;
+      background:var(--bg); border:1px solid var(--rule); border-radius:var(--r);
+      box-shadow:var(--card-shadow-hover);
+      padding:28px 26px 26px; text-align:center;
+      opacity:0; pointer-events:none;
+      /* visibility, not opacity alone: a transparent dialog still holds its place in
+         the tab order, so a keyboard would land on controls nobody can see. It is
+         held until the fade finishes, then flipped with no duration of its own. */
+      visibility:hidden;
+      transition:opacity .22s var(--ease), transform .22s var(--ease), visibility 0s linear .22s;
+    }
+    #waRegModal.is-open {
+      opacity:1; pointer-events:auto; visibility:visible;
+      transform:translate(-50%,-50%) scale(1);
+      transition:opacity .22s var(--ease), transform .22s var(--ease), visibility 0s;
+    }
+    @media (prefers-reduced-motion:reduce){
+      #waRegOverlay, #waRegModal { transition:none; }
+      #waRegModal { transform:translate(-50%,-50%); }
+    }
+    .wareg__close {
+      position:absolute; top:12px; right:12px; width:34px; height:34px; border-radius:50%;
+      display:inline-flex; align-items:center; justify-content:center;
+      background:transparent; border:1px solid var(--rule); color:var(--ink); cursor:pointer;
+      transition:background .18s var(--ease), border-color .18s var(--ease);
+    }
+    .wareg__close svg { width:15px; height:15px; fill:none; stroke:currentColor; stroke-width:2; }
+    .wareg__close:hover { background:var(--surface); border-color:var(--ink); }
+    .wareg__close:focus-visible { outline:2px solid var(--ink); outline-offset:2px; }
+    /* the circle stays 34px, but the thumb gets the 44px it is owed */
+    .wareg__close::after { content:''; position:absolute; inset:-6px; border-radius:50%; }
+    .wareg__title { font-family:var(--ff-display); font-size:22px; line-height:1.16; letter-spacing:-.025em; color:var(--ink); margin-bottom:18px; }
+    /* the code sits on its own white plate: a scanner wants the quiet zone white */
+    .wareg__qr { width:186px; height:186px; margin:0 auto; padding:10px; background:#fff; border:1px solid var(--rule); border-radius:var(--rs); }
+    .wareg__qr svg { display:block; width:100%; height:100%; }
+    .wareg__wa {
+      display:inline-flex; align-items:center; justify-content:center; gap:9px;
+      margin-top:18px; width:100%; min-height:48px; padding:14px 24px; border-radius:999px;
+      background:var(--ink); color:#fff; border:1.5px solid transparent;
+      font-family:var(--ff-sans); font-size:15px; font-weight:600; letter-spacing:.01em;
+      text-decoration:none; cursor:pointer;
+      transition:transform .18s var(--ease), box-shadow .18s var(--ease);
+    }
+    .wareg__wa svg { width:19px; height:19px; }
+    .wareg__wa:hover { transform:translateY(-2px); box-shadow:0 14px 30px -10px rgba(26,23,20,.4); color:#fff; }
+    .wareg__wa:focus-visible { outline:2px solid var(--ink); outline-offset:3px; }
+    .wareg__note { margin-top:14px; font-size:13px; line-height:1.7; color:var(--muted); }
+
     /* HERO */
     /* padding-top replaces the flow space the nav gave up when it went fixed */
     .lt-herobg { background:var(--turmeric); padding-top:76px; }
@@ -202,7 +264,6 @@
     .lt-hero__deck { font-size:clamp(16px,1.4vw,19px); line-height:1.6; color:var(--espresso); max-width:48ch; margin-bottom:26px; }
     .lt-hero__deck b { color:var(--ink); font-weight:600; }
 
-    .lt-hero__cta { margin-top:4px; }
     .lt-hero__mic { display:flex; gap:8px 18px; flex-wrap:wrap; margin-top:22px; font-size:12.5px; color:var(--muted); font-weight:500; }
     .lt-hero__mic span { display:inline-flex; align-items:center; gap:6px; }
     .lt-hero__mic i { width:5px; height:5px; border-radius:50%; background:var(--ink); }
@@ -210,6 +271,7 @@
     @media (max-width:959.98px){
       .lt-hero__grid > *:first-child { text-align:center; }
       .lt-hero__title, .lt-hero__deck { margin-left:auto; margin-right:auto; }
+      .lt-hero__cta { justify-content:center; }
       .lt-hero__mic { justify-content:center; }
     }
 
@@ -605,6 +667,10 @@
               Claim my card
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
             </a>
+            <button type="button" class="lt-btn lt-btn--ink" data-wareg-open>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm0 1.8a8.2 8.2 0 016.7 12.9l-.2.3.8 2.9-3-.8-.3.2A8.2 8.2 0 1112 3.8z"/><path d="M17.5 14.4c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5 4.4.7.3 1.2.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.2-.5-.3z"/></svg>
+              Register via WhatsApp
+            </button>
           </div>
 
           <div class="lt-hero__mic">
@@ -1125,6 +1191,26 @@
     </div>
   </div>
 
+  <!-- ═══ REGISTER VIA WHATSAPP MODAL ═══
+       The code and the button carry the same wa.me link, so a phone in the hand and
+       a phone on the desk both reach the same chat. The QR is inlined rather than
+       fetched: nothing to break if an image host goes away. -->
+  <div id="waRegOverlay" data-wareg-close></div>
+  <div id="waRegModal" role="dialog" aria-modal="true" aria-labelledby="waRegTitle">
+    <button type="button" class="wareg__close" data-wareg-close aria-label="Close">
+      <svg viewBox="0 0 24 24" stroke-linecap="round"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+    </button>
+    <h2 class="wareg__title" id="waRegTitle">Register via WhatsApp</h2>
+    <div class="wareg__qr">
+      <svg viewBox="0 0 49 49" shape-rendering="crispEdges" role="img" aria-label="QR code that opens a WhatsApp chat with Ghar.tv"><path fill="#ffffff" d="M0 0h49v49H0z"/><path stroke="#000000" d="M4 4.5h7m2 0h2m2 0h1m1 0h1m1 0h2m1 0h2m2 0h6m4 0h7M4 5.5h1m5 0h1m6 0h1m1 0h1m1 0h1m2 0h2m1 0h2m1 0h1m2 0h2m3 0h1m5 0h1M4 6.5h1m1 0h3m1 0h1m1 0h4m1 0h1m2 0h3m2 0h1m5 0h3m2 0h1m1 0h1m1 0h3m1 0h1M4 7.5h1m1 0h3m1 0h1m1 0h1m3 0h1m1 0h2m3 0h3m1 0h1m6 0h3m1 0h1m1 0h3m1 0h1M4 8.5h1m1 0h3m1 0h1m1 0h2m3 0h1m2 0h3m6 0h3m6 0h1m1 0h3m1 0h1M4 9.5h1m5 0h1m1 0h2m1 0h4m1 0h1m4 0h1m2 0h3m1 0h2m4 0h1m5 0h1M4 10.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M12 11.5h2m1 0h1m1 0h1m6 0h2m2 0h1m1 0h3m2 0h1M4 12.5h1m1 0h5m2 0h1m1 0h1m1 0h2m1 0h1m1 0h4m7 0h1m1 0h2m1 0h5M6 13.5h2m1 0h1m1 0h1m2 0h1m1 0h1m1 0h2m1 0h1m2 0h1m2 0h4m2 0h4m3 0h1m1 0h2M4 14.5h4m1 0h3m5 0h4m2 0h2m3 0h1m2 0h2m1 0h1m1 0h2m1 0h2M4 15.5h2m1 0h1m1 0h1m1 0h1m4 0h4m1 0h1m1 0h3m1 0h2m2 0h2m1 0h3m2 0h1m1 0h1m1 0h2M4 16.5h2m4 0h2m2 0h1m1 0h1m2 0h1m3 0h2m1 0h1m1 0h1m2 0h1m3 0h1m2 0h1m1 0h3m1 0h1M6 17.5h1m1 0h1m2 0h1m2 0h3m2 0h3m6 0h4m1 0h1m5 0h5M4 18.5h1m1 0h2m1 0h2m1 0h1m2 0h1m1 0h2m1 0h1m3 0h3m3 0h1m4 0h1m1 0h1m1 0h5M4 19.5h1m1 0h1m2 0h1m1 0h2m1 0h1m1 0h4m1 0h2m2 0h1m2 0h1m1 0h5m1 0h1m1 0h1m2 0h1M4 20.5h1m1 0h2m1 0h7m1 0h4m1 0h1m2 0h1m1 0h2m3 0h1m1 0h2m1 0h1m1 0h1m1 0h1m2 0h1M4 21.5h1m2 0h1m9 0h2m3 0h1m3 0h1m3 0h4m4 0h3m1 0h2M6 22.5h2m2 0h2m4 0h4m2 0h2m2 0h1m4 0h1m3 0h1m2 0h1m1 0h2m1 0h1M4 23.5h1m3 0h1m2 0h3m2 0h3m5 0h1m3 0h2m6 0h2m2 0h2M4 24.5h1m3 0h1m1 0h1m1 0h6m1 0h1m2 0h2m1 0h3m2 0h1m1 0h1m1 0h7m3 0h1M5 25.5h2m1 0h1m3 0h1m1 0h3m3 0h2m6 0h1m1 0h2m4 0h2m2 0h1m1 0h3M4 26.5h2m1 0h2m1 0h2m1 0h4m5 0h1m1 0h1m1 0h1m1 0h1m2 0h2m1 0h5m1 0h2M6 27.5h2m1 0h1m1 0h2m2 0h1m10 0h3m2 0h2m5 0h2m1 0h1m1 0h2M6 28.5h1m3 0h1m1 0h3m1 0h1m2 0h2m2 0h1m1 0h1m2 0h2m3 0h2m3 0h3m3 0h1M4 29.5h2m1 0h2m2 0h1m1 0h2m2 0h5m4 0h3m1 0h1m1 0h4m1 0h1m2 0h2M5 30.5h4m1 0h6m1 0h2m1 0h1m1 0h2m6 0h3m3 0h3m1 0h1M5 31.5h2m2 0h1m1 0h2m1 0h1m1 0h1m1 0h3m1 0h1m1 0h2m1 0h1m1 0h11m1 0h1m2 0h1M4 32.5h1m1 0h1m2 0h2m2 0h1m4 0h3m4 0h1m3 0h1m4 0h4m2 0h5M4 33.5h3m1 0h1m3 0h7m2 0h1m2 0h1m3 0h2m1 0h4m1 0h1m2 0h2M4 34.5h1m3 0h3m1 0h2m5 0h1m3 0h1m1 0h1m1 0h2m2 0h2m1 0h1m2 0h2m3 0h3M4 35.5h1m2 0h1m4 0h4m2 0h1m1 0h1m1 0h3m1 0h1m3 0h2m5 0h2m5 0h1M4 36.5h1m2 0h1m2 0h1m1 0h2m1 0h2m1 0h1m1 0h1m1 0h4m1 0h2m1 0h1m1 0h1m2 0h7m1 0h2M12 37.5h1m1 0h1m1 0h4m1 0h1m2 0h3m1 0h6m2 0h1m3 0h3M4 38.5h7m3 0h1m2 0h3m1 0h1m1 0h3m1 0h2m3 0h1m3 0h1m1 0h1m1 0h1m2 0h1M4 39.5h1m5 0h1m1 0h1m1 0h1m2 0h2m2 0h3m1 0h2m4 0h1m1 0h1m1 0h2m3 0h1m1 0h3M4 40.5h1m1 0h3m1 0h1m1 0h2m1 0h1m2 0h1m1 0h1m2 0h1m1 0h1m1 0h1m2 0h1m1 0h1m1 0h1m1 0h5m3 0h1M4 41.5h1m1 0h3m1 0h1m1 0h2m1 0h1m3 0h6m1 0h1m1 0h1m1 0h2m1 0h3m1 0h1m1 0h1m1 0h3M4 42.5h1m1 0h3m1 0h1m1 0h1m1 0h2m4 0h2m2 0h3m1 0h2m2 0h2m2 0h5m2 0h1M4 43.5h1m5 0h1m2 0h1m1 0h1m1 0h1m1 0h4m2 0h2m2 0h2m3 0h2m2 0h1m1 0h1m1 0h2M4 44.5h7m1 0h3m2 0h2m2 0h2m2 0h1m1 0h1m5 0h1m3 0h1m1 0h2"/></svg>
+    </div>
+    <a class="wareg__wa" href="https://wa.me/919136896999?text=Hi%20Ghar.tv%2C%20I%20want%20to%20register%20for%20my%20Ghar.tv%20Card" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm0 1.8a8.2 8.2 0 016.7 12.9l-.2.3.8 2.9-3-.8-.3.2A8.2 8.2 0 1112 3.8z"/><path d="M17.5 14.4c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5 4.4.7.3 1.2.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.2-.5-.3z"/></svg>
+      Open WhatsApp
+    </a>
+    <p class="wareg__note">Scan the QR code, or tap the button to sign up.</p>
+  </div>
+
   <!-- ═══ MOBILE SEARCH MODAL ═══ -->
   <div id="mobileModal" class="fixed inset-0 z-[300] bg-white flex flex-col" style="display:none">
     <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 20px;flex-shrink:0"> <button onclick="closeMobileSearch()" style="width:32px;height:32px;border-radius:50%;background:#fff;border:1px solid #e5e7eb;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;color:#141414;box-shadow:0 1px 3px rgba(0,0,0,.06)">&times;</button>
@@ -1249,6 +1335,63 @@
   </script>
 
   <!-- ═══ FAQ structured data ═══ -->
+  <!-- ═══ Register via WhatsApp modal ═══ -->
+  <script>
+    (function(){
+      var modal   = document.getElementById('waRegModal');
+      var overlay = document.getElementById('waRegOverlay');
+      if(!modal || !overlay) return;
+
+      var opener = null, blocked = false;
+
+      /* ScrollSmoother owns the scroll position on desktop, so the page is held by
+         refusing the events rather than by fixing the body. The modal keeps its own
+         scroll, which is what the closest() check is for. */
+      function hold(e){ if(!e.target.closest || !e.target.closest('#waRegModal')) e.preventDefault(); }
+      function block(){ if(blocked) return; blocked = true;
+        document.addEventListener('wheel', hold, {passive:false});
+        document.addEventListener('touchmove', hold, {passive:false}); }
+      function unblock(){ if(!blocked) return; blocked = false;
+        document.removeEventListener('wheel', hold);
+        document.removeEventListener('touchmove', hold); }
+
+      function open(trigger){
+        opener = trigger || null;
+        block();
+        modal.classList.add('is-open');
+        overlay.classList.add('is-open');
+        var first = modal.querySelector('.wareg__wa');
+        if(first) first.focus({preventScroll:true});
+      }
+      function close(){
+        unblock();
+        modal.classList.remove('is-open');
+        overlay.classList.remove('is-open');
+        if(opener){ opener.focus({preventScroll:true}); opener = null; }
+      }
+
+      document.querySelectorAll('[data-wareg-open]').forEach(function(btn){
+        btn.addEventListener('click', function(){ open(btn); });
+      });
+      document.querySelectorAll('[data-wareg-close]').forEach(function(el){
+        el.addEventListener('click', close);
+      });
+      document.addEventListener('keydown', function(e){
+        if(!modal.classList.contains('is-open')) return;
+        if(e.key === 'Escape'){ close(); return; }
+        if(e.key !== 'Tab') return;
+        /* two stops, close and the link, so Tab cycles inside the dialog */
+        var stops = modal.querySelectorAll('.wareg__close, .wareg__wa');
+        if(!stops.length) return;
+        var first = stops[0], last = stops[stops.length - 1];
+        if(e.shiftKey && document.activeElement === first){ last.focus(); e.preventDefault(); }
+        else if(!e.shiftKey && document.activeElement === last){ first.focus(); e.preventDefault(); }
+      });
+      /* the chat is open in the other app now, so the page should not still be held */
+      modal.querySelector('.wareg__wa').addEventListener('click', function(){ setTimeout(close, 120); });
+    })();
+  </script>
+
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
   {"@type":"Question","name":"What is a Ghar.tv Card?","acceptedAnswer":{"@type":"Answer","text":"A Ghar.tv Card is a free professional profile and digital business card for real estate brokers, channel partners and property consultants in India. It is built specifically for real estate professionals and automatically stays updated with listings, market intelligence and verification. It includes a personal URL, QR code, digital visiting card, listings, reviews, social links and a MahaRERA verified badge for registered agents."}},
